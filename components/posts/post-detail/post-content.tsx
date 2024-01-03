@@ -2,12 +2,8 @@ import Image from 'next/image';
 import PostHeader from './post-header';
 import ReactMarkDown, { Components } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import {
-	dark,
-	coy,
-	funky,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 import classes from './post-content.module.css';
 
 type PostType = {
@@ -27,18 +23,6 @@ export default function PostContent({ post }: PostContentProps) {
 	const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
 	const customRenderers: Components = {
-		// img(image) {
-		// 	return (
-		// 		<div className={classes.image}>
-		// 			<Image
-		// 				src={`/images/posts/${post.slug}/${image.src}`}
-		// 				alt={image.alt ? image.alt : ''}
-		// 				width={600}
-		// 				height={300}
-		// 			/>
-		// 		</div>
-		// 	);
-		// },
 		p(paragraph) {
 			const { node } = paragraph;
 			const firstChild = node?.children[0];
@@ -55,10 +39,7 @@ export default function PostContent({ post }: PostContentProps) {
 					<div className={classes.image}>
 						<Image
 							src={`/images/posts/${post.slug}/${image.properties.src}`}
-							alt={
-								// image.properties.alt ? image.properties.alt : ''
-								image.properties.alt as string
-							}
+							alt={image.properties.alt as string}
 							width={600}
 							height={300}
 						/>
@@ -67,6 +48,7 @@ export default function PostContent({ post }: PostContentProps) {
 			}
 			return <p>{paragraph.children}</p>;
 		},
+
 		code(code) {
 			const { className, children, node, ...rest } = code;
 			const lang = className?.split('-')[1];
@@ -79,7 +61,7 @@ export default function PostContent({ post }: PostContentProps) {
 					: '';
 
 			return (
-				<SyntaxHighlighter style={atomDark} language={lang}>
+				<SyntaxHighlighter style={vscDarkPlus} language={lang}>
 					{codeString}
 				</SyntaxHighlighter>
 			);
