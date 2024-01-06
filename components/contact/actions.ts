@@ -1,11 +1,15 @@
 'use server';
+
 import { z } from 'zod';
+import { CommonCode } from '@/constants/common_code';
+import { FormValidationType } from '@/types/form_types';
 
 export async function sendMessage(prevState: any, formData: FormData) {
-	console.log('start');
-	console.log('formData ', formData);
+	const result: FormValidationType = {
+		message: null,
+		element: null,
+	};
 
-	let resultMessage;
 	const schema = z.object({
 		email: z.string().email(),
 		name: z.string().min(1),
@@ -21,10 +25,11 @@ export async function sendMessage(prevState: any, formData: FormData) {
 	if (!response.success) {
 		const { errors } = response.error;
 		console.log('invalid formData', errors);
-		resultMessage = `${errors[0].path[0]} should not be empty.`;
+		result.message = CommonCode.FAIL_TO_VALIDATE;
+		result.element = errors[0].path[0];
 	} else {
-		resultMessage = 'good';
+		result.message = CommonCode.SUCCESS;
 	}
 
-	return { message: resultMessage };
+	return result;
 }

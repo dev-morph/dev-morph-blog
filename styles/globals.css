@@ -62,3 +62,24 @@ button {
 	font: inherit;
 	cursor: pointer;
 }
+
+textarea:focus,
+input:focus {
+	outline: none;
+}
+
+label.required {
+	&::after {
+		content: ' *';
+		color: rgb(249, 77, 77);
+		font-size: 1rem;
+	}
+}
+
+.invalid {
+	border: 1px solid red !important;
+}
+.error__msg {
+	color: red;
+	font-size: 1rem;
+}
