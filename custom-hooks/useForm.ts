@@ -1,7 +1,5 @@
-import { object, z } from 'zod';
-import { FormEvent, RefObject, useEffect, useState } from 'react';
-import { FormValidationType } from '@/types/form_types';
-import { CommonCode } from '@/constants/common_code';
+import { z } from 'zod';
+import { RefObject, useEffect, useState } from 'react';
 
 export default function useFrom(
 	formRef: RefObject<HTMLFormElement | null>,
@@ -13,13 +11,18 @@ export default function useFrom(
 	);
 	const [isFirst, setIsFirst] = useState(true);
 	const [formValid, setFormValid] = useState(false);
+	const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
 	useEffect(() => {
 		const formElement = formRef.current;
 		let removeSubmitEventListener: null | Function = null;
 
 		function checkFormValidHandler() {
-			return Object.values(formStatus).includes(false) ? false : true;
+			const values = Object.values(formStatus);
+			return (
+				values.length > 0 &&
+				Object.values(formStatus).every((valid) => valid === true)
+			);
 		}
 
 		function addSubmitEventListenerHandler(formElement: HTMLFormElement) {
@@ -51,39 +54,79 @@ export default function useFrom(
 			formElement: HTMLFormElement,
 			schema: z.ZodObject<any>
 		) {
-			const formData = new FormData(formElement);
 			const inputs = formElement.querySelectorAll('input');
-			const formObject = getFormDataObject(formData);
-			const response = schema.safeParse(formObject);
+			const textareas = formElement.querySelectorAll('textarea');
 
 			for (const input of inputs) {
 				//처음 submit 버튼 클릭했을 때, validate.
 				validateInputHandler(input, schema);
+				setEventHandler(input, schema);
+			}
+
+			for (const textarea of textareas) {
+				validateInputHandler(textarea, schema);
 				//이후 input 이벤트 마다 validate 하도록 eventListenr 추가.
-				input.addEventListener('input', () =>
-					validateInputHandler(input, schema)
-				);
+				setEventHandler(textarea, schema);
 			}
 		}
 
+		function setEventHandler(
+			inputEl: HTMLInputElement | HTMLTextAreaElement,
+			schema: z.ZodObject<any>
+		) {
+			//validate eventHandler
+			inputEl.addEventListener('input', () =>
+				validateAndSetFormDataHandler(inputEl, schema)
+			);
+		}
+
+		function validateAndSetFormDataHandler(
+			input: HTMLInputElement | HTMLTextAreaElement,
+			schema: z.ZodObject<any>
+		) {
+			setFormDataHandler(input);
+			validateInputHandler(input, schema);
+		}
+
+		function setFormDataHandler(
+			input: HTMLInputElement | HTMLTextAreaElement
+		) {
+			const targetId = input.id;
+			setFormData((prev) => {
+				return {
+					...prev,
+					[targetId]: input.value,
+				};
+			});
+		}
+
 		function validateInputHandler(
-			input: HTMLInputElement,
+			input: HTMLInputElement | HTMLTextAreaElement,
 			schema: z.ZodObject<any>
 		) {
 			const targetId = input.id;
-			const test = schema.pick({ [targetId]: true });
 
 			const response = schema
 				.pick({ [targetId]: true })
 				.safeParse({ [targetId]: input.value });
 
 			if (!response.success) {
-				formStatus[targetId] = false;
+				setFormStatus((prev) => {
+					return {
+						...prev,
+						[targetId]: false,
+					};
+				});
 				const { errors } = response.error;
 				input.classList.add('invalid');
 				addErrorMsgElement(input, targetId, errors);
 			} else {
-				formStatus[targetId] = true;
+				setFormStatus((prev) => {
+					return {
+						...prev,
+						[targetId]: true,
+					};
+				});
 				input.classList.remove('invalid');
 				input.parentElement
 					?.querySelector(`#${ERROR_MSG_ID_PREFIX}${targetId}`)
@@ -106,7 +149,7 @@ export default function useFrom(
 	}, [formRef, schema, isFirst, formStatus]);
 
 	function addErrorMsgElement(
-		inputEl: HTMLInputElement,
+		inputEl: HTMLInputElement | HTMLTextAreaElement,
 		targetId: String,
 		errors: z.ZodIssue[]
 	) {
@@ -125,7 +168,7 @@ export default function useFrom(
 		}
 	}
 
-	return formValid;
+	return { valid: formValid, formData: formData };
 }
 
 function getFormDataObject(formData: FormData) {
