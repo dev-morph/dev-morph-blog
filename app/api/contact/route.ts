@@ -5,7 +5,9 @@ import { MongoClient } from 'mongodb';
 const schema = z.object({
 	email: z.string().email({ message: 'email 형식에 맞지 않습니다.' }),
 	name: z.string().min(1, { message: '필수 입력 값 입니다.' }),
-	message: z.string().min(4),
+	message: z
+		.string()
+		.min(4, { message: '메시지는 4글자 이상이어야 합니다.' }),
 });
 
 export async function GET(req: Request, res: any) {
@@ -20,7 +22,7 @@ export async function POST(req: Request, res: Response) {
 		const { errors } = validateResult.error;
 		return new NextResponse(
 			JSON.stringify({
-				message: `${errors[0].path[0]} is invalid = ${errors[0].message}`,
+				message: `${errors[0].path[0]} is invalid: ${errors[0].message}`,
 			}),
 			{
 				status: 410,

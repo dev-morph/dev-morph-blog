@@ -52,6 +52,7 @@ export default function ContactForm() {
 			console.log('response  is ', data);
 			setReqStatus('success');
 		} catch (error) {
+			console.log('error ', error.message);
 			setReqErrorMsg(error.message);
 			setReqStatus('error');
 		}
@@ -68,13 +69,16 @@ export default function ContactForm() {
 		notification = {
 			status: reqStatus,
 			title: 'Failed To Send Message',
-			message: 'Failed To Send Message. Please Try again later.',
+			message:
+				reqErrorMsg.length > 0
+					? reqErrorMsg
+					: `Failed To Send Message. Please Try again later`,
 		};
 	} else if (reqStatus === 'success') {
 		notification = {
 			status: reqStatus,
-			title: 'Success To Send Message',
-			message: reqErrorMsg,
+			title: 'Success!',
+			message: 'Success To Send Message!',
 		};
 	}
 
