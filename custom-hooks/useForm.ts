@@ -170,14 +170,3 @@ export default function useFrom(
 
 	return { valid: formValid, formData: formData };
 }
-
-function getFormDataObject(formData: FormData) {
-	const result: { [key: string]: any } = {};
-	let keys = formData.keys();
-	//'IterableIterator<string>' 형식은 '--downlevelIteration' 플래그 또는 'es2015' 이상의 '--target'을 사용하는 경우에만 반복할 수 있습니다.
-	//에러 발생하면 tsconfig에서 "target": "esnext",처럼 es6 이상 버전으로 올려주면 된다.
-	for (const key of keys) {
-		result[key] = formData.get(key);
-	}
-	return result;
-}
