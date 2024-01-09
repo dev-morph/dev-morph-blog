@@ -23,6 +23,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<MainNavigation />
 				{children}
+				<div id="notifications"></div>
 			</body>
 		</html>
 	);
