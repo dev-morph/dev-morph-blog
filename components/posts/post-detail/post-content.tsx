@@ -70,7 +70,7 @@ export default function PostContent({ post }: PostContentProps) {
 	};
 
 	return (
-		<FadeIn>
+		<FadeIn from="left">
 			<article className={classes.content}>
 				<PostHeader
 					title={post.title}
