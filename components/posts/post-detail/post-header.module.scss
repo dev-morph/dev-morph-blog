@@ -1,0 +1,31 @@
+.header {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+	.title {
+		font-size: var(--size-6);
+		color: var(--color-black);
+	}
+
+	.post__meta__data {
+		time {
+			padding: 0.25rem;
+			font-size: var(--size-3);
+			font-weight: var(--fw-bold);
+			border: 1px solid var(--color-black);
+			border-radius: var(--br-reg);
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.header {
+		// flex-direction: row;
+		// align-items: flex-end;
+
+		.title {
+			font-size: var(--size-9);
+			text-align: left;
+		}
+	}
+}

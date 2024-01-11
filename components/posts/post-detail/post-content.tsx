@@ -4,7 +4,7 @@ import ReactMarkDown, { Components } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-import classes from './post-content.module.css';
+import classes from './post-content.module.scss';
 
 type PostType = {
 	slug: string;
@@ -40,8 +40,8 @@ export default function PostContent({ post }: PostContentProps) {
 						<Image
 							src={`/images/posts/${post.slug}/${image.properties.src}`}
 							alt={image.properties.alt as string}
-							width={600}
-							height={300}
+							width={500}
+							height={500}
 						/>
 					</div>
 				);
@@ -70,13 +70,13 @@ export default function PostContent({ post }: PostContentProps) {
 
 	return (
 		<article className={classes.content}>
-			<PostHeader title={post.title} image={imagePath} />
+			<PostHeader title={post.title} date={post.date} image={imagePath} />
 			<div>
 				<Image
 					src={imagePath}
 					alt={post.title}
-					width={200}
-					height={150}
+					width={500}
+					height={500}
 					style={{
 						width: '100%',
 						height: 'auto',
