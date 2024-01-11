@@ -1,3 +1,8 @@
+.content__wrapper {
+	display: flex;
+	justify-content: center;
+}
+
 .content {
 	width: 100%;
 	max-width: 50rem;
@@ -8,6 +13,10 @@
 	padding: var(--size-4);
 	p {
 		font-size: var(--size-4);
+	}
+	a {
+		color: #4299e1;
+		font-weight: var(--fw-semi-bold);
 	}
 	.thumb__nail {
 		border-radius: var(--size-3);

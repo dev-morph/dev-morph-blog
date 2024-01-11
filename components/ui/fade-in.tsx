@@ -7,7 +7,7 @@ export default function FadeIn({
 	from,
 }: {
 	children: React.ReactNode;
-	from: FadeInFromType;
+	from?: FadeInFromType;
 }) {
 	const fadeClass = from
 		? `${classes.fade__in} ${classes[from]}`
