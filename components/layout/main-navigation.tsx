@@ -9,14 +9,12 @@ export default function MainNavigation() {
 				<Logo />
 			</Link>
 			<nav className={classes.nav}>
-				<ul>
-					<li className={classes.header__item}>
-						<Link href="/posts">Posts</Link>
-					</li>
-					<li className={classes.header__item}>
-						<Link href="/contact">Contact</Link>
-					</li>
-				</ul>
+				<div className={classes.header__item}>
+					<Link href="/posts">Posts</Link>
+				</div>
+				<div className={classes.header__item}>
+					<Link href="/contact">Contact</Link>
+				</div>
 			</nav>
 		</header>
 	);

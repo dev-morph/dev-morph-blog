@@ -3,6 +3,7 @@ import PostHeader from './post-header';
 import ReactMarkDown, { Components } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import FadeIn from '@/components/ui/fade-in';
 
 import classes from './post-content.module.scss';
 
@@ -69,23 +70,29 @@ export default function PostContent({ post }: PostContentProps) {
 	};
 
 	return (
-		<article className={classes.content}>
-			<PostHeader title={post.title} date={post.date} image={imagePath} />
-			<div>
-				<Image
-					src={imagePath}
-					alt={post.title}
-					width={500}
-					height={500}
-					style={{
-						width: '100%',
-						height: 'auto',
-					}}
+		<FadeIn>
+			<article className={classes.content}>
+				<PostHeader
+					title={post.title}
+					date={post.date}
+					image={imagePath}
 				/>
-			</div>
-			<ReactMarkDown components={customRenderers}>
-				{post.content}
-			</ReactMarkDown>
-		</article>
+				<div className={classes.thumb__nail}>
+					<Image
+						src={imagePath}
+						alt={post.title}
+						width={500}
+						height={500}
+						style={{
+							width: '100%',
+							height: 'auto',
+						}}
+					/>
+				</div>
+				<ReactMarkDown components={customRenderers}>
+					{post.content}
+				</ReactMarkDown>
+			</article>
+		</FadeIn>
 	);
 }
