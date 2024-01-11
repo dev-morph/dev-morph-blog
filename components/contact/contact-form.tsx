@@ -5,10 +5,11 @@ import classes from './contact-form.module.css';
 import { z } from 'zod';
 import useFrom from '@/custom-hooks/useForm';
 import Notification from '../ui/notification';
+import { NotificationType } from '@/types/notification_types';
 
 export default function ContactForm() {
 	// const [state, formAction] = useFormState(sendMessage, initialState);
-	const [reqStatus, setReqStatus] = useState(''); //'pending', 'erorr', 'success'
+	const [reqStatus, setReqStatus] = useState<NotificationType>(''); //'pending', 'erorr', 'success', ''
 	const [reqErrorMsg, setReqErrorMsg] = useState('');
 	const schema = z.object({
 		email: z.string().email({ message: 'email 형식에 맞지 않습니다.' }),
@@ -32,8 +33,6 @@ export default function ContactForm() {
 		e.preventDefault();
 
 		if (!valid) return;
-		// const target = e.currentTarget as HTMLFormElement;
-		// const formData = new FormData(target);
 		setReqStatus('pending');
 
 		try {
@@ -49,10 +48,8 @@ export default function ContactForm() {
 				throw new Error(data.message || 'Something went wrong.');
 			}
 			formRef.current?.reset();
-			console.log('response  is ', data);
 			setReqStatus('success');
 		} catch (error) {
-			console.log('error ', error.message);
 			setReqErrorMsg(error.message);
 			setReqStatus('error');
 		}

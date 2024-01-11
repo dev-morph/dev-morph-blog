@@ -29,5 +29,9 @@ export default async function PostDetailPage({
 	if (!post) {
 		return <div>Failed to Find Post.</div>;
 	}
-	return <PostContent post={post} />;
+	return (
+		<main>
+			<PostContent post={post} />;
+		</main>
+	);
 }

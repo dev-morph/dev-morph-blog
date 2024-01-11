@@ -1,6 +1,7 @@
 import Link from 'next/link';
+// import Image from 'next/legacy/image';
 import Image from 'next/image';
-import classes from './post-item.module.css';
+import classes from './post-item.module.scss';
 
 type Post = {
 	title: string;
@@ -26,28 +27,31 @@ export default function PostItem({ post }: PostItemProps) {
 	const linkPath = `/posts/${slug}`;
 
 	return (
-		<li className={classes.post}>
+		<article className={classes.post}>
 			<Link href={linkPath}>
 				<div className={classes.image}>
+					<div className={classes.hover__detail}>
+						<div className={classes.excerpt}>
+							<p>{excerpt}</p>
+						</div>
+					</div>
 					<Image
 						src={imagePath}
 						alt={title}
+						width={350}
+						height={250}
+						sizes="100vw"
 						style={{
 							width: '100%',
 							height: 'auto',
 						}}
-						width={300}
-						height={200}
-						// nextjs 14부터는 layout 쓰지 않는다.
-						// layout="responsive"
 					/>
 				</div>
 				<div className={classes.content}>
 					<h3>{title}</h3>
 					<time>{formattedDate}</time>
-					<p>{excerpt}</p>
 				</div>
 			</Link>
-		</li>
+		</article>
 	);
 }

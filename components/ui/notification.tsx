@@ -1,9 +1,14 @@
 import ReactDOM from 'react-dom';
 import classes from './notification.module.css';
+import { NotificationType } from '@/types/notification_types';
 
-function Notification(props) {
-	const { title, message, status } = props;
+type NotificationProps = {
+	title: string;
+	message: string;
+	status: NotificationType;
+};
 
+function Notification({ title, message, status }: NotificationProps) {
 	let statusClasses = '';
 
 	if (status === 'success') {
@@ -21,7 +26,7 @@ function Notification(props) {
 			<h2>{title}</h2>
 			<p>{message}</p>
 		</div>,
-		document.querySelector('#notifications')
+		document.querySelector('#notifications') as HTMLElement
 	);
 }
 

@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import PostsGrid from '../posts/posts-grid';
-import classes from '@/components/home-page/featured-post.module.css';
+import classes from '@/components/home-page/featured-post.module.scss';
 
 type Post = {
 	slug: string;

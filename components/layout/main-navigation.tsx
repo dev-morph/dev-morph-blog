@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Logo from './logo';
-import classes from './main-navigation.module.css';
+import classes from './main-navigation.module.scss';
 
 export default function MainNavigation() {
 	return (
@@ -8,12 +8,12 @@ export default function MainNavigation() {
 			<Link href="/">
 				<Logo />
 			</Link>
-			<nav>
+			<nav className={classes.nav}>
 				<ul>
-					<li>
+					<li className={classes.header__item}>
 						<Link href="/posts">Posts</Link>
 					</li>
-					<li>
+					<li className={classes.header__item}>
 						<Link href="/contact">Contact</Link>
 					</li>
 				</ul>

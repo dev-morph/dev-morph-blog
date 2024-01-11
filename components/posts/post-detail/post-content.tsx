@@ -71,6 +71,18 @@ export default function PostContent({ post }: PostContentProps) {
 	return (
 		<article className={classes.content}>
 			<PostHeader title={post.title} image={imagePath} />
+			<div>
+				<Image
+					src={imagePath}
+					alt={post.title}
+					width={200}
+					height={150}
+					style={{
+						width: '100%',
+						height: 'auto',
+					}}
+				/>
+			</div>
 			<ReactMarkDown components={customRenderers}>
 				{post.content}
 			</ReactMarkDown>

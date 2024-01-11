@@ -1,4 +1,3 @@
-import Hero from '@/components/home-page/hero';
 import FeaturedPost from '@/components/home-page/featured-post';
 import { getFeaturedPosts } from '@/lib/posts-utils';
 
@@ -7,7 +6,6 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<Hero />
 			<FeaturedPost posts={posts} />
 		</>
 	);

@@ -168,5 +168,17 @@ export default function useFrom(
 		}
 	}
 
-	return { valid: formValid, formData: formData };
+	function getFormData(formEl: HTMLFormElement) {
+		const formData = new FormData(formEl);
+		const result: { [key: string]: any } = {};
+		for (const key of formData.keys()) {
+			result[key] = formData.get(key);
+		}
+		return result;
+	}
+
+	return {
+		valid: formValid,
+		formData: formRef.current && getFormData(formRef.current),
+	};
 }

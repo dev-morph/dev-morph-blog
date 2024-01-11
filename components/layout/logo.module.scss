@@ -1,0 +1,17 @@
+.logo {
+	font-size: var(--size-5);
+	font-weight: 700;
+	letter-spacing: 0px;
+	// font-family: 'Segoe UI', 'Oswald';
+	// font-family: 'Oswald', sans-serif;
+	color: var(--color-black);
+	font-style: italic;
+	display: flex;
+	align-items: center;
+}
+
+@media (min-width: 768px) {
+	.logo {
+		font-size: var(--size-6);
+	}
+}
