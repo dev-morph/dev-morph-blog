@@ -12,7 +12,6 @@ const levelMap: { [key: string]: string } = {
 	H1: 'lv1',
 	H2: 'lv2',
 	H3: 'lv3',
-	H4: 'lv4',
 };
 
 export default function Toc({ title }: TocProps) {
@@ -24,10 +23,12 @@ export default function Toc({ title }: TocProps) {
 	useEffect(() => {
 		const entryPoint = document.querySelector('#content__entry__point');
 		const hTagEls = entryPoint?.querySelectorAll(
-			'h1, h2, h3, h4'
+			'h1, h2, h3'
 		) as NodeListOf<HTMLElement>;
 		setHTags(hTagEls);
 
+		//현재 창 넓이가 1350 이하면 ToC와 메인 컴포넌트가 겹친다.
+		//그 이상이라면, ToC를 처음에 열어준다.
 		const width = window.innerWidth;
 		if (width >= 1350) {
 			setTocOpened(true);

@@ -16,7 +16,6 @@ export async function GET(req: Request, res: any) {
 
 export async function POST(req: Request, res: Response) {
 	const body = await req.json();
-	console.log('body is ', body);
 	const validateResult = schema.safeParse(body);
 	if (!validateResult.success) {
 		const { errors } = validateResult.error;
