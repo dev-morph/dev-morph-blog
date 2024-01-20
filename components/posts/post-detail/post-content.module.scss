@@ -1,6 +1,7 @@
 .content__wrapper {
 	display: flex;
 	justify-content: center;
+	// position: relative;
 }
 
 .content {
@@ -11,13 +12,7 @@
 	background-color: var(--bg-white);
 	border-radius: 6px;
 	padding: var(--size-4);
-	p {
-		font-size: var(--size-4);
-	}
-	a {
-		color: #4299e1;
-		font-weight: var(--fw-semi-bold);
-	}
+
 	.thumb__nail {
 		border-radius: var(--size-3);
 		overflow: hidden;
@@ -34,14 +29,3 @@
 		padding: var(--size-8);
 	}
 }
-
-// @keyframes fade-in {
-// 	0% {
-// 		opacity: 0;
-// 		transform: translateY(20px) scale(0.9);
-// 	}
-// 	100% {
-// 		opacity: 1;
-// 		transform: translateY(0px) scale(1);
-// 	}
-// }

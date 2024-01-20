@@ -1,3 +1,137 @@
+.icon {
+	position: fixed;
+	top: calc(64px + 65.5px);
+	background-color: var(--bg-white);
+	box-shadow: rgba(0, 0, 0, 0.2) -9px 5px 20px 0px;
+	border-radius: 4px 0px 0px 4px;
+	right: 1px;
+	display: block;
+	width: 25px;
+	height: 25px;
+
+	cursor: pointer;
+
+	&.opened {
+		display: none;
+		opacity: 0;
+	}
+}
+
 .toc {
-	min-width: 300px;
+	position: fixed;
+	border: 0.1px rgba(255, 255, 255, 0.4) solid;
+	box-shadow: rgba(0, 0, 0, 0) 0px -8px 0px 10px,
+		rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px,
+		rgba(0, 0, 0, 0.05) -20px 0px 15px -10px,
+		rgba(0, 0, 0, 0.05) 0px 8px 10px -6px,
+		rgba(0, 0, 0, 0.05) 0px -8px 10px -6px;
+	border-radius: 16px;
+	background-color: rgba(255, 255, 255, 0.6);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+
+	padding: 0.5rem 0;
+
+	//header + content__header - (조정값 listicon을 안보이게 하도록 하기 위해)
+	top: calc(64px + 65.5px - 15px);
+	right: 1px;
+
+	transform: translateX(360px);
+	transition: transform 0.35s;
+
+	&.opened {
+		transform: translateX(0px);
+	}
+
+	nav {
+		max-width: 200px;
+		margin-left: var(--size-8);
+
+		.title {
+			font-style: italic;
+			font-weight: var(--fw-bold);
+			font-size: var(--size-4);
+
+			display: flex;
+			flex-direction: column;
+			// align-items: flex-end;
+			// gap: 1rem;
+			padding-right: 1rem;
+
+			padding: 0rem 0.5rem 0 0;
+
+			.close__icon {
+				cursor: pointer;
+				display: flex;
+				justify-content: flex-end;
+				margin-right: 0.5rem;
+			}
+		}
+
+		.toc__body {
+			li {
+				&:hover {
+					color: #fdad00;
+					cursor: pointer;
+				}
+
+				&.focused {
+					color: #fdad00;
+				}
+			}
+			.lv1 {
+				font-size: 14px;
+				margin-left: 0rem;
+				margin-top: 0.25rem;
+			}
+			.lv2 {
+				font-size: 12px;
+				margin-left: 0.5rem;
+			}
+			.lv3 {
+				font-size: 10px;
+				margin-left: 1rem;
+			}
+			.lv4 {
+				font-size: 8px;
+				margin-left: 1.5rem;
+			}
+		}
+	}
+}
+
+@media (min-width: 1170px) {
+	// .icon {
+	// 	display: none;
+	// }
+
+	.toc {
+		nav {
+			min-width: 250px;
+			max-width: 350px;
+
+			.title {
+				padding: 0rem 0.5rem 0 0;
+			}
+		}
+		position: fixed;
+		top: 100px;
+		right: 0px;
+
+		// transform: translateX(0px);
+		// .close__icon {
+		// 	display: none;
+		// }
+	}
+}
+
+@keyframes fromRightSide {
+	0% {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0px);
+	}
 }

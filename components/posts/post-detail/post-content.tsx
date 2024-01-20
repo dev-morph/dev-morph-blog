@@ -36,12 +36,12 @@ export default function PostContent({ post }: PostContentProps) {
 							}}
 						/>
 					</div>
-					<CustomMarkdown components={post} />
+					<div id="content__entry__point">
+						<CustomMarkdown components={post} />
+					</div>
 				</article>
 			</FadeIn>
-			<FadeIn>
-				<Toc content={post.content}></Toc>
-			</FadeIn>
+			<Toc title={post.title}></Toc>
 		</div>
 	);
 }

@@ -1,4 +1,6 @@
 .fade__in {
+	width: 100%;
+	height: 100%;
 	animation: 0.5s ease-in-out;
 	animation-name: fade-in;
 	&.left {
@@ -12,6 +14,12 @@
 	}
 	&.top {
 		animation-name: fade-in-top;
+	}
+}
+
+@media (min-width: 768px) {
+	.fade__in {
+		width: auto;
 	}
 }
 

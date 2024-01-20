@@ -30,7 +30,7 @@ export default function CustomMarkdown({
 							src={`/images/posts/${components.slug}/${image.properties.src}`}
 							alt={image.properties.alt as string}
 							width={500}
-							height={500}
+							height={350}
 						/>
 					</div>
 				);
@@ -58,7 +58,10 @@ export default function CustomMarkdown({
 	};
 
 	return (
-		<ReactMarkDown components={customRenderers}>
+		<ReactMarkDown
+			components={customRenderers}
+			className={classes.markdown__wrapper}
+		>
 			{components.content}
 		</ReactMarkDown>
 	);
