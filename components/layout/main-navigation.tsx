@@ -13,6 +13,9 @@ export default function MainNavigation() {
 					<Link href="/posts">Posts</Link>
 				</div>
 				<div className={classes.header__item}>
+					<Link href="/about">About</Link>
+				</div>
+				<div className={classes.header__item}>
 					<Link href="/contact">Contact</Link>
 				</div>
 			</nav>

@@ -62,7 +62,7 @@ export default function CustomMarkdown({
 			components={customRenderers}
 			className={classes.markdown__wrapper}
 		>
-			{components.content}
+			{components.content.replace(/\n\s\n\s/gi, '\n\n&nbsp;\n\n')}
 		</ReactMarkDown>
 	);
 }
