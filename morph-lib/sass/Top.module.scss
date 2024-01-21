@@ -1,0 +1,10 @@
+.top01 {
+	font-size: var(--size-10);
+	word-break: keep-all;
+}
+
+@media (min-width: 768px) {
+	.top01 {
+		font-size: var(--size-12);
+	}
+}

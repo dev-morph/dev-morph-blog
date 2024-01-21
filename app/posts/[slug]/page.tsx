@@ -1,5 +1,5 @@
 import PostContent from '@/components/posts/post-detail/post-content';
-import { getPostData } from '@/lib/posts-utils';
+import { getPostData } from '@/utils/posts-utils';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {

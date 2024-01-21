@@ -1,5 +1,6 @@
 import PostsGrid from './posts-grid';
-import classes from './all-posts.module.css';
+import Top01 from '@/morph-lib/components/Top/Top01';
+import Spacing from '@/morph-lib/components/Spacing';
 
 type Post = {
 	title: string;
@@ -14,9 +15,10 @@ type AllPostsProps = {
 
 export default function AllPosts({ posts }: AllPostsProps) {
 	return (
-		<section className={classes.posts}>
-			<h1>All Posts</h1>
+		<>
+			<Top01 alignment="center">All Posts</Top01>
+			<Spacing size="var(--size-8)" />
 			<PostsGrid posts={posts} />
-		</section>
+		</>
 	);
 }

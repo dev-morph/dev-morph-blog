@@ -1,12 +1,8 @@
 import AllPosts from '@/components/posts/all-posts';
-import { getAllPosts } from '@/lib/posts-utils';
+import { getAllPosts } from '@/utils/posts-utils';
 
 export default async function PostsPage() {
 	const posts = await getAllPosts();
 
-	return (
-		<section>
-			<AllPosts posts={posts} />
-		</section>
-	);
+	return <AllPosts posts={posts} />;
 }

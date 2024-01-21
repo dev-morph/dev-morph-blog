@@ -69,6 +69,7 @@ h1,
 h2,
 h3 {
 	font-family: 'Oswald', 'Roboto', sans-serif;
+	font-size: 1rem;
 }
 * {
 	margin: 0;
@@ -147,9 +148,4 @@ label.required {
 .error__msg {
 	color: red;
 	font-size: 1rem;
-}
-
-.main__content__wrapper {
-	// Header 높이만큼 padding
-	padding-top: 4.5rem;
 }

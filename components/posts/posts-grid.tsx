@@ -19,27 +19,6 @@ export default function PostsGrid({ posts }: PostsGridProps) {
 			{posts.map((post) => (
 				<PostItem key={post.slug} post={post} />
 			))}
-			{/* {posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))}
-			{posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))}
-			{posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))}
-			{posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))}
-			{posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))}
-			{posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))}
-			{posts.map((post) => (
-				<PostItem key={post.slug} post={post} />
-			))} */}
 		</div>
 	);
 }

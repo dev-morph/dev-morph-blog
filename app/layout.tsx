@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import MainNavigation from '@/components/layout/main-navigation';
+import MainNavigation from '@/components/layout/MainNavigation';
 import '@/styles/globals.scss';
+import ContentWrapper from '@/morph-lib/components/ContentWrapper';
+import NotificationOverlay from '@/morph-lib/components/NotificationOverlay';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,8 +24,8 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<MainNavigation />
-				<div className="main__content__wrapper">{children}</div>
-				<div id="notifications"></div>
+				<ContentWrapper>{children}</ContentWrapper>
+				<NotificationOverlay />
 			</body>
 		</html>
 	);

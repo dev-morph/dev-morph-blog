@@ -19,10 +19,10 @@ export default async function AboutMe() {
 	};
 
 	return (
-		<div className={classes.content__wrapper}>
-			<article className={classes.content}>
-				<CustomMarkdown components={aboutMeData}></CustomMarkdown>
-			</article>
-		</div>
+		<CustomMarkdown components={aboutMeData} />
+		// <div className={classes.content__wrapper}>
+		// 	<article className={classes.content}>
+		// 	</article>
+		// </div>
 	);
 }
