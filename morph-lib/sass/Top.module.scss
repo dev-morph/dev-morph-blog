@@ -2,9 +2,25 @@
 	font-size: var(--size-10);
 	word-break: keep-all;
 }
+.top02 {
+	font-size: var(--size-8);
+	word-break: keep-all;
+}
+.top03 {
+	font-size: var(--size-6);
+	word-break: keep-all;
+}
+.top04 {
+	font-size: var(--size-5);
+	word-break: keep-all;
+}
+.top05 {
+	font-size: var(--size-4);
+	word-break: keep-all;
+}
 
 @media (min-width: 768px) {
-	.top01 {
-		font-size: var(--size-12);
-	}
+	// .top01 {
+	// 	font-size: var(--size-12);
+	// }
 }

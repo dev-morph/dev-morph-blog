@@ -1,0 +1,16 @@
+.chips {
+	display: flex;
+	gap: var(--size-2);
+	//flex item들이 넓이를 넘어갈 경우, 줄 바꿈
+	flex-wrap: wrap;
+}
+
+.chip {
+	display: inline-block;
+	padding: 0.25rem;
+	font-size: var(--size-3);
+	font-weight: var(--fw-bold);
+	border: 1px solid var(--color-black);
+	border-radius: var(--br-reg);
+	flex-grow: 0;
+}

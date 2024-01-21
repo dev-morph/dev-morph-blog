@@ -16,7 +16,7 @@ export default function PostContent({ post }: PostContentProps) {
 	const imagePath = `/images/posts/${post.slug}/${post.image}`;
 
 	return (
-		<>
+		<main>
 			<FadeIn from="left">
 				<article>
 					<PostHeader
@@ -42,6 +42,6 @@ export default function PostContent({ post }: PostContentProps) {
 				</article>
 			</FadeIn>
 			<Toc title={post.title}></Toc>
-		</>
+		</main>
 	);
 }

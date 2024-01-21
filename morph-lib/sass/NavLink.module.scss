@@ -1,18 +1,10 @@
 .header__item {
 	color: var(--color-black);
-	font-size: var(--size-3);
+	font-size: var(--size-4);
 	font-weight: var(--fw-bold);
 	&:hover {
 		transform: scale(1.025);
 		text-decoration: underline;
 		cursor: pointer;
-	}
-}
-
-@media (min-width: 768px) {
-	.header__item {
-		a {
-			font-size: var(--size-4);
-		}
 	}
 }

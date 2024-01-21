@@ -34,24 +34,27 @@ body {
 	--color-error-100: #f1acc9;
 	--color-error-500: #a10c4a;
 
-	--size-1: 0.25rem;
-	--size-2: 0.5rem;
-	--size-3: 0.75rem;
-	--size-4: 1rem;
-	--size-5: 1.25rem;
-	--size-6: 1.5rem;
-	--size-7: 1.75rem;
-	--size-8: 2rem;
-	--size-9: 2.25rem;
-	--size-10: 2.5rem;
-	--size-11: 2.75rem;
-	--size-12: 3rem;
-	--size-13: 3.25rem;
-	--size-14: 3.5rem;
-	--size-15: 3.75rem;
-	--size-16: 4rem;
-	--size-20: 5rem;
-	--size-40: 10rem;
+	--size-1: calc(0.25rem * 0.8);
+	--size-2: calc(0.5rem * 0.8);
+	--size-3: calc(0.75rem * 0.8);
+	--size-4: calc(1rem * 0.8);
+	--size-5: calc(1.25rem * 0.8);
+	--size-6: calc(1.5rem * 0.8);
+	--size-7: calc(1.75rem * 0.8);
+	--size-8: calc(2rem * 0.8);
+	--size-9: calc(2.25rem * 0.8);
+	--size-10: calc(2.5rem * 0.8);
+	--size-11: calc(2.75rem * 0.8);
+	--size-12: calc(3rem * 0.8);
+	--size-13: calc(3.25rem * 0.8);
+	--size-14: calc(3.5rem * 0.8);
+	--size-15: calc(3.75rem * 0.8);
+	--size-16: calc(4rem * 0.8);
+	--size-17: calc(4.25rem * 0.8);
+	--size-18: calc(4.5rem * 0.8);
+	--size-19: calc(4.75rem * 0.8);
+	--size-20: calc(5rem * 0.8);
+	--size-40: calc(10rem * 0.8);
 
 	--fw-normal: 400;
 	--fw-semi-bold: 500;
@@ -148,4 +151,30 @@ label.required {
 .error__msg {
 	color: red;
 	font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+	body {
+		--size-1: 0.25rem;
+		--size-2: 0.5rem;
+		--size-3: 0.75rem;
+		--size-4: 1rem;
+		--size-5: 1.25rem;
+		--size-6: 1.5rem;
+		--size-7: 1.75rem;
+		--size-8: 2rem;
+		--size-9: 2.25rem;
+		--size-10: 2.5rem;
+		--size-11: 2.75rem;
+		--size-12: 3rem;
+		--size-13: 3.25rem;
+		--size-14: 3.5rem;
+		--size-15: 3.75rem;
+		--size-16: 4rem;
+		--size-17: 4.25rem;
+		--size-18: 4.5rem;
+		--size-19: 4.75rem;
+		--size-20: 5rem;
+		--size-40: 10rem;
+	}
 }

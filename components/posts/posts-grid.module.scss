@@ -4,12 +4,12 @@
 	padding: 0;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-	gap: 1.5rem;
+	gap: var(--size-10);
 	align-content: center;
 }
 
 @media (min-width: 768px) {
 	.grid {
-		gap: 3rem;
+		gap: var(--size-12);
 	}
 }

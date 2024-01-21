@@ -1,10 +1,10 @@
 .nav {
 	display: flex;
-	gap: 1rem;
+	gap: var(--size-4);
 }
 
 @media (min-width: 768px) {
 	.nav {
-		gap: 3rem;
+		gap: var(--size-12);
 	}
 }

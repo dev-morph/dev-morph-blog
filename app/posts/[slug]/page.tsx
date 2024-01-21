@@ -1,6 +1,7 @@
 import PostContent from '@/components/posts/post-detail/post-content';
 import { getPostData } from '@/utils/posts-utils';
 import { Metadata, ResolvingMetadata } from 'next';
+import Top03 from '@/morph-lib/components/Top/Top03';
 
 type Props = {
 	params: { slug: string };
@@ -27,11 +28,7 @@ export default async function PostDetailPage({
 	const slug = params.slug;
 	const post = getPostData(slug);
 	if (!post) {
-		return <div>Failed to Find Post.</div>;
+		return <Top03 alignment="center">Failed to Find Post.</Top03>;
 	}
-	return (
-		<main>
-			<PostContent post={post} />;
-		</main>
-	);
+	return <PostContent post={post} />;
 }
