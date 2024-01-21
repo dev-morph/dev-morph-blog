@@ -1,8 +1,3 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import Text from '@morphlib/components/Text';
-import Top04 from '@morphlib/components/Top/Top04';
-import classes from './post-item.module.scss';
 import Card from '@morphlib/components/Card';
 
 type Post = {

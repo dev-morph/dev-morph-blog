@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import PostsGrid from '../posts/posts-grid';
+import Top01 from '@morphlib/components/Top/Top01';
+import Spacing from '@morphlib/components/Spacing';
 import classes from '@/components/home-page/featured-post.module.scss';
 
 type Post = {
@@ -15,9 +16,10 @@ type FeaturedPostProps = {
 
 export default function FeaturedPost({ posts }: FeaturedPostProps) {
 	return (
-		<section className={classes.latest}>
-			<h2>Featured Posts</h2>
+		<>
+			<Top01 textAlign="center">Featured Posts</Top01>
+			<Spacing size="var(--size-8)" />
 			<PostsGrid posts={posts} />
-		</section>
+		</>
 	);
 }

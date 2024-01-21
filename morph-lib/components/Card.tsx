@@ -17,7 +17,7 @@ function Img({ imagePath, title, width, height, hoverText }: ImgProps) {
 		<div className={classes.image}>
 			<div className={classes.hover__detail}>
 				<div className={classes.excerpt}>
-					<span>{hoverText}</span>
+					<Text>{hoverText}</Text>
 				</div>
 			</div>
 			<Image

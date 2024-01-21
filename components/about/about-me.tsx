@@ -1,10 +1,8 @@
-// import { promises as fs } from 'fs';
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import CustomMarkdown from '../common/custom-markdown';
 import { PostType } from '@/types/post_types';
-import classes from './about-me.module.scss';
 
 export default async function AboutMe() {
 	const filePath = path.join(process.cwd(), 'docs', 'about-me.md');
@@ -18,11 +16,5 @@ export default async function AboutMe() {
 		content,
 	};
 
-	return (
-		<CustomMarkdown components={aboutMeData} />
-		// <div className={classes.content__wrapper}>
-		// 	<article className={classes.content}>
-		// 	</article>
-		// </div>
-	);
+	return <CustomMarkdown components={aboutMeData} />;
 }
