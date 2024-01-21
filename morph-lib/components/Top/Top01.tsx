@@ -1,17 +1,18 @@
 import classes from '@morphlib/sass/Top.module.scss';
+import { CSSProperties } from 'react';
 
 export default function Top01({
 	children,
-	alignment,
+	textAlign,
 	styled,
 }: {
 	children: string;
-	alignment?: 'center' | 'left' | 'right';
+	textAlign?: CSSProperties['textAlign'];
 	styled?: { [key: string]: string };
 }) {
 	return (
 		<h1
-			style={{ textAlign: alignment, ...styled }}
+			style={{ textAlign: textAlign, ...styled }}
 			className={classes.top01}
 		>
 			{children}

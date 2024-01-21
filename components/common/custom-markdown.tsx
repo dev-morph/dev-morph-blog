@@ -58,11 +58,13 @@ export default function CustomMarkdown({
 	};
 
 	return (
-		<ReactMarkDown
-			components={customRenderers}
-			className={classes.markdown__wrapper}
-		>
-			{components.content}
-		</ReactMarkDown>
+		<div id="content__entry__point">
+			<ReactMarkDown
+				components={customRenderers}
+				className={classes.markdown__wrapper}
+			>
+				{components.content}
+			</ReactMarkDown>
+		</div>
 	);
 }

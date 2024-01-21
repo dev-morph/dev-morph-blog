@@ -16,7 +16,7 @@ type AllPostsProps = {
 export default function AllPosts({ posts }: AllPostsProps) {
 	return (
 		<>
-			<Top01 alignment="center">All Posts</Top01>
+			<Top01 textAlign="center">All Posts</Top01>
 			<Spacing size="var(--size-8)" />
 			<PostsGrid posts={posts} />
 		</>

@@ -1,7 +1,9 @@
 import Link from 'next/link';
-// import Image from 'next/legacy/image';
 import Image from 'next/image';
+import Text from '@morphlib/components/Text';
+import Top04 from '@morphlib/components/Top/Top04';
 import classes from './post-item.module.scss';
+import Card from '@morphlib/components/Card';
 
 type Post = {
 	title: string;
@@ -27,31 +29,22 @@ export default function PostItem({ post }: PostItemProps) {
 	const linkPath = `/posts/${slug}`;
 
 	return (
-		<article className={classes.post}>
-			<Link href={linkPath}>
-				<div className={classes.image}>
-					<div className={classes.hover__detail}>
-						<div className={classes.excerpt}>
-							<p>{excerpt}</p>
-						</div>
-					</div>
-					<Image
-						src={imagePath}
-						alt={title}
+		<>
+			<Card
+				href={linkPath}
+				image={
+					<Card.Image
+						imagePath={imagePath}
+						title={title}
 						width={350}
 						height={250}
-						sizes="100vw"
-						style={{
-							width: '100%',
-							height: 'auto',
-						}}
+						hoverText={excerpt}
 					/>
-				</div>
-				<div className={classes.content}>
-					<h3>{title}</h3>
-					<time>{formattedDate}</time>
-				</div>
-			</Link>
-		</article>
+				}
+				description={
+					<Card.Description title={title} creatTime={formattedDate} />
+				}
+			/>
+		</>
 	);
 }

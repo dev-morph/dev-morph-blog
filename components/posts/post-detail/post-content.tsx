@@ -2,10 +2,8 @@ import Image from 'next/image';
 import PostHeader from './post-header';
 import FadeIn from '@/components/ui/fade-in';
 import Toc from '@/components/ui/toc';
-
 import CustomMarkdown from '@/components/common/custom-markdown';
-
-import classes from './post-content.module.scss';
+import Spacing from '@/morph-lib/components/Spacing';
 import { PostType } from '@/types/post_types';
 
 type PostContentProps = {
@@ -24,21 +22,20 @@ export default function PostContent({ post }: PostContentProps) {
 						date={post.date}
 						image={imagePath}
 					/>
-					<div className={classes.thumb__nail}>
-						<Image
-							src={imagePath}
-							alt={post.title}
-							width={500}
-							height={500}
-							style={{
-								width: '100%',
-								height: 'auto',
-							}}
-						/>
-					</div>
-					<div id="content__entry__point">
-						<CustomMarkdown components={post} />
-					</div>
+					<Image
+						src={imagePath}
+						alt={post.title}
+						width={500}
+						height={500}
+						style={{
+							width: '100%',
+							height: 'auto',
+							overflow: 'hidden',
+							borderRadius: '1rem',
+						}}
+					/>
+					<Spacing size="var(--size-4)" />
+					<CustomMarkdown components={post} />
 				</article>
 			</FadeIn>
 			<Toc title={post.title}></Toc>

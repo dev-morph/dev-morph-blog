@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import PostItem from './post-item';
 import classes from './posts-grid.module.scss';
 

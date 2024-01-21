@@ -9,7 +9,7 @@ type PostHeaderProps = {
 	date: string;
 };
 
-export default function PostHeader({ title, image, date }: PostHeaderProps) {
+export default function PostHeader({ title, date }: PostHeaderProps) {
 	return (
 		<>
 			<Top01>{title}</Top01>
