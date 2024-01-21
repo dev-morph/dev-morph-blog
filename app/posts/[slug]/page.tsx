@@ -28,7 +28,7 @@ export default async function PostDetailPage({
 	const slug = params.slug;
 	const post = getPostData(slug);
 	if (!post) {
-		return <Top03 alignment="center">Failed to Find Post.</Top03>;
+		return <Top03 textAlign="center">Failed to Find Post.</Top03>;
 	}
 	return <PostContent post={post} />;
 }

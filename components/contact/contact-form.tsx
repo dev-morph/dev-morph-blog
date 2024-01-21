@@ -3,12 +3,11 @@
 import { useRef, FormEvent, useState, useEffect } from 'react';
 import classes from './contact-form.module.css';
 import { z } from 'zod';
-import useFrom from '@/custom-hooks/useForm';
+import useForm from '@/custom-hooks/useForm';
 import Notification from '../ui/notification';
 import { NotificationType } from '@/types/notification_types';
 
 export default function ContactForm() {
-	// const [state, formAction] = useFormState(sendMessage, initialState);
 	const [reqStatus, setReqStatus] = useState<NotificationType>(''); //'pending', 'erorr', 'success', ''
 	const [reqErrorMsg, setReqErrorMsg] = useState('');
 	const schema = z.object({
@@ -17,7 +16,7 @@ export default function ContactForm() {
 		message: z.string().min(1, { message: '필수 입력 항목입니다.' }),
 	});
 	const formRef = useRef<HTMLFormElement>(null);
-	const { valid, formData } = useFrom(formRef, schema);
+	const { valid, formData } = useForm(formRef, schema);
 
 	useEffect(() => {
 		if (reqStatus === 'error' || reqStatus === 'success') {
