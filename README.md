@@ -40,7 +40,8 @@ My blog is designed to be responsive on both web and mobile platforms.
 The following picture shows how my website looks on a mobile platform.
 
 <p align="center">
-    <img width="409" alt="image" src="https://github.com/dev-morph/dev-morph-blog/assets/112484043/25a39890-e525-4345-8c43-661133232126">
+    ![morph-blog](https://github.com/dev-morph/dev-morph-blog/assets/112484043/ae01a44b-eafd-49dc-8685-43e53917f33f)
+<!--     <img width="409" alt="image" src="https://github.com/dev-morph/dev-morph-blog/assets/112484043/25a39890-e525-4345-8c43-661133232126"> -->
 </p>
 
 ## HTTPS
