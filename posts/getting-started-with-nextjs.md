@@ -130,6 +130,10 @@ In this article, we'll dive into the core concepts and features NextJS has to of
 
 ![Create routes via your file + folder structure](nextjs-file-based-routing.png)
 
+![TESTTEST](nextjs-file-based-routing.png)
+
+![Post-Card Image](post-card.png)
+
 In this article, we'll dive into the core concepts and features NextJS has to offer:
 In this article, we'll dive into the core concepts and features NextJS has to offer:
 In this article, we'll dive into the core concepts and features NextJS has to offer:In this article, we'll dive into the core concepts and features NextJS has to offer:

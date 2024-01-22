@@ -20,11 +20,7 @@ export async function generateMetadata(
 	};
 }
 
-export default async function PostDetailPage({
-	params,
-}: {
-	params: { slug: string };
-}) {
+export default async function PostDetailPage({ params }: Props) {
 	const slug = params.slug;
 	const post = getPostData(slug);
 	if (!post) {

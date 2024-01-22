@@ -1,6 +1,6 @@
 import classes from './post-header.module.scss';
 import Chips from '@/morph-lib/components/Chips';
-import Top01 from '@/morph-lib/components/Top/Top01';
+import Top02 from '@/morph-lib/components/Top/Top02';
 import Spacing from '@/morph-lib/components/Spacing';
 
 type PostHeaderProps = {
@@ -12,7 +12,7 @@ type PostHeaderProps = {
 export default function PostHeader({ title, date }: PostHeaderProps) {
 	return (
 		<>
-			<Top01>{title}</Top01>
+			<Top02>{title}</Top02>
 			<Spacing size="var(--size-2)" />
 			<Chips>
 				<Chips.Item>{date}</Chips.Item>

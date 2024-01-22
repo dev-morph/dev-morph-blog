@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import classes from '@morphlib/sass/Text.module.scss';
 
-export const FontWeight = {
+const FontWeight = {
 	Regular: 'regular',
 	Semibold: 'semibold',
 	Bold: 'bold',
@@ -29,8 +29,13 @@ export default function Text({
 }: TextProps) {
 	return (
 		<span
-			className={fontWeight && classes[fontWeight]}
-			style={{ textAlign: textAlign, color: color, ...styled }}
+			className={`${fontWeight && classes[fontWeight]}`}
+			style={{
+				textAlign: textAlign,
+				color: color,
+				fontSize: size,
+				...styled,
+			}}
 		>
 			{children}
 		</span>

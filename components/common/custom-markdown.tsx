@@ -25,14 +25,17 @@ export default function CustomMarkdown({
 			) {
 				const image = firstChild;
 				return (
-					<div className={classes.image}>
+					<p className={classes.image}>
 						<Image
 							src={`/images/posts/${components.slug}/${image.properties.src}`}
 							alt={image.properties.alt as string}
 							width={500}
 							height={350}
 						/>
-					</div>
+						<span className={classes.img__description}>
+							{image.properties.alt}
+						</span>
+					</p>
 				);
 			}
 			return <p>{paragraph.children}</p>;

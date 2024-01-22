@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Text from '@morphlib/components/Text';
-import Top04 from '@morphlib/components/Top/Top04';
 import classes from '@morphlib/sass/Card.module.scss';
 
 type ImgProps = {
@@ -29,7 +28,6 @@ function Img({ imagePath, title, width, height, hoverText }: ImgProps) {
 				style={{
 					width: '100%',
 					height: 'auto',
-					overflow: 'hidden',
 				}}
 			/>
 		</div>
@@ -44,8 +42,10 @@ type DescriptionProps = {
 function Description({ title, creatTime }: DescriptionProps) {
 	return (
 		<div className={classes.description}>
-			<Top04 textAlign="left">{title}</Top04>
-			<Text textAlign="right">
+			<Text textAlign="left" size="15px" fontWeight="bolder">
+				{title}
+			</Text>
+			<Text textAlign="right" size="14px">
 				<time>{creatTime}</time>
 			</Text>
 		</div>

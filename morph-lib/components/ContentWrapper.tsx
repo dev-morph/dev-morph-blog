@@ -15,7 +15,7 @@ export default function ContentWrapper({ children }: ContentWrapperProps) {
 			<section
 				style={{
 					width: '90%',
-					maxWidth: '60rem',
+					maxWidth: '50rem',
 					margin: 'var(--size-8) auto',
 				}}
 			>

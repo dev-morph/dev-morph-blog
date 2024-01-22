@@ -38,7 +38,7 @@ export default function PostContent({ post }: PostContentProps) {
 					<CustomMarkdown components={post} />
 				</article>
 			</FadeIn>
-			<Toc title={post.title}></Toc>
+			<Toc></Toc>
 		</main>
 	);
 }

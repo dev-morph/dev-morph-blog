@@ -14,11 +14,6 @@ type PostItemProps = {
 
 export default function PostItem({ post }: PostItemProps) {
 	const { title, image, excerpt, date, slug } = post;
-	const formattedDate = new Date(date).toLocaleDateString('en-US', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-	});
 
 	const imagePath = `/images/posts/${slug}/${image}`;
 	const linkPath = `/posts/${slug}`;
@@ -37,7 +32,7 @@ export default function PostItem({ post }: PostItemProps) {
 					/>
 				}
 				description={
-					<Card.Description title={title} creatTime={formattedDate} />
+					<Card.Description title={title} creatTime={date} />
 				}
 			/>
 		</>
