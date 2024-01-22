@@ -1,10 +1,17 @@
 import Image from 'next/image';
 
 import ReactMarkDown, { Components } from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
+import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
+import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx';
 import classes from './custom-markdown.module.scss';
 import { PostType } from '@/types/post_types';
+
+SyntaxHighlighter.registerLanguage('js', js);
+SyntaxHighlighter.registerLanguage('css', css);
+SyntaxHighlighter.registerLanguage('jsx', jsx);
 
 export default function CustomMarkdown({
 	components,

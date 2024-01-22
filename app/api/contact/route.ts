@@ -28,12 +28,11 @@ export async function POST(req: Request, res: Response) {
 			}
 		);
 	}
-	const uri =
-		'mongodb+srv://morph:dlgudxo90@cluster0.ylnocti.mongodb.net/my-site?retryWrites=true&w=majority';
+	const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.ylnocti.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;
 
 	let client;
 	try {
-		client = await MongoClient.connect(uri);
+		client = await MongoClient.connect(connectionString);
 	} catch (error) {
 		return new NextResponse(
 			JSON.stringify({

@@ -132,8 +132,6 @@ In this article, we'll dive into the core concepts and features NextJS has to of
 
 ![TESTTEST](nextjs-file-based-routing.png)
 
-![Post-Card Image](post-card.png)
-
 In this article, we'll dive into the core concepts and features NextJS has to offer:
 In this article, we'll dive into the core concepts and features NextJS has to offer:
 In this article, we'll dive into the core concepts and features NextJS has to offer:In this article, we'll dive into the core concepts and features NextJS has to offer:
