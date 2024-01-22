@@ -38,10 +38,10 @@ or my blog post about [how I write clean code](https://marklee1117.tistory.com/1
 My blog is designed to be responsive on both web and mobile platforms.
 The following picture shows how my website looks on a mobile platform.
 <p align="center">
-    <img width="405" alt="image" src="https://github.com/dev-morph/dev-morph-blog/assets/112484043/c3a60646-c45e-452a-8816-602ef3905bbc">
+    <img width="409" alt="image" src="https://github.com/dev-morph/dev-morph-blog/assets/112484043/25a39890-e525-4345-8c43-661133232126">
 </p>
 
 ## HTTPS
 
 Most of Browsers such as Chrome mark all HTTP websites as "Not Secure". To remove this mark and enhance the security of my website, I used a SSL certificate for the HTTPS connection.  
-I used Certbot to issue a SSL certifiacte for my website. It is free and very easy to use.
+I used **Certbot** to issue a SSL certifiacte for my website. It is free and very easy to use.
