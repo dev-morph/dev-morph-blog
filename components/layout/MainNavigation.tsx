@@ -12,7 +12,7 @@ export default function MainNavigation() {
 			<Navigation>
 				<Navigation.NavLink href="/posts" text="Posts" />
 				<Navigation.NavLink href="/about" text="About" />
-				<Navigation.NavLink href="/contact" text="Contact" />
+				{/* <Navigation.NavLink href="/contact" text="Contact" /> */}
 			</Navigation>
 		</header>
 	);
