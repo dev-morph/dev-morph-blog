@@ -38,6 +38,10 @@ export default function CustomMarkdown({
 							alt={image.properties.alt as string}
 							width={500}
 							height={350}
+							style={{
+								width: '100%',
+								height: 'auto',
+							}}
 						/>
 						<span className={classes.img__description}>
 							{image.properties.alt}

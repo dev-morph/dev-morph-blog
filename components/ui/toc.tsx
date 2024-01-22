@@ -13,10 +13,10 @@ const levelMap: { [key: string]: string } = {
 	H2: 'lv2',
 	H3: 'lv3',
 };
-
+type str = number[];
 export default function Toc({ title }: TocProps) {
 	const [tocOpened, setTocOpened] = useState(false);
-	const [hTags, setHTags] = useState<[] | NodeListOf<HTMLElement>>([]);
+	const [hTags, setHTags] = useState<HTMLElement[]>([]);
 	const focusedTag = useRef<HTMLElement | null>(null);
 
 	//처음 렌더 후, hTag 모두 찾기.
@@ -25,7 +25,18 @@ export default function Toc({ title }: TocProps) {
 		const hTagEls = entryPoint?.querySelectorAll(
 			'h1, h2, h3'
 		) as NodeListOf<HTMLElement>;
-		setHTags(hTagEls);
+
+		/**
+		 * markdown에서 줄바꿈으로 사용하는 #(즉, h1태그)가 함께 잡히는 문제가 있었음.
+		 * innerHTML이 있는 부분들은 모두 제외하고 실제 제목들만 추가하도록 변경
+		 */
+		const nonEmptyHTagEls = [] as HTMLElement[];
+		hTagEls.forEach((hTag) => {
+			if (hTag.innerHTML && hTag.innerHTML.length > 0) {
+				nonEmptyHTagEls.push(hTag);
+			}
+		});
+		setHTags(nonEmptyHTagEls);
 
 		//현재 창 넓이가 1350 이하면 ToC와 메인 컴포넌트가 겹친다.
 		//그 이상이라면, ToC를 처음에 열어준다.
@@ -44,14 +55,15 @@ export default function Toc({ title }: TocProps) {
 
 		//HTag를 돌면서, Toc에 넣을 Element를 생성해서 넣어준다.
 		hTags?.forEach((hTag) => {
+			const hTagText = hTag.innerHTML;
 			const liEl = document.createElement('li');
 			const linkEl = document.createElement('a');
 
-			linkEl.innerHTML = hTag.innerHTML;
+			linkEl.innerHTML = hTagText;
 			//linkEl를 클릭하면, 해당 Tag를 가진 곳으로 스크롤 해 준다.
 			linkEl.addEventListener('click', () => {
 				window.scrollTo({
-					top: hTag.offsetTop - 20,
+					top: hTag.offsetTop - 74,
 					behavior: 'smooth',
 				});
 			});
@@ -59,7 +71,7 @@ export default function Toc({ title }: TocProps) {
 			const levelClass = levelMap[hTag.tagName];
 			liEl.classList.add(classes[levelClass]);
 
-			hTagToTocElMapper.set(hTag.innerHTML, liEl);
+			hTagToTocElMapper.set(hTagText, liEl);
 
 			listContainer?.appendChild(liEl);
 		});
@@ -83,9 +95,13 @@ export default function Toc({ title }: TocProps) {
 				getMainElementAtMainContentHeight(mainContentHeight);
 			const focusedTocTag = hTagToTocElMapper.get(mainTag?.innerHTML);
 
-			focusedTag.current?.classList.remove(classes.focused);
-			focusedTocTag?.classList.add(classes.focused);
-			focusedTag.current = focusedTocTag ?? null;
+			console.log('CHECK === > ', focusedTocTag);
+			console.log('CHECK === > ', focusedTocTag);
+			if (focusedTocTag !== focusedTag.current) {
+				focusedTag.current?.classList.remove(classes.focused);
+				focusedTocTag?.classList.add(classes.focused);
+				focusedTag.current = focusedTocTag ?? null;
+			}
 		}
 
 		/**
