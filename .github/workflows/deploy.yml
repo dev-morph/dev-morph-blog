@@ -1,4 +1,4 @@
-name: deploy_blog
+name: deploy
 
 on:
     # 원래 여기에 push 이벤트가 들어갔어야 하는데 `workflow_dispatch`라는 키워드가 들어갔죠?
