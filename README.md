@@ -1,5 +1,4 @@
 ## [morph-dev Tech Blog](https://morph-dev.com/)  
----
 This is a Tech Blog Project using NextJS [(Link)](https://morph-dev.com/)
 
 * Clean-Code: I am not perfect, though, I always strive to write clean code.
@@ -11,4 +10,3 @@ This is a Tech Blog Project using NextJS [(Link)](https://morph-dev.com/)
 <img width="405" alt="image" src="https://github.com/dev-morph/dev-morph-blog/assets/112484043/c3a60646-c45e-452a-8816-602ef3905bbc">
 
 #
----
