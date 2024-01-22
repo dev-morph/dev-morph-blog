@@ -10,18 +10,24 @@ on:
                 description: 'Test tags'
 
 jobs: 
-    build:
-        name: build project to deploy
+    deploy:
+        name: deploy project
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4.1.1
 
             - name: Build
-              run: |
-                    echo "triggered well!"
-                    npm install
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                key: ${{secrets.SSH_KEY}}
+                host: ${{secrets.AWS_PUBLIC_DNS}}
+                username: ${{secrets.AWS_USERNAME}}
+                script: |
+                    cd /home/ubuntu/app/dev-morph-blog
+                    git pull origin main
+                    echo "Success Git Pull"
+                    pm2 stop blog
                     npm run build
-                    echo "build success!"
-
+                    pm2 restart blog
     
