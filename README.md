@@ -1,6 +1,6 @@
 # [morph-dev Tech Blog](https://morph-dev.com/)&nbsp;&nbsp;<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/> <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white"/>
 
-This is a Tech Blog Project using NextJS [(https://morph-dev.com/)](https://morph-dev.com/)
+This is a Tech Blog Project using NextJS [(https://morph-dev.com/)](https://morph-dev.com/)(**still in Development**)
 I strived to write code based on below priciples.
 
 -   [**Clean-Code**](#cleancode): Wrote code as cleanly as possible based on my experience, even if it is not perfect.
