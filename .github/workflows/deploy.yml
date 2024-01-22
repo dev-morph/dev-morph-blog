@@ -20,6 +20,7 @@ jobs:
             - name: Build
               run: |
                     echo "triggered well!"
+                    npm install
                     npm run build
                     echo "build success!"
 
