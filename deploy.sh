@@ -6,3 +6,4 @@ echo " === got pm2 list === "
 pm2 stop blog
 npm run build
 pm2 start npm --name "blog" -- start
+pm2 save
