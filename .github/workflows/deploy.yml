@@ -9,7 +9,7 @@ on:
             tags:
                 description: 'Test tags'
 
-jobs: 
+jobs:
     deploy:
         name: deploy project
         runs-on: ubuntu-latest
@@ -20,14 +20,12 @@ jobs:
             - name: Build
               uses: appleboy/ssh-action@v1.0.3
               with:
-                key: ${{secrets.SSH_KEY}}
-                host: ${{secrets.AWS_PUBLIC_DNS}}
-                username: ${{secrets.AWS_USERNAME}}
-                script: |
-                    cd /home/ubuntu/app/dev-morph-blog
-                    git pull origin main
-                    echo "Success Git Pull"
-                    pm2 stop blog
-                    npm run build
-                    pm2 restart blog
-    
+                  key: ${{secrets.SSH_KEY}}
+                  host: ${{secrets.AWS_PUBLIC_DNS}}
+                  username: ${{secrets.AWS_USERNAME}}
+                  script: |
+                      cd /home/ubuntu/app/dev-morph-blog
+                      git pull origin main
+                      echo "Success Git Pull"
+                      chmod +x deploy.sh
+                      sudo ./deploy.sh
