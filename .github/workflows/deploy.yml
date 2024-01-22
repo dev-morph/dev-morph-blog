@@ -25,6 +25,7 @@ jobs:
                   username: ${{secrets.AWS_USERNAME}}
                   script: |
                       cd /home/ubuntu/app/dev-morph-blog
+                      exec bash \-l
                       git pull origin main
                       echo "Success Git Pull"
                       chmod +x deploy.sh
