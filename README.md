@@ -1,8 +1,8 @@
 ## [morph-dev Tech Blog](https://morph-dev.com/)  
 This is a Tech Blog Project using NextJS [(Link)](https://morph-dev.com/)
 
-* **Clean-Code**: I am not perfect, though, I always strive to write clean code.
-  (You can check [morphlib](https://github.com/dev-morph/dev-morph-blog/tree/main/morph-lib/components) of this project to see how I design and manage React components for clean code.)
+* **Clean-Code**: I am not perfect, though, I always strive to write clean code.  
+  (You can check [morphlib](https://github.com/dev-morph/dev-morph-blog/tree/main/morph-lib/components) of this project to see how I design and manage React components for clean code.)  
   (or my blog post about [how I write clean code](https://marklee1117.tistory.com/176))
   * Expose core logic and Abstract unnecessary internal logic.
   * Concise and Recognizable Naming
