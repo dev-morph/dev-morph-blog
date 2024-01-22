@@ -1,0 +1,26 @@
+name: deploy_blog
+
+on:
+    # 원래 여기에 push 이벤트가 들어갔어야 하는데 `workflow_dispatch`라는 키워드가 들어갔죠?
+    # 즉, "workflow를 수동으로 trigger시킬게"라는 의미입니다.
+    workflow_dispatch:
+        # 값도 받을 수 있습니다. region, env 말고 원하시는 값들을 받을 수도 있겠죠?
+        inputs:
+            tags:
+                description: 'Test tags'
+
+jobs: 
+    build:
+        name: build project to deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+
+            - name: Build
+              run: |
+                    echo "triggered well!"
+                    npm run build
+                    echo "build success!"
+
+    
