@@ -9,28 +9,28 @@ I strived to write code based on below priciples
 
 ## CleanCode?
 
-    I tried to **expose the core logic and abstract unnecessary internal details.**
+    I tried to **expose the core logic** and **abstract unnecessary internal details**.
     My React Code style looks like the following.
     You can check [morphlib](https://github.com/dev-morph/dev-morph-blog/tree/main/morph-lib/components) of this project to see how I design and manage React components for clean code.
     or my blog post about [how I write clean code](https://marklee1117.tistory.com/176)
-    ```html
-    		<>
-    		<Card
-    			href={linkPath}
-    			image={
-    				<Card.Image
-    					imagePath={imagePath}
-    					title={title}
-    					width={350}
-    					height={250}
-    					hoverText={excerpt}
-    				/>
-    			}
-    			description={
-    				<Card.Description title={title} creatTime={formattedDate} />
-    			}
-    		/>
-    	</>
+    ```
+    <>
+        <Card
+            href={linkPath}
+            image={
+                <Card.Image
+                    imagePath={imagePath}
+                    title={title}
+                    width={350}
+                    height={250}
+                    hoverText={excerpt}
+                />
+            }
+            description={
+                <Card.Description title={title} creatTime={formattedDate} />
+            }
+        />
+    </>
     ```
 
 ## Responsive Web Design
