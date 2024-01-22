@@ -1,9 +1,9 @@
 ---
 slug: use-form
-title: 'Custom useForm 직접 만들기(feat. zod)'
+title: 'Custom useForm 직접 만들기(feat. 이벤트 호출순서)'
 date: '2024-01-20'
 image: use-form.png
-excerpt: 개발 2년차가 바라본 클린하게 코드 짜는 방법.
+excerpt: custom useForm 만들기(feat.리액트 이벤트 호출순서, zod)
 isFeatured: true
 ---
 
