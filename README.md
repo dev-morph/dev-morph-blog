@@ -5,7 +5,7 @@ I strived to write code based on below priciples or to achieve features.
 
 -   [**Clean-Code**](#cleancode): Wrote code as cleanly as possible based on my experience, even if it is not perfect.
 -   [**Responsive Web Design**](#responsive-web-design): My blog is designed to be responsive on both web and mobile platforms.
--   [**CI/CD**](#ci/cd): Established simple CI/CD pipeline using AWS EC2 for development convenience.
+-   [**CI/CD**](#ci-cd): Established simple CI/CD pipeline using AWS EC2 for development convenience.
 -   [**HTTPS**](#https): Used a SSL certificate to secure the HTTPS connection.
 
 #
