@@ -95,8 +95,6 @@ export default function Toc({ title }: TocProps) {
 				getMainElementAtMainContentHeight(mainContentHeight);
 			const focusedTocTag = hTagToTocElMapper.get(mainTag?.innerHTML);
 
-			console.log('CHECK === > ', focusedTocTag);
-			console.log('CHECK === > ', focusedTocTag);
 			if (focusedTocTag !== focusedTag.current) {
 				focusedTag.current?.classList.remove(classes.focused);
 				focusedTocTag?.classList.add(classes.focused);

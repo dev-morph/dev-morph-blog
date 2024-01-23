@@ -1,7 +1,6 @@
 import PostsGrid from '../posts/posts-grid';
 import Top01 from '@morphlib/components/Top/Top01';
 import Spacing from '@morphlib/components/Spacing';
-import classes from '@/components/home-page/featured-post.module.scss';
 
 type Post = {
 	slug: string;

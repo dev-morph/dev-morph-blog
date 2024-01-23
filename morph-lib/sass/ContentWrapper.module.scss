@@ -1,0 +1,22 @@
+.content__wrapper {
+	padding-top: 4.5rem;
+	display: flex;
+	justify-content: center;
+
+	.content {
+		width: 90%;
+		max-width: 50rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: var(--size-8) auto;
+	}
+}
+
+@media (min-width: 768px) {
+	.content__wrapper {
+		.content {
+			width: 90%;
+		}
+	}
+}

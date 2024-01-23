@@ -1,3 +1,5 @@
+import classes from '@morphlib/sass/ContentWrapper.module.scss';
+
 type ContentWrapperProps = {
 	className?: string;
 	children: React.ReactNode;
@@ -5,22 +7,8 @@ type ContentWrapperProps = {
 
 export default function ContentWrapper({ children }: ContentWrapperProps) {
 	return (
-		<div
-			style={{
-				paddingTop: '4.5rem',
-				display: 'flex',
-				justifyContent: 'center',
-			}}
-		>
-			<section
-				style={{
-					width: '90%',
-					maxWidth: '50rem',
-					margin: 'var(--size-8) auto',
-				}}
-			>
-				{children}
-			</section>
+		<div className={classes.content__wrapper}>
+			<section className={classes.content}>{children}</section>
 		</div>
 	);
 }
