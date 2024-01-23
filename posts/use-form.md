@@ -13,7 +13,7 @@ isFeatured: true
 
 **우선, 완성된 form은 아래처럼 작동 하게 될 것입니다.**
 
-![use-form](https://github.com/dev-morph/dev-morph-blog/assets/112484043/fd42f5f9-e2e6-4653-bae3-ef7090ba9eea)
+![use-form 유효성검사](use-form.gif)
 
 **useForm**이라는 커스텀 훅에서 제가 원하는 기능은 아래와 같습니다.
 

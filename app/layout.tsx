@@ -13,6 +13,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
 	title: 'morph blog',
 	description: 'morph Blog built in Nextjs 14',
+	verification: {
+		google: "oRP7Q2tUt8FtNyBE1qs3hBvs42adWCSZkwvkqb5cP5s"
+	}
 };
 
 export default function RootLayout({
