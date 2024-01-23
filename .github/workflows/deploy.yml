@@ -24,6 +24,7 @@ jobs:
                   host: ${{secrets.AWS_PUBLIC_DNS}}
                   username: ${{secrets.AWS_USERNAME}}
                   script: |
+                      whoami
                       cd /home/ubuntu/app/dev-morph-blog
                       git pull origin main
                       echo "Success Git Pull"
