@@ -6,6 +6,7 @@ import Spacing from '@/morph-lib/components/Spacing';
 import { z } from 'zod';
 import useForm from '@/morph-lib/hooks/useForm';
 import Button from '@/morph-lib/components/Button';
+import InputWithLabel from '@/morph-lib/components/InputWithLabel';
 
 export default function LoginFunnel() {
 	const formRef = useRef<HTMLFormElement>(null);
@@ -23,17 +24,12 @@ export default function LoginFunnel() {
 
 	return (
 		<>
-			<Top02 textAlign="center">Login</Top02>
+			<Top02 textAlign="center">Welcome</Top02>
 			<Spacing size={30} />
 			<form ref={formRef} onSubmit={loginSubmitHandler}>
-				<div>
-					<label htmlFor="username">username</label>
-					<input id="username" name="username" type="text" />
-				</div>
-				<div>
-					<label htmlFor="password">password</label>
-					<input id="password" name="password" type="text" />
-				</div>
+				<InputWithLabel labelText="Username" htmlFor="username" />
+				<Spacing size={15} />
+				<InputWithLabel labelText="Password" htmlFor="password" />
 				<Spacing size={15} />
 				<Button
 					onClick={() => console.log('hmmm')}

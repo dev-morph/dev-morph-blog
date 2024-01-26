@@ -156,7 +156,15 @@ label.required {
 }
 .error__msg {
 	color: red;
-	font-size: 1rem;
+	font-size: 0.75rem;
+}
+
+/* input 자동완성시 배경 제거 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 @media (min-width: 768px) {

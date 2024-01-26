@@ -1,0 +1,47 @@
+.wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	flex-shrink: 1;
+
+	.input {
+		height: 2.5rem;
+		width: 100%;
+		background-color: white;
+		border: 1px solid rgba(0, 29, 58, 0.18);
+		border-radius: 0.2rem;
+		padding-left: 1rem;
+		// border-bottom: 1px solid black;
+
+		&::placeholder {
+			color: transparent;
+		}
+
+		//input focus된 경우, label 위치 및 색상 조정
+		&:focus ~ .label,
+		&:not(:placeholder-shown) ~ .label,
+		&.has-text ~ .label {
+			color: rgb(26, 115, 232);
+			top: -1rem;
+			left: 0.25rem;
+			background-color: white;
+			transform: scale(0.75);
+		}
+	}
+	.label {
+		position: absolute;
+		font-size: 0.85rem;
+		color: rgba(3, 24, 50, 0.46);
+		top: 0.35rem;
+		left: 1rem;
+		padding: 0.25rem;
+		background-color: transparent;
+		transition: top 0.3s, left 0.3s, background-color 0.3s, padding 0.3s,
+			transform 0.3s;
+	}
+}
+
+// transition: transform 550ms cubic-bezier(0.4, 0, 0.2, 1),
+// opacity 550ms cubic-bezier(0.4, 0, 0.2, 1);
+// transform-origin: bottom left;
