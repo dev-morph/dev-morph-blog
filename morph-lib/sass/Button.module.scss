@@ -1,0 +1,34 @@
+$button-transition-duration: 0.1s;
+$button-transition: color $button-transition-duration ease-in-out,
+	background-color $button-transition-duration ease-in-out,
+	border-color $button-transition-duration ease-in-out,
+	box-shadow $button-transition-duration ease-in-out,
+	opacity $button-transition-duration ease-in-out;
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+
+	font-weight: 600;
+	-webkit-font-smoothing: antialiased;
+
+	width: 100%;
+	border-radius: var(--size-4);
+	&.primary {
+		color: white;
+		background-color: #3182f6;
+	}
+	&.dark {
+		color: #4e5968;
+		background-color: #e5e8eb;
+	}
+	padding: 15px 16px;
+
+	transition: $button-transition;
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
