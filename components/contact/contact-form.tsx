@@ -3,7 +3,7 @@
 import { useRef, FormEvent, useState, useEffect } from 'react';
 import classes from './contact-form.module.css';
 import { z } from 'zod';
-import useForm from '@/custom-hooks/useForm';
+import useForm from '@morphlib/hooks/useForm';
 import Notification from '../ui/notification';
 import { NotificationType } from '@/types/notification_types';
 
@@ -11,9 +11,8 @@ export default function ContactForm() {
 	const [reqStatus, setReqStatus] = useState<NotificationType>(''); //'pending', 'erorr', 'success', ''
 	const [reqErrorMsg, setReqErrorMsg] = useState('');
 	const schema = z.object({
-		email: z.string().email({ message: 'email 형식에 맞지 않습니다.' }),
-		name: z.string().min(1, { message: '필수 입력 항목입니다.' }),
-		message: z.string().min(1, { message: '필수 입력 항목입니다.' }),
+		title: z.string().min(1, { message: '필수 입력 항목입니다.' }),
+		contents: z.string().min(1, { message: '필수 입력 항목입니다.' }),
 	});
 	const formRef = useRef<HTMLFormElement>(null);
 	const { valid, formData } = useForm(formRef, schema);
@@ -33,6 +32,14 @@ export default function ContactForm() {
 
 		if (!valid) return;
 		setReqStatus('pending');
+
+		// try {
+		// 	const response = await fetch('/api/contact');
+		// 	const data = await response.json();
+		// 	console.log('RES IS  --- >', data);
+		// } catch (error) {
+		// 	console.log('error is ', error);
+		// }
 
 		try {
 			const response = await fetch('/api/contact', {
@@ -89,7 +96,7 @@ export default function ContactForm() {
 					noValidate
 				>
 					<div className={classes.controls}>
-						<div className={classes.control}>
+						{/* <div className={classes.control}>
 							<label htmlFor="email" className="required">
 								Your Email
 							</label>
@@ -100,25 +107,25 @@ export default function ContactForm() {
 								autoComplete="off"
 								required
 							/>
-						</div>
+						</div> */}
 						<div className={classes.control}>
-							<label htmlFor="name" className="required">
-								Your Name
+							<label htmlFor="title" className="required">
+								Title
 							</label>
 							<input
 								type="text"
-								id="name"
-								name="name"
+								id="title"
+								name="title"
 								autoComplete="off"
 							/>
 						</div>
 					</div>
 
 					<div className={classes.control}>
-						<label htmlFor="message"></label>
+						<label htmlFor="contents"></label>
 						<textarea
-							id="message"
-							name="message"
+							id="contents"
+							name="contents"
 							rows={5}
 							autoComplete="off"
 						></textarea>

@@ -1,16 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { MongoClient } from 'mongodb';
+import mysql from 'mysql2/promise';
 
 const schema = z.object({
-	email: z.string().email({ message: 'email 형식에 맞지 않습니다.' }),
-	name: z.string().min(1, { message: '필수 입력 값 입니다.' }),
-	message: z
-		.string()
-		.min(4, { message: '메시지는 4글자 이상이어야 합니다.' }),
+	title: z.string().min(1, { message: '필수 입력 항목입니다.' }),
+	contents: z.string().min(1, { message: '필수 입력 항목입니다.' }),
 });
 
 export async function GET(req: Request, res: any) {
+	const connection = await mysql.createConnection({
+		host: 'localhost',
+		user: 'root',
+		database: 'blog',
+		password: '!dlgudxo90',
+	});
+
+	try {
+		const [results, fields] = await connection.query(`SELECT * FROM USER`);
+		console.log('result is ', results);
+		console.log('fieldsis ', fields);
+	} catch (error) {
+		console.log('failed mysql query', error);
+	}
 	return Response.json({ message: 'hoihoi' });
 }
 
@@ -63,4 +75,15 @@ export async function POST(req: Request, res: Response) {
 
 	client.close();
 	return NextResponse.json({ message: 'hoi', data: body });
+}
+
+async function connectDB() {
+	const connection = await mysql.createConnection({
+		host: 'localhost',
+		user: 'root',
+		database: 'blog',
+		password: '!dlgudxo90',
+	});
+
+	return connection;
 }
