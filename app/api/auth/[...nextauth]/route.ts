@@ -2,6 +2,7 @@
 
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { Awaitable, User } from 'next-auth';
 
 const handler = NextAuth({
 	providers: [
@@ -21,7 +22,7 @@ const handler = NextAuth({
 				password: { label: '비밀번호', type: 'password' },
 			},
 
-			async authorize(credentials, req) {
+			async authorize(credentials, req): Promise<User | null> {
 				const res = await fetch(`http://localhost:3000/api/login`, {
 					method: 'POST',
 					headers: {
@@ -46,6 +47,23 @@ const handler = NextAuth({
 			},
 		}),
 	],
+	callbacks: {
+		async session({ session, token, user }) {
+			session.user.role = token.role;
+			session.user.username = token.username;
+			return session;
+		},
+		async jwt({ token, account, user }) {
+			//if the user logs in, you save your user in token
+			if (user) {
+				token.username = user.username;
+				token.role = user.role;
+				token.email = user.email;
+			}
+			return Promise.resolve(token);
+		},
+	},
+	secret: 'BLOG_SECRET',
 	pages: {
 		signIn: '/login',
 	},

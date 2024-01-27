@@ -19,6 +19,15 @@ export default function MainNavigation() {
 				<Navigation>
 					<Navigation.NavLink href="/posts" text="Posts" />
 					<Navigation.NavLink href="/about" text="About" />
+					{session && session.user && (
+						<div
+							onClick={() => {
+								console.log(session.user);
+							}}
+						>
+							test
+						</div>
+					)}
 					{session && session.user ? (
 						<Navigation.NavLink
 							text="LogOut"
