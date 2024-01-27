@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/db';
 import * as bcrypt from 'bcrypt';
 
 interface RequestBody {
@@ -7,7 +7,6 @@ interface RequestBody {
 }
 
 export async function POST(request: Request) {
-	const prisma = new PrismaClient();
 	const body: RequestBody = await request.json();
 
 	const user = await prisma.users.findFirst({

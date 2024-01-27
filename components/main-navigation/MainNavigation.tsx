@@ -19,14 +19,8 @@ export default function MainNavigation() {
 				<Navigation>
 					<Navigation.NavLink href="/posts" text="Posts" />
 					<Navigation.NavLink href="/about" text="About" />
-					{session && session.user && (
-						<div
-							onClick={() => {
-								console.log(session.user);
-							}}
-						>
-							test
-						</div>
+					{session && +session.user?.role === 1 && (
+						<Navigation.NavLink href="/new-post" text="NewPost" />
 					)}
 					{session && session.user ? (
 						<Navigation.NavLink

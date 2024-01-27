@@ -1,17 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/db';
 import * as bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request, res: Response) {
 	const body = await req.json();
-	let prisma;
-	try {
-		prisma = new PrismaClient();
-	} catch (error) {
-		return new NextResponse(JSON.stringify('failed to connect DB.'), {
-			status: 209,
-		});
-	}
 
 	try {
 		const user = await prisma.users.create({

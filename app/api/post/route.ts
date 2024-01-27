@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/db';
 
 interface RequestBody {
 	title: string;
@@ -8,6 +8,5 @@ interface RequestBody {
 }
 
 export async function POST(request: Request) {
-	const prisma = new PrismaClient();
 	const body: RequestBody = await request.json();
 }
