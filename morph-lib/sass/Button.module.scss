@@ -24,6 +24,12 @@ $button-transition: color $button-transition-duration ease-in-out,
 		color: #4e5968;
 		background-color: #e5e8eb;
 	}
+	&.text {
+		color: #4e5968;
+		background-color: transparent;
+		flex-grow: 0;
+	}
+
 	padding: 15px 16px;
 
 	transition: $button-transition;

@@ -24,6 +24,7 @@ function Img({ imagePath, title, width, height, hoverText }: ImgProps) {
 				alt={title}
 				width={width}
 				height={height}
+				priority={true}
 				sizes="100vw"
 				style={{
 					width: '100%',

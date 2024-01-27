@@ -9,9 +9,10 @@ import useForm from '@morphlib/hooks/useForm';
 import Button from '@morphlib/components/Button';
 import InputWithLabel from '@morphlib/components/InputWithLabel';
 import Text from '@morphlib/components/Text';
-import { signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+import showToast from '@/morph-lib/utils/toast';
 
-export default function LoginFunnel() {
+export default function LoginForm() {
 	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 	const schema = z.object({
@@ -28,12 +29,18 @@ export default function LoginFunnel() {
 			username: formData?.username,
 			password: formData?.password,
 			redirect: false,
-			// callbackUrl: '/',
 		});
 
 		if (result?.error) {
-			alert(result?.error);
+			showToast({
+				message: 'Failed to Login. Please try again.',
+				type: 'error',
+			});
 		} else {
+			showToast({
+				message: 'Login has been completed.',
+				type: 'success',
+			});
 			router.push('/');
 		}
 	}
@@ -53,14 +60,24 @@ export default function LoginFunnel() {
 				<Spacing size={15} />
 				<Button fontSize="var(--size-4)">Login</Button>
 			</form>
-			{/* <Spacing size={30} />
+			<Spacing size={30} />
 			<Text
 				textAlign="center"
 				size="0.75rem"
 				color="rgba(3, 24, 50, 0.46)"
 			>
 				Or Sign Up Using
-			</Text> */}
+			</Text>
+			<Text
+				textAlign="center"
+				size="0.75rem"
+				color="rgba(3, 24, 50, 0.9)"
+				fontWeight="bold"
+				styled={{ cursor: 'pointer', textDecoration: 'underline' }}
+				onClick={() => router.push('/signup')}
+			>
+				Sign Up
+			</Text>
 		</>
 	);
 }

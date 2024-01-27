@@ -57,8 +57,8 @@ model Roles {
 
 model Users {
   id         Int       @id @default(autoincrement())
-  email      String?   @db.VarChar(255)
-  username   String    @db.VarChar(255)
+  email      String?   @db.VarChar(255) @unique
+  username   String    @db.VarChar(255) @unique
   password   String    @db.VarChar(255)
   role       Int
   created_at DateTime  @default(now()) @db.DateTime(0)

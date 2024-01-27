@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import classes from '@morphlib/sass/Button.module.scss';
 
 type ButtonProps = PropsWithChildren<{
-	type?: 'primary' | 'dark';
+	type?: 'primary' | 'dark' | 'text';
 	style?: 'fill';
 	display?: 'inline' | 'block' | 'full';
 	btnColor?: string;

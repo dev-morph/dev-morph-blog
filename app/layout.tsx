@@ -5,6 +5,8 @@ import '@/styles/globals.scss';
 import ContentWrapper from '@morphlib/components/ContentWrapper';
 import NotificationOverlay from '@morphlib/components/NotificationOverlay';
 import Provider from '@/components/sessionProvider/Provider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,6 +34,7 @@ export default function RootLayout({
 					<ContentWrapper>{children}</ContentWrapper>
 					<NotificationOverlay />
 				</Provider>
+				<ToastContainer />
 			</body>
 		</html>
 	);
