@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categories {
+  id         Int    @id
+  name       String @db.VarChar(255)
+  sort_order Int
+}
+
+model CommentReplies {
+  id              Int      @id @default(autoincrement())
+  root_comment_id Int
+  username        String   @db.VarChar(255)
+  comment         String   @db.Text
+  created_at      DateTime @default(now()) @db.DateTime(0)
+  updated_at      DateTime @default(now()) @db.DateTime(0)
+}
+
+model Comments {
+  id         Int      @id @default(autoincrement())
+  post_id    Int
+  username   String   @db.VarChar(255)
+  comment    String   @db.Text
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Likes {
+  ip      String @db.VarChar(15)
+  post_id Int
+
+  @@ignore
+}
+
+model Posts {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(255)
+  category   Int
+  contents   String   @db.Text
+  hits       Int      @default(0)
+  thumbnail  String?  @db.VarChar(255)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+}
+
+model Roles {
+  role Int    @id
+  name String @db.VarChar(20)
+}
+
+model Users {
+  id         Int       @id @default(autoincrement())
+  email      String?   @db.VarChar(255)
+  username   String    @db.VarChar(255)
+  password   String    @db.VarChar(255)
+  role       Int
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @default(now()) @db.DateTime(0)
+}

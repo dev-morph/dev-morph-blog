@@ -29,36 +29,34 @@ export default function ContactForm() {
 
 	async function submitHandler(e: FormEvent) {
 		e.preventDefault();
-
 		if (!valid) return;
 		setReqStatus('pending');
 
-		// try {
-		// 	const response = await fetch('/api/contact');
-		// 	const data = await response.json();
-		// 	console.log('RES IS  --- >', data);
-		// } catch (error) {
-		// 	console.log('error is ', error);
-		// }
-
 		try {
-			const response = await fetch('/api/contact', {
-				method: 'POST',
-				body: JSON.stringify(formData),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch('/api/user');
 			const data = await response.json();
-			if (!response.ok) {
-				throw new Error(data.message || 'Something went wrong.');
-			}
-			formRef.current?.reset();
-			setReqStatus('success');
 		} catch (error) {
-			setReqErrorMsg(error.message);
-			setReqStatus('error');
+			console.log('error is ', error);
 		}
+
+		// try {
+		// 	const response = await fetch('/api/contact', {
+		// 		method: 'POST',
+		// 		body: JSON.stringify(formData),
+		// 		headers: {
+		// 			'Content-Type': 'application/json',
+		// 		},
+		// 	});
+		// 	const data = await response.json();
+		// 	if (!response.ok) {
+		// 		throw new Error(data.message || 'Something went wrong.');
+		// 	}
+		// 	formRef.current?.reset();
+		// 	setReqStatus('success');
+		// } catch (error) {
+		// 	setReqErrorMsg(error.message);
+		// 	setReqStatus('error');
+		// }
 	}
 
 	let notification;

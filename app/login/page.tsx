@@ -1,4 +1,4 @@
-import LoginFunnel from '@/components/login/LoginFunnel';
+import LoginFunnel from '@/components/login/LoginForm';
 
 export default function Login() {
 	return (

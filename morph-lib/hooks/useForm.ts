@@ -17,28 +17,14 @@ export default function useFrom(
 		const formElement = formRef.current;
 		let removeSubmitEventListener: null | Function = null;
 
-		function checkFormValidHandler() {
-			const values = Object.values(formStatus);
-			return (
-				values.length > 0 &&
-				Object.values(formStatus).every((valid) => valid === true)
-			);
-		}
-
 		function addSubmitEventListenerHandler(formElement: HTMLFormElement) {
 			// submit 버튼 클릭 할 때, 실행 되는 함수.
 			function handleSubmit(event: SubmitEvent) {
 				const target = event.target as HTMLFormElement;
 				if (target) {
-					setIsFirst(false);
 					if (isFirst) {
 						addValidateELHandler(target, schema);
-					}
-
-					if (checkFormValidHandler()) {
-						setFormValid(true);
-					} else {
-						setFormValid(false);
+						setIsFirst(false);
 					}
 				}
 			}
@@ -146,7 +132,17 @@ export default function useFrom(
 				removeSubmitEventListener();
 			}
 		};
-	}, [formRef, schema, isFirst, formStatus]);
+	}, [formRef, schema, isFirst]);
+
+	/**
+	 * formStatus가 변경될 때마다, form 전체 유효성을 체크해서 저장
+	 */
+	useEffect(() => {
+		const formInputValues = Object.values(formStatus);
+		setFormValid(
+			Object.values(formStatus).every((valid) => valid === true)
+		);
+	}, [formStatus]);
 
 	function addErrorMsgElement(
 		inputEl: HTMLInputElement | HTMLTextAreaElement,
@@ -176,7 +172,6 @@ export default function useFrom(
 		}
 		return result;
 	}
-
 	return {
 		valid: formValid,
 		formData: formRef.current && getFormData(formRef.current),

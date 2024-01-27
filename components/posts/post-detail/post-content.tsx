@@ -3,7 +3,7 @@ import PostHeader from './post-header';
 import FadeIn from '@/components/ui/fade-in';
 import Toc from '@/components/ui/toc';
 import CustomMarkdown from '@/components/common/custom-markdown';
-import Spacing from '@/morph-lib/components/Spacing';
+import Spacing from '@morphlib/components/Spacing';
 import { PostType } from '@/types/post_types';
 
 type PostContentProps = {

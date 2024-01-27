@@ -18,8 +18,6 @@ export async function GET(req: Request, res: any) {
 
 	try {
 		const [results, fields] = await connection.query(`SELECT * FROM USER`);
-		console.log('result is ', results);
-		console.log('fieldsis ', fields);
 	} catch (error) {
 		console.log('failed mysql query', error);
 	}

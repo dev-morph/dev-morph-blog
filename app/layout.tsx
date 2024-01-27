@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import MainNavigation from '@/components/layout/MainNavigation';
+import MainNavigation from '@/components/main-navigation/MainNavigation';
 import '@/styles/globals.scss';
-import ContentWrapper from '@/morph-lib/components/ContentWrapper';
-import NotificationOverlay from '@/morph-lib/components/NotificationOverlay';
+import ContentWrapper from '@morphlib/components/ContentWrapper';
+import NotificationOverlay from '@morphlib/components/NotificationOverlay';
+import Provider from '@/components/sessionProvider/Provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 	title: 'morph blog',
 	description: 'morph Blog built in Nextjs 14',
 	verification: {
-		google: "oRP7Q2tUt8FtNyBE1qs3hBvs42adWCSZkwvkqb5cP5s"
-	}
+		google: 'oRP7Q2tUt8FtNyBE1qs3hBvs42adWCSZkwvkqb5cP5s',
+	},
 };
 
 export default function RootLayout({
@@ -26,9 +27,11 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<MainNavigation />
-				<ContentWrapper>{children}</ContentWrapper>
-				<NotificationOverlay />
+				<Provider>
+					<MainNavigation />
+					<ContentWrapper>{children}</ContentWrapper>
+					<NotificationOverlay />
+				</Provider>
 			</body>
 		</html>
 	);

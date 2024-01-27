@@ -1,7 +1,7 @@
 import classes from './post-header.module.scss';
-import Chips from '@/morph-lib/components/Chips';
-import Top02 from '@/morph-lib/components/Top/Top02';
-import Spacing from '@/morph-lib/components/Spacing';
+import Chips from '@morphlib/components/Chips';
+import Top02 from '@morphlib/components/Top/Top02';
+import Spacing from '@morphlib/components/Spacing';
 
 type PostHeaderProps = {
 	title: string;

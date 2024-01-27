@@ -1,6 +1,6 @@
 import PostsGrid from './posts-grid';
-import Top01 from '@/morph-lib/components/Top/Top01';
-import Spacing from '@/morph-lib/components/Spacing';
+import Top01 from '@morphlib/components/Top/Top01';
+import Spacing from '@morphlib/components/Spacing';
 
 type Post = {
 	title: string;

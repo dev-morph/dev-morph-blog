@@ -1,7 +1,7 @@
 import PostContent from '@/components/posts/post-detail/post-content';
 import { getPostData } from '@/utils/posts-utils';
 import { Metadata, ResolvingMetadata } from 'next';
-import Top03 from '@/morph-lib/components/Top/Top03';
+import Top03 from '@morphlib/components/Top/Top03';
 
 type Props = {
 	params: { slug: string };
