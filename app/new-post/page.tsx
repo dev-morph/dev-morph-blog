@@ -1,11 +1,10 @@
-import NewPostForm from '@/components/new-post-form/NewPostForm';
-import Top02 from '@/morph-lib/components/Top/Top02';
+import PostForm from '@/components/post-form/PostForm';
+import Spacing from '@/morph-lib/components/Spacing';
 
 export default function NewPost() {
 	return (
 		<>
-			<Top02>제목 입력</Top02>
-			<NewPostForm />
+			<PostForm />
 		</>
 	);
 }

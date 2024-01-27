@@ -9,4 +9,5 @@ interface RequestBody {
 
 export async function POST(request: Request) {
 	const body: RequestBody = await request.json();
+	console.log('body is ', body);
 }
