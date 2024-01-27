@@ -24,12 +24,18 @@ export default function LoginFunnel() {
 		e.preventDefault();
 
 		if (!valid) return;
-		await signIn('credentials', {
+		const result = await signIn('credentials', {
 			username: formData?.username,
 			password: formData?.password,
-			redirect: true,
-			callbackUrl: '/',
+			redirect: false,
+			// callbackUrl: '/',
 		});
+
+		if (result?.error) {
+			alert(result?.error);
+		} else {
+			router.push('/');
+		}
 	}
 
 	return (
