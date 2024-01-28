@@ -4,6 +4,7 @@ This is a Tech Blog Project using NextJS [(https://morph-dev.com/)](https://morp
 I strived to write code based on below priciples or to achieve features.  
 
 -   [**Clean-Code**](#cleancode): Wrote code as cleanly as possible based on my experience, even if it is not perfect.
+-   [**Easy to Upload Post**](#easy-to-upload-post): It has to be easy to upload Post with several pictures.
 -   [**Responsive Web Design**](#responsive-web-design): My blog is designed to be responsive on both web and mobile platforms.
 -   [**CI/CD**](#cicd): Established simple CI/CD pipeline using AWS EC2 for development convenience.
 -   [**HTTPS**](#https): Used a SSL certificate to secure the HTTPS connection.
@@ -40,6 +41,11 @@ or my blog post about [how I write clean code](https://marklee1117.tistory.com/1
 ```
 
 #
+
+## Easy to Upload Post
+When uploading posts with pictures, convenience is key. To achieve that, I've designed a **custom post form** as shown below. What makes it especially user-friendly is the seamless file upload and deletion process.
+![write-post](https://github.com/dev-morph/dev-morph-blog/assets/112484043/1f1b5676-6e8b-4d91-8ba8-a63b7e708d4c)
+
 
 #
 
