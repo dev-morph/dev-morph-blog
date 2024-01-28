@@ -11,11 +11,14 @@ import InputWithLabel from '@/morph-lib/components/InputWithLabel';
 import Spacing from '@/morph-lib/components/Spacing';
 import Button from '@/morph-lib/components/Button';
 import showToast from '@/morph-lib/utils/toast';
+import Select from '@/morph-lib/components/Select';
+import { CategoryType } from '@/types/category_types';
 
 export default function PostForm() {
 	const router = useRouter();
 	const { data: session } = useSession();
 	const [categories, setCategories] = useState([]);
+	const [selectedCategory, setSelectedCategory] = useState('Choose Category');
 
 	//TODO 임시 권한 체크를 위한 useEffect, 추후 navigationGuard로 변경
 	useEffect(() => {
@@ -28,7 +31,9 @@ export default function PostForm() {
 	useEffect(() => {
 		async function getAllCategories() {
 			const { data } = await axios.get('/api/category');
-			setCategories(data.data);
+			setCategories(
+				data.data.map((category: CategoryType) => category.name)
+			);
 		}
 
 		getAllCategories();
@@ -62,8 +67,13 @@ export default function PostForm() {
 
 	return (
 		<form onSubmit={handleSubmit(publishNewPost)}>
-			<input type="setext" />
 			<InputWithLabel htmlFor="title" labelText="title" />
+			<Spacing size={10} />
+			<Select
+				placeholder={selectedCategory}
+				onChange={setSelectedCategory}
+				options={categories}
+			/>
 			<Spacing size={10} />
 			<textarea
 				name=""

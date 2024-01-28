@@ -65,13 +65,10 @@ export default function SignupForm() {
 			<Top02 textAlign="center">SignUp</Top02>
 			<Spacing size={30} />
 			<form onSubmit={handleSubmit(onSubmit)}>
-				{/* <input type="text" {...register('username')} />
-				<input type="text" {...register('password')} />
-				<input type="text" {...register('passwordCheck')} /> */}
 				<InputWithLabel
 					labelText="Username"
 					htmlFor="username"
-					register={{ ...register('username') }}
+					register={register('username')}
 				/>
 				<Text className="error__msg">{errors.username?.message}</Text>
 				<Spacing size={15} />
@@ -79,7 +76,7 @@ export default function SignupForm() {
 					labelText="Password"
 					htmlFor="password"
 					type="password"
-					register={{ ...register('password') }}
+					register={register('password')}
 				/>
 				<Text className="error__msg">{errors.password?.message}</Text>
 				<Spacing size={15} />
@@ -87,7 +84,7 @@ export default function SignupForm() {
 					labelText="PasswordCheck"
 					htmlFor="passwordCheck"
 					type="password"
-					register={{ ...register('passwordCheck') }}
+					register={register('passwordCheck')}
 				/>
 				<Text className="error__msg">
 					{errors.passwordCheck?.message}
