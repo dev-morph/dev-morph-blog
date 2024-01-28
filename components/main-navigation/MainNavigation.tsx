@@ -25,7 +25,7 @@ export default function MainNavigation() {
 					{session && session.user ? (
 						<Navigation.NavLink
 							text="LogOut"
-							onClick={() => signOut()}
+							onClick={() => signOut({ callbackUrl: '/' })}
 						/>
 					) : (
 						<Navigation.NavLink href="/login" text="Login" />
