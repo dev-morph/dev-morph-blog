@@ -14,11 +14,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { postSchema, type PostSchema } from '@/schema/post-schema';
 import Textarea from '@/morph-lib/components/Textarea';
+import FileInput from '@/morph-lib/components/FileInput';
 
 export default function PostForm() {
 	const router = useRouter();
 	const { data: session } = useSession();
 	const [categories, setCategories] = useState([]);
+	const [files, setFiles] = useState<File[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState('Choose Category');
 
 	//TODO 임시 권한 체크를 위한 useEffect, 추후 navigationGuard로 변경
@@ -73,11 +75,14 @@ export default function PostForm() {
 			/>
 			<Spacing size={10} />
 			<Textarea
+				rows={20}
 				errorMsg={errors.content?.message}
 				register={register('content')}
 			/>
 			<Spacing size={10} />
-			<Button>POST</Button>
+			<FileInput files={files} setFiles={setFiles} />
+			<Spacing size={10} />
+			<Button btnType="submit">POST</Button>
 		</form>
 	);
 }

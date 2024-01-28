@@ -1,9 +1,10 @@
-import { PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import classes from '@morphlib/sass/Button.module.scss';
 
 type ButtonProps = PropsWithChildren<{
 	type?: 'primary' | 'dark' | 'text';
-	style?: 'fill';
+	btnType?: 'button' | 'submit' | 'reset';
+	style?: 'fill' | 'outline';
 	display?: 'inline' | 'block' | 'full';
 	btnColor?: string;
 
@@ -17,6 +18,7 @@ export default function Button(props: ButtonProps) {
 		type = 'primary',
 		style = 'fill',
 		display = 'inline',
+		btnType = 'submit',
 		btnColor,
 		disabled,
 		children,
@@ -27,7 +29,8 @@ export default function Button(props: ButtonProps) {
 	return (
 		<button
 			{...rest}
-			className={`${classes.button} ${classes[type]}`}
+			className={`${classes.button} ${classes[type]} ${classes[style]}`}
+			type={btnType}
 			style={{ backgroundColor: btnColor }}
 			disabled={disabled}
 		>
