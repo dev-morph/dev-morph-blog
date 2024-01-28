@@ -1,5 +1,6 @@
 .image__wrapper {
 	display: flex;
+	background-color: rgba(229, 232, 235, 0.4);
 	align-items: center;
 	overflow-x: scroll;
 	overflow-y: hidden;
@@ -29,21 +30,21 @@
 		}
 	}
 
-	// .delete__btn {
-	// 	margin-left: 0.5rem;
-	// 	display: flex;
-	// 	justify-content: center;
-	// 	align-items: center;
-	// 	border: 2px dotted #3182f6;
-	// 	color: #3182f6;
-	// 	border-radius: 50%;
-	// 	width: 1.8rem;
-	// 	height: 1.8rem;
-	// 	font-size: 0.8rem;
-	// 	cursor: pointer;
+	.add__btn {
+		margin-left: 0.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1.5px dotted #3182f6;
+		color: #3182f6;
+		border-radius: 50%;
+		width: 1.8rem;
+		height: 1.8rem;
+		font-size: 0.8rem;
+		cursor: pointer;
 
-	// 	&:hover {
-	// 		background-color: rgba(49, 130, 246, 0.3);
-	// 	}
-	// }
+		&:hover {
+			background-color: rgba(49, 130, 246, 0.3);
+		}
+	}
 }
