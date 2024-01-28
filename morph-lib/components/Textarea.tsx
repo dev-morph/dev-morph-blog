@@ -19,7 +19,7 @@ export default function Textarea({
 			<textarea
 				cols={cols}
 				rows={rows}
-				style={{ width: '100%' }}
+				style={{ width: '100%', padding: '0.5rem' }}
 				{...register}
 			/>
 			{errorMsg && <Text className="error__msg">{errorMsg}</Text>}

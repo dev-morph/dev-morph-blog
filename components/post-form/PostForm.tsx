@@ -48,8 +48,13 @@ export default function PostForm() {
 		resolver: zodResolver(postSchema),
 	});
 
-	function publishNewPost(data: PostSchema) {
-		console.log('data is ', data);
+	async function publishNewPost(data: PostSchema) {
+		const body = {
+			...data,
+			category: selectedCategory,
+		};
+		const result = await axios.post('/api/post', body);
+		console.log('result is ', result);
 	}
 
 	return (
