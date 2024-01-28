@@ -3,9 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import InputWithLabel from '@/morph-lib/components/InputWithLabel';
 import Spacing from '@/morph-lib/components/Spacing';
@@ -13,6 +10,10 @@ import Button from '@/morph-lib/components/Button';
 import showToast from '@/morph-lib/utils/toast';
 import Select from '@/morph-lib/components/Select';
 import { CategoryType } from '@/types/category_types';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { postSchema, type PostSchema } from '@/schema/post-schema';
+import Textarea from '@/morph-lib/components/Textarea';
 
 export default function PostForm() {
 	const router = useRouter();
@@ -39,35 +40,26 @@ export default function PostForm() {
 		getAllCategories();
 	}, []);
 
-	const signupSchema = z
-		.object({
-			username: z.string().min(1, { message: '필수 입력 항목입니다.' }),
-			password: z.string().min(1, { message: '필수 입력 항목입니다.' }),
-			passwordCheck: z
-				.string()
-				.min(1, { message: '패스워드가 일치하지 않습니다.' }),
-		})
-		.refine((data) => data.password === data.passwordCheck, {
-			path: ['passwordCheck'],
-			message: '비밀번호가 일치하지 않습니다.',
-		});
-
-	type SignupPasswordCheckSchema = z.infer<typeof signupSchema>;
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<SignupPasswordCheckSchema>({
-		resolver: zodResolver(signupSchema),
+	} = useForm<PostSchema>({
+		resolver: zodResolver(postSchema),
 	});
 
-	function publishNewPost(data: SignupPasswordCheckSchema) {
+	function publishNewPost(data: PostSchema) {
 		console.log('data is ', data);
 	}
 
 	return (
 		<form onSubmit={handleSubmit(publishNewPost)}>
-			<InputWithLabel htmlFor="title" labelText="title" />
+			<InputWithLabel
+				htmlFor="title"
+				labelText="title"
+				errorMsg={errors.title?.message}
+				register={register('title')}
+			/>
 			<Spacing size={10} />
 			<Select
 				placeholder={selectedCategory}
@@ -75,14 +67,11 @@ export default function PostForm() {
 				options={categories}
 			/>
 			<Spacing size={10} />
-			<textarea
-				name=""
-				id=""
-				cols={30}
-				rows={28}
-				style={{ width: '100%' }}
-			></textarea>
-			{categories.map((category: any) => category.name)}
+			<Textarea
+				errorMsg={errors.content?.message}
+				register={register('content')}
+			/>
+			<Spacing size={10} />
 			<Button>POST</Button>
 		</form>
 	);

@@ -8,26 +8,16 @@ import InputWithLabel from '@morphlib/components/InputWithLabel';
 import Text from '@morphlib/components/Text';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import showToast from '@/morph-lib/utils/toast';
+import {
+	signupSchema,
+	type SignupPasswordCheckSchema,
+} from '@/schema/signup-schema';
 
 export default function SignupForm() {
 	const router = useRouter();
-	const signupSchema = z
-		.object({
-			username: z.string().min(1, { message: '필수 입력 항목입니다.' }),
-			password: z.string().min(1, { message: '필수 입력 항목입니다.' }),
-			passwordCheck: z
-				.string()
-				.min(1, { message: '패스워드가 일치하지 않습니다.' }),
-		})
-		.refine((data) => data.password === data.passwordCheck, {
-			path: ['passwordCheck'],
-			message: '비밀번호가 일치하지 않습니다.',
-		});
 
-	type SignupPasswordCheckSchema = z.infer<typeof signupSchema>;
 	const {
 		register,
 		handleSubmit,
@@ -69,26 +59,24 @@ export default function SignupForm() {
 					labelText="Username"
 					htmlFor="username"
 					register={register('username')}
+					errorMsg={errors.username?.message}
 				/>
-				<Text className="error__msg">{errors.username?.message}</Text>
 				<Spacing size={15} />
 				<InputWithLabel
 					labelText="Password"
 					htmlFor="password"
 					type="password"
 					register={register('password')}
+					errorMsg={errors.password?.message}
 				/>
-				<Text className="error__msg">{errors.password?.message}</Text>
 				<Spacing size={15} />
 				<InputWithLabel
 					labelText="PasswordCheck"
 					htmlFor="passwordCheck"
 					type="password"
 					register={register('passwordCheck')}
+					errorMsg={errors.passwordCheck?.message}
 				/>
-				<Text className="error__msg">
-					{errors.passwordCheck?.message}
-				</Text>
 				<Spacing size={15} />
 				<Button fontSize="var(--size-4)">Signup</Button>
 			</form>
