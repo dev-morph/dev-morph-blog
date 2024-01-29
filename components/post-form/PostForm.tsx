@@ -55,7 +55,27 @@ export default function PostForm() {
 			...data,
 			category: selectedCategory,
 		};
-		const result = await axios.post('/api/post', body);
+		const formData = new FormData();
+		formData.append('files', files[0]);
+		// for (const file of files) {
+		// 	formData.append('files', file);
+		// }
+		// const blob = new Blob([JSON.stringify(body)], {
+		// 	type: 'application/json',
+		// });
+		// formData.append('data', blob);
+
+		// console.log('formData are', formData);
+		// for (const [key, value] of formData.entries()) {
+		// 	console.log('key is ', key);
+		// 	console.log('value is ', value);
+		// }
+
+		const result = await axios.post('/api/post', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
 		console.log('result is ', result);
 	}
 
@@ -75,7 +95,7 @@ export default function PostForm() {
 			/>
 			<Spacing size={10} />
 			<Textarea
-				rows={20}
+				rows={15}
 				errorMsg={errors.content?.message}
 				register={register('content')}
 			/>
