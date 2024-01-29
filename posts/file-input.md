@@ -1,7 +1,7 @@
 ---
 slug: 'file-input'
 title: 'Preview 있는 File Input 만들기(Next.js, TS)'
-date: '2024-01-22'
+date: '2024-01-29'
 image: file-input.png
 excerpt: React && TypeScript로 커스텀 File Input 만들기(feat. Preview)
 isFeatured: true
