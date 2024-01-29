@@ -12,10 +12,6 @@ type FileInputProps = {
 export default function FileInput({ files, setFiles }: FileInputProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	function clickFileInput() {
-		inputRef.current?.click();
-	}
-
 	function selectFile(
 		e: React.DragEvent | React.ChangeEvent<HTMLInputElement>
 	) {
@@ -43,10 +39,11 @@ export default function FileInput({ files, setFiles }: FileInputProps) {
 				files={files}
 				deleteFileHandler={deleteFile}
 				addFileHandler={clickFileInput}
+				onDrop={selectFile}
 			/>
 			<Spacing size={15} />
 			<Button
-				onClick={clickFileInput}
+				onClick={() => inputRef.current?.click()}
 				style="outline"
 				fontSize="0.75rem"
 				btnType="button"

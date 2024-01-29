@@ -8,19 +8,36 @@ type FileThumbnailsProps = {
 	files: File[];
 	deleteFileHandler?: Function;
 	addFileHandler?: MouseEventHandler<HTMLDivElement>;
+	onDrop?: Function;
 };
 
 export default function FileThumbnails({
 	files,
 	deleteFileHandler,
 	addFileHandler,
+	onDrop
 }: FileThumbnailsProps) {
 	function clickDeleteBtn(fileName: string) {
 		deleteFileHandler && deleteFileHandler(fileName);
 	}
 
 	return (
-		<div className={classes.image__wrapper}>
+		<div className={classes.image__wrapper}
+			onDragOver={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+			}}
+			onDragEnter={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+			}}
+			onDrop={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				onDrop && onDrop(e)
+			}
+			}
+		>
 			{files.map((file) => (
 				<div className={classes.image} key={file.name}>
 					<Image
