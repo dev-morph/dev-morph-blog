@@ -87,7 +87,7 @@ Preview지역에 Drop이벤트가 일어나거나, File을 선택하는 이벤�
 <FileThumbnails
     files={files}
     deleteFileHandler={deleteFile}
-    addFileHandler={clickFileInput}
+    addFileHandler={() => inputRef.current?.click()}
     onDrop={selectFile}
 />
 <Spacing size={15} />

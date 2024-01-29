@@ -38,7 +38,7 @@ export default function FileInput({ files, setFiles }: FileInputProps) {
 			<FileThumbnails
 				files={files}
 				deleteFileHandler={deleteFile}
-				addFileHandler={clickFileInput}
+				addFileHandler={() => inputRef.current?.click()}
 				onDrop={selectFile}
 			/>
 			<Spacing size={15} />
