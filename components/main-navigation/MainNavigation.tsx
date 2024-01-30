@@ -9,7 +9,7 @@ import Provider from '@/components/sessionProvider/Provider';
 
 export default function MainNavigation() {
 	const { data: session } = useSession();
-	console.log('session is ', session?.user);
+
 	return (
 		<Provider>
 			<header className={classes.header}>
