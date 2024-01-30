@@ -14,21 +14,22 @@ async function uploadFileToS3(file: Buffer) {
 	const fileBuffer = file;
 
 	const uuid = uuidv4();
-	const now = dayjs().format('YYYYMMDD_HH_mmss')
+	const now = dayjs().format('YYYYMMDD_HH_mmss');
 	const uuidFileName = `${uuid}_${now}`;
+	const encodedFileName = encodeURIComponent(uuidFileName);
 
 	const params = {
 		Bucket: 'moyang',
 		Key: `images/${uuidFileName}`,
 		Body: fileBuffer,
-		ContentType: "image",
-	}
+		ContentType: 'image',
+	};
 
 	const command = new PutObjectCommand(params);
 
-	await s3Client.send(command);
+	const result = await s3Client.send(command);
 
-	return uuidFileName;
+	return encodedFileName;
 }
 
 export default uploadFileToS3;

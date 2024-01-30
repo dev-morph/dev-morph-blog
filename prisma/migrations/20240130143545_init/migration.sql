@@ -1,36 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Categories` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `CommentReplies` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Comments` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Likes` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Posts` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Roles` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Users` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE `Categories`;
-
--- DropTable
-DROP TABLE `CommentReplies`;
-
--- DropTable
-DROP TABLE `Comments`;
-
--- DropTable
-DROP TABLE `Likes`;
-
--- DropTable
-DROP TABLE `Posts`;
-
--- DropTable
-DROP TABLE `Roles`;
-
--- DropTable
-DROP TABLE `Users`;
-
 -- CreateTable
 CREATE TABLE `CommentReply` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -61,6 +28,18 @@ CREATE TABLE `Like` (
     `post_id` INTEGER NOT NULL,
     `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updated_at` DATETIME(0) NULL DEFAULT CURRENT_TIMESTAMP(0)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Image` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `url` VARCHAR(255) NOT NULL,
+    `alt` VARCHAR(255) NULL,
+    `post_id` INTEGER NOT NULL,
+    `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `updated_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -118,6 +97,9 @@ CREATE TABLE `Role` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Image` ADD CONSTRAINT `Image_post_id_fkey` FOREIGN KEY (`post_id`) REFERENCES `Post`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Post_Category` ADD CONSTRAINT `Post_Category_post_id_fkey` FOREIGN KEY (`post_id`) REFERENCES `Post`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

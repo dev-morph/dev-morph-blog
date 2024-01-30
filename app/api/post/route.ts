@@ -33,16 +33,15 @@ export async function POST(
 			);
 		}
 		//파일 저장
-		const filenames = [];
+		const fileUrls = [];
 		for (const file of files) {
 			const buffer = Buffer.from(await file.arrayBuffer());
-			const filename = await uploadFileToS3(buffer);
-			filenames.push(filename);
+			const url = await uploadFileToS3(buffer);
+			fileUrls.push(url);
 		}
 
 		//데이터
-
-		return NextResponse.json({ msg: 'Success', filenames });
+		return NextResponse.json({ msg: 'Success', fileUrls });
 	} catch (error) {
 		console.log('error is ', error);
 		return NextResponse.json({ error });

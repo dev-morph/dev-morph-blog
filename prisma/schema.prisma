@@ -35,6 +35,16 @@ model Like {
   @@ignore
 }
 
+model Image {
+  id         Int      @id @default(autoincrement())
+  url        String   @db.VarChar(255)
+  post_id    Int
+  Post       Post     @relation(fields: [post_id], references: [id])
+
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+}
+
 model Post {
   id         Int      @id @default(autoincrement())
   title      String   @db.VarChar(255)
@@ -45,6 +55,7 @@ model Post {
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
 
+  image Image[]
   post_category Post_Category[]
 }
 
