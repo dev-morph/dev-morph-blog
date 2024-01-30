@@ -1,8 +1,11 @@
-import { NextResponse } from 'next/server';
-import upload from '@/aws';
-import { RequestHandler, Request, Response } from 'express';
+import { NextRequest, NextResponse } from 'next/server';
+import { Request, Response } from 'express';
 import { NextApiRequest, NextApiResponse } from 'next';
-import runMiddleware from '@/utils/runMiddleware';
+import uploadFileToS3 from '@/aws'
+
+export async function GET(request: NextRequest) {
+	return NextResponse.json({ msg: "connect" });
+}
 
 interface RequestBody {
 	title: string;
@@ -14,25 +17,29 @@ interface RequestBody {
 type NextApiRequestWithFormData = NextApiRequest & Request & { files: any[] };
 type NextApiResponseCustom = NextApiResponse & Response;
 export async function POST(
-	request: NextApiRequestWithFormData,
+	request: NextRequest,
 	response: NextApiResponseCustom
 ) {
-	const result = await runMiddleware(
-		request,
-		response,
-		upload.single('files')
-	);
+	try {
+		const formData = await request.formData();
+		const file = formData.get("files") as Blob;
+		const blobData = formData.get('data') as Blob;
+		const data = JSON.parse(await blobData.text());
 
-	console.log('result is ', result);
+		if (!file) {
+			return NextResponse.json({error: "File is not attached."}, {status: 400})
+		}
 
-	// const formData = await request.formData();
-	// const files = (formData.get("files"));
-	// const blobData = formData.get('data') as Blob;
-	// const data = JSON.parse(await blobData.text());
+		const fileFormData = file as unknown as Blob;
+		const buffer = Buffer.from(await fileFormData.arrayBuffer());
+		const filename = await uploadFileToS3(buffer)
 
-	// await axios.post('/', imageUploader.single('img'),)
 
-	// const body: RequestBody = await request.json();
+		return NextResponse.json({msg: 'Success', filename});
 
-	new NextResponse('Success');
+
+	} catch (error) {
+		console.log("error is ", error)
+		return NextResponse.json({error})
+	}
 }

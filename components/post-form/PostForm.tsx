@@ -56,20 +56,13 @@ export default function PostForm() {
 			category: selectedCategory,
 		};
 		const formData = new FormData();
-		formData.append('files', files[0]);
-		// for (const file of files) {
-		// 	formData.append('files', file);
-		// }
-		// const blob = new Blob([JSON.stringify(body)], {
-		// 	type: 'application/json',
-		// });
-		// formData.append('data', blob);
-
-		// console.log('formData are', formData);
-		// for (const [key, value] of formData.entries()) {
-		// 	console.log('key is ', key);
-		// 	console.log('value is ', value);
-		// }
+		for (const file of files) {
+			formData.append('files', file);
+		}
+		const blob = new Blob([JSON.stringify(body)], {
+			type: 'application/json',
+		});
+		formData.append('data', blob);
 
 		const result = await axios.post('/api/post', formData, {
 			headers: {
