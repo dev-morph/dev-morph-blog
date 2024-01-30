@@ -25,7 +25,7 @@ export default function PostForm() {
 
 	//TODO 임시 권한 체크를 위한 useEffect, 추후 navigationGuard로 변경
 	useEffect(() => {
-		if (!session?.user.role || +session?.user.role !== 1) {
+		if (!session?.user.role_id || +session?.user.role_id !== 1) {
 			router.push('/');
 			showToast({ message: '잘못된 접근입니다.', type: 'error' });
 		}

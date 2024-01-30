@@ -22,24 +22,27 @@ export async function POST(
 ) {
 	try {
 		const formData = await request.formData();
-		const file = formData.get('files') as Blob;
+		const files = formData.getAll('files') as File[];
 		const blobData = formData.get('data') as Blob;
 		const data = JSON.parse(await blobData.text());
 
-		if (!file) {
+		if (!files) {
 			return NextResponse.json(
 				{ error: 'File is not attached.' },
 				{ status: 400 }
 			);
 		}
 		//파일 저장
-		const fileFormData = file as unknown as Blob;
-		const buffer = Buffer.from(await fileFormData.arrayBuffer());
-		const filename = await uploadFileToS3(buffer);
+		const filenames = [];
+		for (const file of files) {
+			const buffer = Buffer.from(await file.arrayBuffer());
+			const filename = await uploadFileToS3(buffer);
+			filenames.push(filename);
+		}
 
 		//데이터
 
-		return NextResponse.json({ msg: 'Success', filename });
+		return NextResponse.json({ msg: 'Success', filenames });
 	} catch (error) {
 		console.log('error is ', error);
 		return NextResponse.json({ error });
