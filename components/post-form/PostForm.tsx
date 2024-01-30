@@ -59,6 +59,8 @@ export default function PostForm() {
 		for (const file of files) {
 			formData.append('files', file);
 		}
+
+		console.log('before send ', body);
 		const blob = new Blob([JSON.stringify(body)], {
 			type: 'application/json',
 		});
@@ -89,8 +91,8 @@ export default function PostForm() {
 			<Spacing size={10} />
 			<Textarea
 				rows={15}
-				errorMsg={errors.content?.message}
-				register={register('content')}
+				errorMsg={errors.contents?.message}
+				register={register('contents')}
 			/>
 			<Spacing size={10} />
 			<FileInput files={files} setFiles={setFiles} />

@@ -1,4 +1,5 @@
 import prisma from '@/db';
+import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
@@ -26,9 +27,14 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest) {
 	const data = await request.json();
+	const newCategory: Prisma.CategoryCreateInput = {
+		id: data.id,
+		name: data.name,
+		sort_order: data.sort_order,
+	};
 	try {
 		const result = await prisma.category.create({
-			data,
+			data: newCategory,
 		});
 		return new NextResponse(
 			JSON.stringify({
