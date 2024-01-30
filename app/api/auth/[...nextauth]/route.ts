@@ -49,15 +49,18 @@ const handler = NextAuth({
 	],
 	callbacks: {
 		async session({ session, token, user }) {
-			session.user.role = token.role;
+			console.log('user is ', user);
+			console.log('toekn is ', token);
+			session.user.role_id = token.role_id;
 			session.user.username = token.username;
+			console.log('session is ', session);
 			return session;
 		},
 		async jwt({ token, account, user }) {
 			//if the user logs in, you save your user in token
 			if (user) {
 				token.username = user.username;
-				token.role = user.role;
+				token.role_id = user.role_id;
 				token.email = user.email;
 			}
 			return Promise.resolve(token);

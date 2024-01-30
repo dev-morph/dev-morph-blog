@@ -1,16 +1,27 @@
 import prisma from '@/db';
+import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request, res: Response) {
 	const body = await req.json();
-
+	// const newUser : Prisma.UserCreateInput = {
+	// 	username: body.username,
+	// 	password: bcrypt.hashSync(body.password, 10)
+	// }
 	try {
-		const user = await prisma.users.create({
+		const user = await prisma.user.create({
 			data: {
 				username: body.username,
 				password: bcrypt.hashSync(body.password, 10),
-				role: 2,
+				Role: {
+					connect: {
+						id: 2,
+					},
+				},
+			},
+			include: {
+				Role: true,
 			},
 		});
 		const { password, ...result } = user;

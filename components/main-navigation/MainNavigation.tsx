@@ -9,7 +9,7 @@ import Provider from '@/components/sessionProvider/Provider';
 
 export default function MainNavigation() {
 	const { data: session } = useSession();
-
+	console.log('session is ', session?.user);
 	return (
 		<Provider>
 			<header className={classes.header}>
@@ -19,7 +19,7 @@ export default function MainNavigation() {
 				<Navigation>
 					<Navigation.NavLink href="/posts" text="Posts" />
 					<Navigation.NavLink href="/about" text="About" />
-					{session && +session.user?.role === 1 && (
+					{session && +session.user?.role_id === 1 && (
 						<Navigation.NavLink href="/new-post" text="NewPost" />
 					)}
 					{session && session.user ? (

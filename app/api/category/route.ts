@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
 	try {
-		const result = await prisma.categories.findMany();
+		const result = await prisma.category.findMany();
 		return new NextResponse(
 			JSON.stringify({
 				message: 'Success to get All Categories.',

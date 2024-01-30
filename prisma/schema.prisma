@@ -7,13 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Categories {
-  id         Int    @id
-  name       String @db.VarChar(255)
-  sort_order Int
-}
-
-model CommentReplies {
+model CommentReply {
   id              Int      @id @default(autoincrement())
   root_comment_id Int
   username        String   @db.VarChar(255)
@@ -22,7 +16,7 @@ model CommentReplies {
   updated_at      DateTime @default(now()) @db.DateTime(0)
 }
 
-model Comments {
+model Comment {
   id         Int      @id @default(autoincrement())
   post_id    Int
   username   String   @db.VarChar(255)
@@ -32,14 +26,16 @@ model Comments {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Likes {
+model Like {
   ip      String @db.VarChar(15)
   post_id Int
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @default(now()) @db.DateTime(0)
 
   @@ignore
 }
 
-model Posts {
+model Post {
   id         Int      @id @default(autoincrement())
   title      String   @db.VarChar(255)
   category   Int
@@ -48,19 +44,44 @@ model Posts {
   thumbnail  String?  @db.VarChar(255)
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
+
+  post_category Post_Category[]
 }
 
-model Roles {
-  role Int    @id
-  name String @db.VarChar(20)
+model Post_Category{
+	post_id Int
+	category_id Int
+	Post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+	Category Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
+
+	@@id([post_id, category_id])
 }
 
-model Users {
+model Category {
+  id         Int    @id
+  name       String @db.VarChar(255)
+  sort_order Int
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  updated_at DateTime? @default(now()) @db.DateTime(0)
+
+  post_category Post_Category[]
+}
+
+model User {
   id         Int       @id @default(autoincrement())
   email      String?   @db.VarChar(255) @unique
   username   String    @db.VarChar(255) @unique
   password   String    @db.VarChar(255)
-  role       Int
+  role_id    Int	   
   created_at DateTime  @default(now()) @db.DateTime(0)
   updated_at DateTime? @default(now()) @db.DateTime(0)
+
+  Role		 Role	   @relation(fields: [role_id], references: [id])
+}
+
+model Role {
+  id	Int    @id
+  name	String @db.VarChar(20)
+
+  users User[]
 }
