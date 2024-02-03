@@ -7,9 +7,16 @@ import FileThumbnails from './FileThumbnails';
 type FileInputProps = {
 	files: File[];
 	setFiles: Dispatch<SetStateAction<File[]>>;
+	thumbnail?: File;
+	setThumbnail?: Dispatch<SetStateAction<File | undefined>>;
 };
 
-export default function FileInput({ files, setFiles }: FileInputProps) {
+export default function FileInput({
+	files,
+	setFiles,
+	thumbnail,
+	setThumbnail,
+}: FileInputProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	function selectFile(
@@ -40,6 +47,8 @@ export default function FileInput({ files, setFiles }: FileInputProps) {
 				deleteFileHandler={deleteFile}
 				addFileHandler={() => inputRef.current?.click()}
 				onDrop={selectFile}
+				thumbnail={thumbnail}
+				setThumbnail={setThumbnail}
 			/>
 			<Spacing size={15} />
 			<Button

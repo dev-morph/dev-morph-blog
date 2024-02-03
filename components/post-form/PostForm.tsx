@@ -16,12 +16,23 @@ import { postSchema, type PostSchema } from '@/schema/post-schema';
 import Textarea from '@/morph-lib/components/Textarea';
 import FileInput from '@/morph-lib/components/FileInput';
 
+type PostBodyType = {
+	title: string;
+	category: number;
+	contents: string;
+	thumbnail?: string;
+	files?: File[];
+};
+
 export default function PostForm() {
 	const router = useRouter();
 	const { data: session } = useSession();
-	const [categories, setCategories] = useState([]);
+	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [files, setFiles] = useState<File[]>([]);
-	const [selectedCategory, setSelectedCategory] = useState('Choose Category');
+	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
+	const [selectedCategory, setSelectedCategory] = useState<
+		null | string | number
+	>(null);
 
 	//TODO 임시 권한 체크를 위한 useEffect, 추후 navigationGuard로 변경
 	useEffect(() => {
@@ -34,9 +45,8 @@ export default function PostForm() {
 	useEffect(() => {
 		async function getAllCategories() {
 			const { data } = await axios.get('/api/category');
-			setCategories(
-				data.data.map((category: CategoryType) => category.name)
-			);
+			console.log('data.datais', data.data);
+			setCategories(data.data);
 		}
 
 		getAllCategories();
@@ -51,16 +61,16 @@ export default function PostForm() {
 	});
 
 	async function publishNewPost(data: PostSchema) {
-		const body = {
+		const body: PostBodyType = {
 			...data,
-			category: selectedCategory,
+			category: selectedCategory as number,
+			thumbnail: thumbnail?.name,
 		};
 		const formData = new FormData();
 		for (const file of files) {
 			formData.append('files', file);
 		}
 
-		console.log('before send ', body);
 		const blob = new Blob([JSON.stringify(body)], {
 			type: 'application/json',
 		});
@@ -72,6 +82,9 @@ export default function PostForm() {
 			},
 		});
 		console.log('result is ', result);
+		if (result.data.msg === 'Success') {
+			router.push('/');
+		}
 	}
 
 	return (
@@ -84,9 +97,12 @@ export default function PostForm() {
 			/>
 			<Spacing size={10} />
 			<Select
-				placeholder={selectedCategory}
+				placeholder="Choose Category"
+				selectedValue={selectedCategory}
 				onChange={setSelectedCategory}
 				options={categories}
+				label="name"
+				value="id"
 			/>
 			<Spacing size={10} />
 			<Textarea
@@ -95,7 +111,12 @@ export default function PostForm() {
 				register={register('contents')}
 			/>
 			<Spacing size={10} />
-			<FileInput files={files} setFiles={setFiles} />
+			<FileInput
+				files={files}
+				setFiles={setFiles}
+				thumbnail={thumbnail}
+				setThumbnail={setThumbnail}
+			/>
 			<Spacing size={10} />
 			<Button btnType="submit">POST</Button>
 		</form>

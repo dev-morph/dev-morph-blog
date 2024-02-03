@@ -15,21 +15,6 @@ type DropdownProps = {
 
 const DropdownContext = createContext(null as any);
 
-// function Trigger({
-// 	as,
-// 	setIsOpen,
-// }: {
-// 	as: React.ReactNode;
-// 	setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-// }) {
-// 	const handleClick = () => {
-// 		if (setIsOpen) {
-// 			setIsOpen((prev) => !prev);
-// 		}
-// 	};
-
-// 	return <div onClick={handleClick}>{as}</div>;
-// }
 function Trigger({ children }: { children: React.ReactNode }) {
 	const dropdownContext = useContext(DropdownContext);
 
@@ -52,7 +37,13 @@ function Menu({ children }: { children: React.ReactNode }) {
 	return <ul className={classes.dropdown}>{children}</ul>;
 }
 
-function Item({ children }: { children: React.ReactNode }) {
+function Item({
+	children,
+	onClick,
+}: {
+	children: React.ReactNode;
+	onClick?: Function;
+}) {
 	const dropdownContext = useContext(DropdownContext);
 	function dropdownItemClickHandler(e: MouseEvent<HTMLElement>) {
 		const target = e.target as HTMLElement;
@@ -60,7 +51,13 @@ function Item({ children }: { children: React.ReactNode }) {
 		dropdownContext.setIsOpen(false);
 	}
 	return (
-		<li className={classes.item} onClick={dropdownItemClickHandler}>
+		<li
+			className={classes.item}
+			onClick={() => {
+				onClick && onClick();
+				dropdownContext.setIsOpen(false);
+			}}
+		>
 			{children}
 		</li>
 	);
@@ -74,14 +71,6 @@ function Dropdown({ onChange, trigger, menu }: DropdownProps) {
 		onChange,
 	};
 
-	// return (
-	// 	<DropdownContext.Provider value={contextValues}>
-	// 		<span>{label}</span>
-	// 		{React.isValidElement(trigger) &&
-	// 			React.cloneElement(trigger, { setIsOpen })}
-	// 		{isOpen && menu}
-	// 	</DropdownContext.Provider>
-	// );
 	return (
 		<DropdownContext.Provider value={contextValues}>
 			<div className={classes.wrapper}>
