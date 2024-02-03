@@ -15,8 +15,9 @@ export default function FeaturedPost({ posts }: FeaturedPostProps) {
 	return (
 		<>
 			{/* <Top01 textAlign="center">Featured Posts</Top01> */}
+			<div>alsdkfjalksdjf</div>
 			{/* <Spacing size="var(--size-8)" /> */}
-			<PostsGrid posts={posts} />
+			{/* <PostsGrid posts={posts} /> */}
 		</>
 	);
 }

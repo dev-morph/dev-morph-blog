@@ -7,6 +7,16 @@ const {
 const nextConfig = (phase) => {
 	if (phase === PHASE_DEVELOPMENT_SERVER) {
 		return {
+			images: {
+				remotePatterns: [
+					{
+						protocol: 'https',
+						hostname: 'moyang.s3.ap-northeast-2.amazonaws.com',
+						port: '',
+						pathname: '/images/**',
+					},
+				],
+			},
 			env: {
 				mongodb_username: 'morph',
 				mongodb_password: 'dlgudxo90',
@@ -16,6 +26,16 @@ const nextConfig = (phase) => {
 		};
 	}
 	return {
+		images: {
+			remotePatterns: [
+				{
+					protocol: 'https',
+					hostname: 'moyang.s3.ap-northeast-2.amazonaws.com',
+					port: '',
+					pathname: '/images/**',
+				},
+			],
+		},
 		env: {
 			mongodb_username: 'morph',
 			mongodb_password: 'dlgudxo90',

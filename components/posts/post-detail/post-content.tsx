@@ -11,7 +11,7 @@ type PostContentProps = {
 };
 
 export default function PostContent({ post }: PostContentProps) {
-	const imagePath = `/images/posts/${post.slug}/${post.image}`;
+	const imagePath = `${process.env.AWS_S3_BASE_URL}/${post.thumbnail}`;
 
 	return (
 		<main>
@@ -19,7 +19,7 @@ export default function PostContent({ post }: PostContentProps) {
 				<article>
 					<PostHeader
 						title={post.title}
-						date={post.date}
+						date={post.created_at}
 						image={imagePath}
 					/>
 					<Image

@@ -1,22 +1,15 @@
 import Card from '@morphlib/components/Card';
-
-type Post = {
-	title: string;
-	image: string;
-	excerpt: string;
-	date: string;
-	slug: string;
-};
+import { PostType } from '@/types/post_types';
 
 type PostItemProps = {
-	post: Post;
+	post: PostType;
 };
 
 export default function PostItem({ post }: PostItemProps) {
-	const { title, image, excerpt, date, slug } = post;
+	const { title, thumbnail, images, categories } = post;
 
-	const imagePath = `/images/posts/${slug}/${image}`;
-	const linkPath = `/posts/${slug}`;
+	const imagePath = `${process.env.AWS_S3_BASE_URL}/${thumbnail}`;
+	const linkPath = `/posts/${post.id}`;
 
 	return (
 		<>
@@ -28,11 +21,14 @@ export default function PostItem({ post }: PostItemProps) {
 						title={title}
 						width={350}
 						height={250}
-						hoverText={excerpt}
+						hoverText={'hmm'}
 					/>
 				}
 				description={
-					<Card.Description title={title} creatTime={date} />
+					<Card.Description
+						title={title}
+						creatTime={post.created_at}
+					/>
 				}
 			/>
 		</>

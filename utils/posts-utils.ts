@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import axios from 'axios';
+import { PostType } from '@/types/post_types';
 
 type PostMetaData = {
 	slug: string;
@@ -53,4 +55,15 @@ export async function getFeaturedPosts() {
 export async function getPostBySlug(slug: string) {
 	const allPosts = await getAllPosts();
 	return allPosts.find((post) => post.slug === slug);
+}
+
+export async function getAllRealPosts() {
+	console.log('try');
+	return await axios.get('/api/post');
+}
+
+export async function getPostById(id: string): Promise<PostType> {
+	const { data } = await axios.get(`http://localhost:3000/api/post/${id}`);
+
+	return data.data;
 }

@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Request, Response } from 'express';
 import { NextApiRequest, NextApiResponse } from 'next';
 import uploadFileToS3 from '@/aws';
+import prisma from '@/db';
 import { Prisma } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
-	return NextResponse.json({ msg: 'connect' });
+	const result = await prisma?.post.findMany({
+		include: {
+			images: true,
+			categories: true,
+		},
+	});
+	return NextResponse.json({ msg: 'Success', data: result });
 }
 
 type PostBodyType = {
@@ -15,12 +21,8 @@ type PostBodyType = {
 	thumbnail?: string;
 	files?: File[];
 };
-type NextApiRequestWithFormData = NextApiRequest & Request & { files: any[] };
-type NextApiResponseCustom = NextApiResponse & Response;
-export async function POST(
-	request: NextRequest,
-	response: NextApiResponseCustom
-) {
+
+export async function POST(request: NextRequest, response: NextResponse) {
 	try {
 		const formData = await request.formData();
 		const files = formData.getAll('files') as File[];
@@ -40,7 +42,7 @@ export async function POST(
 		};
 
 		//파일 저장
-		const fileUrls = [];
+		const uploadedFiles = [];
 		for (const file of files) {
 			const buffer = Buffer.from(await file.arrayBuffer());
 			const url = await uploadFileToS3(buffer);
@@ -48,17 +50,17 @@ export async function POST(
 			if (file.name === data.thumbnail) {
 				newPost.thumbnail = url;
 			}
-			fileUrls.push({ url });
+			uploadedFiles.push({ url, filename: file.name });
 		}
 
 		//Post 데이터저장
-		//받은 id로 Image테이블에 fileUrls 저장
+		//받은 id로 Image테이블에 uploadedFiles 저장
 		const result = await prisma?.post.create({
 			data: {
 				...newPost,
 				images: {
 					createMany: {
-						data: fileUrls,
+						data: uploadedFiles,
 					},
 				},
 				categories: {

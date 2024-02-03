@@ -1,8 +1,17 @@
+export type ImageType = {
+	id: number;
+	url: string;
+	filename: string;
+	post_id: number;
+	created_at: string;
+};
+
 export type PostType = {
-	slug?: string;
+	id: number;
 	title: string;
-	image?: string;
-	excerpt: string;
-	date: string;
-	content: string;
+	images: ImageType[];
+	contents: string;
+	thumbnail: string;
+	categories: any[];
+	created_at: string;
 };

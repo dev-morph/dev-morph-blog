@@ -1,19 +1,17 @@
+// 'use client';
+
 import PostsGrid from './posts-grid';
 import Spacing from '@morphlib/components/Spacing';
 import Chips from '@/morph-lib/components/Chips';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { PostType } from '@/types/post_types';
 
-type Post = {
-	title: string;
-	image: string;
-	excerpt: string;
-	date: string;
-	slug: string;
-};
 type AllPostsProps = {
-	posts: Post[];
+	posts: PostType[];
 };
 
-export default function AllPosts({ posts }: AllPostsProps) {
+export default async function AllPosts({ posts }: AllPostsProps) {
 	return (
 		<>
 			{/* <Chips>

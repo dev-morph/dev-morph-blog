@@ -18,6 +18,14 @@ export default function CustomMarkdown({
 }: {
 	components: PostType;
 }) {
+	function getImageUrl(imagename: string) {
+		const targetImage = components.images.find(
+			(image) => image.filename === imagename
+		);
+		const url = `${process.env.AWS_S3_BASE_URL}/${targetImage?.url}`;
+		return url;
+	}
+
 	const customRenderers: Components = {
 		p(paragraph) {
 			const { node } = paragraph;
@@ -34,7 +42,7 @@ export default function CustomMarkdown({
 				return (
 					<p className={classes.image}>
 						<Image
-							src={`/images/posts/${components.slug}/${image.properties.src}`}
+							src={getImageUrl(image.properties.src as string)}
 							alt={image.properties.alt as string}
 							width={500}
 							height={350}
@@ -77,7 +85,7 @@ export default function CustomMarkdown({
 				components={customRenderers}
 				className={classes.markdown__wrapper}
 			>
-				{components.content}
+				{components.contents}
 			</ReactMarkDown>
 		</div>
 	);
