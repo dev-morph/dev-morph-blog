@@ -7,7 +7,7 @@ import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
 import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
 import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx';
 import classes from './custom-markdown.module.scss';
-import { PostType } from '@/types/post_types';
+import { PostType, StaticPostType } from '@/types/post_types';
 
 SyntaxHighlighter.registerLanguage('js', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -16,14 +16,18 @@ SyntaxHighlighter.registerLanguage('jsx', jsx);
 export default function CustomMarkdown({
 	components,
 }: {
-	components: PostType;
+	components: PostType | StaticPostType;
 }) {
 	function getImageUrl(imagename: string) {
-		const targetImage = components.images.find(
-			(image) => image.filename === imagename
-		);
-		const url = `${process.env.AWS_S3_BASE_URL}/${targetImage?.url}`;
-		return url;
+		if ('excerpt' in components) {
+			return imagename;
+		} else {
+			const targetImage = components.images.find(
+				(image) => image.filename === imagename
+			);
+			const url = `${process.env.AWS_S3_BASE_URL}/${targetImage?.url}`;
+			return url;
+		}
 	}
 
 	const customRenderers: Components = {
@@ -81,12 +85,21 @@ export default function CustomMarkdown({
 
 	return (
 		<div id="content__entry__point">
-			<ReactMarkDown
-				components={customRenderers}
-				className={classes.markdown__wrapper}
-			>
-				{components.contents}
-			</ReactMarkDown>
+			{'excerpt' in components ? (
+				<ReactMarkDown
+					components={customRenderers}
+					className={classes.markdown__wrapper}
+				>
+					{components.content}
+				</ReactMarkDown>
+			) : (
+				<ReactMarkDown
+					components={customRenderers}
+					className={classes.markdown__wrapper}
+				>
+					{components.contents}
+				</ReactMarkDown>
+			)}
 		</div>
 	);
 }

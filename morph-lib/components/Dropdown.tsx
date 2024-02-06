@@ -6,7 +6,7 @@ import classes from '@morphlib/sass/Dropdown.module.scss';
 type DropdownProps = {
 	label?: string;
 	value?: string;
-	onChange: Function;
+	onChange?: Function;
 	trigger: React.ReactElement<{
 		setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	}>;
@@ -45,11 +45,7 @@ function Item({
 	onClick?: Function;
 }) {
 	const dropdownContext = useContext(DropdownContext);
-	function dropdownItemClickHandler(e: MouseEvent<HTMLElement>) {
-		const target = e.target as HTMLElement;
-		dropdownContext.onChange(target.innerHTML);
-		dropdownContext.setIsOpen(false);
-	}
+
 	return (
 		<li
 			className={classes.item}

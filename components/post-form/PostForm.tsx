@@ -45,7 +45,6 @@ export default function PostForm() {
 	useEffect(() => {
 		async function getAllCategories() {
 			const { data } = await axios.get('/api/category');
-			console.log('data.datais', data.data);
 			setCategories(data.data);
 		}
 

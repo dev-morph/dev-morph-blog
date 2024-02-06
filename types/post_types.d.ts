@@ -15,3 +15,10 @@ export type PostType = {
 	categories: any[];
 	created_at: string;
 };
+
+export type StaticPostType = {
+	title: string;
+	excerpt: string;
+	date: string;
+	content: string;
+};

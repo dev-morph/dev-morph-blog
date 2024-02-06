@@ -1,9 +1,9 @@
 .header__item {
 	color: var(--color-black);
 	font-size: var(--size-4);
-	font-weight: var(--fw-bold);
+	font-weight: var(--fw-normal);
 	&:hover {
-		transform: scale(1.025);
+		// font-weight: var(--fw-bold);
 		text-decoration: underline;
 		cursor: pointer;
 	}

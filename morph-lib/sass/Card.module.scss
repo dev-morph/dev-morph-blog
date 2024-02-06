@@ -1,11 +1,15 @@
 .card {
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	text-align: center;
-	border-radius: var(--br-reg);
+	// border-radius: var(--br-reg);
+	border-radius: 10px;
 	// width: 80%;
 	overflow: hidden;
 	position: relative;
 	max-height: 20rem;
+
+	transition: transform 0.05s ease-in-out;
+
 	.image {
 		width: 100%;
 		max-height: 15rem;
@@ -28,11 +32,13 @@
 		}
 	}
 	&:hover {
-		.hover__detail {
-			display: block;
-			background-color: rgba(0, 0, 0, 0.3);
-			color: var(--color-white);
-		}
+		// .hover__detail {
+		// 	display: block;
+		// 	background-color: rgba(0, 0, 0, 0.3);
+		// 	color: var(--color-white);
+		// }
+
+		transform: scale(1.01);
 	}
 
 	.description {

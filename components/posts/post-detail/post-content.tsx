@@ -17,11 +17,7 @@ export default function PostContent({ post }: PostContentProps) {
 		<main>
 			<FadeIn from="left">
 				<article>
-					<PostHeader
-						title={post.title}
-						date={post.created_at}
-						image={imagePath}
-					/>
+					<PostHeader title={post.title} date={post.created_at} />
 					<Image
 						src={imagePath}
 						alt={post.title}
