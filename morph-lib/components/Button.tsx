@@ -30,7 +30,6 @@ export default function Button(props: ButtonProps) {
 	} = props;
 
 	function addRippleEffect(e: React.MouseEvent) {
-		console.log("triggered!")
 		const ripple = document.createElement('span')
 		ripple.classList.add(`${classes.ripple}`);
 		const rect = btnRef.current?.getBoundingClientRect() as DOMRect;
@@ -39,8 +38,6 @@ export default function Button(props: ButtonProps) {
 
 		ripple.style.left = x;
 		ripple.style.top = y;
-
-		console.log('x is', x, 'y is ', y)
 
 		btnRef.current?.append(ripple);
 
