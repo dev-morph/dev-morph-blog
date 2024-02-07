@@ -12,11 +12,6 @@ type PostMetaData = {
 	isFeatured: boolean;
 };
 
-export async function getAllRealPosts() {
-	console.log('try');
-	return await axios.get('/api/post');
-}
-
 export async function getPostById(id: string): Promise<PostType> {
 	const { data } = await axios({
 		baseURL: process.env.API_BASE_URL,
