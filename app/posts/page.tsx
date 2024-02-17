@@ -1,8 +1,11 @@
 import AllPosts from '@/components/posts/all-posts';
 import { getAllPosts } from '@/utils/posts-utils';
 
-export default async function PostsPage() {
-	const posts = await getAllPosts();
+// export const dynamic = 'force-static';
+// export const dynamic = 'force-dynamic';
+// export const revalidate = 3600;
 
-	return <AllPosts posts={posts} />;
+export default async function PostsPage() {
+	return <AllPosts />;
 }
+// return <AllPosts posts={posts} />;

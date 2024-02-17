@@ -80,7 +80,6 @@ export default function PostForm() {
 				'Content-Type': 'multipart/form-data',
 			},
 		});
-		console.log('result is ', result);
 		if (result.data.msg === 'Success') {
 			router.push('/');
 		}

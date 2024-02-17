@@ -1,43 +1,60 @@
-import matter from 'gray-matter';
 import axios from 'axios';
+import prisma from '@/db';
 import { PostType } from '@/types/post_types';
 
-export async function getPostById(id: string): Promise<PostType> {
-	const { data } = await axios({
-		baseURL: process.env.API_BASE_URL,
-		url: `/api/post/${id}`,
+export async function getPostById(id: string) {
+	const result = await prisma?.post.findUnique({
+		where: {
+			id: +id,
+		},
+		include: {
+			images: true,
+			categories: true,
+		},
 	});
-
-	return data.data;
+	return result;
 }
 
 export async function getAllPosts() {
-	const { data } = await axios({
-		baseURL: process.env.API_BASE_URL,
-		url: '/api/post',
+	const result = await prisma.post.findMany({
+		include: {
+			images: true,
+			categories: true,
+		},
 	});
-	return data.data;
+
+	return result;
 }
 
-export async function getPostByCategory(
-	categoryIds: number
-): Promise<PostType[]> {
-	const { data } = await axios({
-		baseURL: process.env.API_BASE_URL,
-		url: `api/post/category`,
-		method: 'POST',
-		data: { categoryIds },
+export async function getPostByCategory(categoryIds: number) {
+	const posts = await prisma?.post.findMany({
+		where: {
+			categories: {
+				some: {
+					category_id: categoryIds,
+				},
+			},
+		},
+		include: {
+			images: true,
+			categories: true,
+		},
 	});
 
-	return data.data;
+	return posts;
 }
 
 export async function getRecentPosts(): Promise<PostType[]> {
-	const { data } = await axios({
-		baseURL: process.env.API_BASE_URL,
-		url: `api/post/recent`,
-		method: 'GET',
+	const result = await prisma?.post.findMany({
+		include: {
+			images: true,
+			categories: true,
+		},
+		orderBy: {
+			created_at: 'desc',
+		},
+		take: 5,
 	});
 
-	return data.data;
+	return result;
 }

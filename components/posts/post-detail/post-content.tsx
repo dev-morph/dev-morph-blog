@@ -4,10 +4,10 @@ import FadeIn from '@/components/ui/fade-in';
 import Toc from '@/components/ui/toc';
 import CustomMarkdown from '@/components/common/custom-markdown';
 import Spacing from '@morphlib/components/Spacing';
-import { PostType } from '@/types/post_types';
+import { PostsBasedCategoryType } from '@/types/post_types';
 
 type PostContentProps = {
-	post: PostType;
+	post: PostsBasedCategoryType;
 };
 
 export default function PostContent({ post }: PostContentProps) {
@@ -17,7 +17,10 @@ export default function PostContent({ post }: PostContentProps) {
 		<main>
 			<FadeIn from="left">
 				<article>
-					<PostHeader title={post.title} date={post.created_at} />
+					<PostHeader
+						title={post.title}
+						date={post.created_at.toString()}
+					/>
 					<Image
 						src={imagePath}
 						alt={post.title}

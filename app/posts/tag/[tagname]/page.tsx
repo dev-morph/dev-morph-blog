@@ -1,4 +1,4 @@
-import { getPostById } from '@/utils/posts-utils';
+import { getAllPosts } from '@/utils/posts-utils';
 import { getPostByCategory } from '@/utils/posts-utils';
 import { getAllCategories, getCategoryByName } from '@/utils/category-utils';
 import PostsGrid from '@/components/posts/posts-grid';
@@ -16,13 +16,18 @@ export default async function TagFilteredPage({ params }: Props) {
 		return <div>404</div>;
 	}
 
-	const posts = await getPostByCategory(category.id);
+	let posts;
+	if (category.name === 'ALL') {
+		posts = await getAllPosts();
+	} else {
+		posts = await getPostByCategory(category.id);
+	}
 
 	return (
 		<>
 			<CategoryChips categories={categories} selectedTag={category} />
 			<Spacing size="var(--size-8)" />
-			<PostsGrid posts={posts} />
+			{posts && <PostsGrid posts={posts} />}
 		</>
 	);
 }

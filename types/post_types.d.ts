@@ -1,9 +1,12 @@
+import { CategoryType, PrismaCategoryType } from './category_types';
+
 export type ImageType = {
 	id: number;
 	url: string;
 	filename: string;
 	post_id: number;
-	created_at: string;
+	created_at: Date;
+	updated_at: Date;
 };
 
 export type PostType = {
@@ -11,9 +14,9 @@ export type PostType = {
 	title: string;
 	images: ImageType[];
 	contents: string;
-	thumbnail: string;
-	categories: any[];
-	created_at: string;
+	thumbnail: string | null;
+	categories: PrismaCategoryType[];
+	created_at: Date;
 };
 
 export type StaticPostType = {
@@ -21,4 +24,15 @@ export type StaticPostType = {
 	excerpt: string;
 	date: string;
 	content: string;
+};
+
+export type PostsBasedCategoryType = {
+	id: number;
+	title: string;
+	contents: string;
+	hits: number;
+	images: ImageTypp[];
+	thumbnail: string | null;
+	created_at: Date;
+	updated_at: Date;
 };

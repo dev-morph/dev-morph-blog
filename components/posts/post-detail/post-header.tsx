@@ -10,7 +10,6 @@ type PostHeaderProps = {
 };
 
 export default function PostHeader({ title, date }: PostHeaderProps) {
-	console.log('title is ', title);
 	return (
 		<>
 			<Top02>{title}</Top02>

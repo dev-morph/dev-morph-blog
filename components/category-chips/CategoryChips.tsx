@@ -2,7 +2,6 @@
 
 import Chips from '@/morph-lib/components/Chips';
 import { CategoryType } from '@/types/category_types';
-import { getPostByCategory } from '@/utils/posts-utils';
 import { useRouter } from 'next/navigation';
 
 export default function CategoryChips({
@@ -25,7 +24,9 @@ export default function CategoryChips({
 							? 'selected'
 							: ''
 					}
-					onClick={() => router.push(`/posts/tag/${category.name}`)}
+					onClick={() => {
+						router.push(`/posts/tag/${category.name}`);
+					}}
 				>
 					{category.name}
 				</Chips.Item>

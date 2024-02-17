@@ -6,10 +6,9 @@ import classes from './main-navigation.module.scss';
 import Navigation from '@morphlib/components/Navigation';
 import { useSession, signOut } from 'next-auth/react';
 import Provider from '@/components/sessionProvider/Provider';
-import HoverDropdown from '@/morph-lib/components/HoverDropdown';
 import { CategoryType } from '@/types/category_types';
 import { useEffect, useState } from 'react';
-import { getAllCategories } from '@/utils/category-utils';
+import axios from 'axios';
 
 export default function MainNavigation() {
 	const { data: session } = useSession();
@@ -17,8 +16,8 @@ export default function MainNavigation() {
 
 	useEffect(() => {
 		(async () => {
-			const result = await getAllCategories();
-			setCategories(result);
+			const { data } = await axios.get('/api/category');
+			setCategories(data.data);
 		})();
 	}, []);
 

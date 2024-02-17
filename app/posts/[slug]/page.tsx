@@ -16,13 +16,17 @@ export async function generateMetadata(
 	const post = await getPostById(slug);
 
 	return {
-		title: post.title,
-		description: post.title,
+		title: post?.title,
+		description: post?.title,
 	};
 }
 
 export default async function PostDetailPage({ params }: Props) {
 	const slug = params.slug;
 	const post = await getPostById(slug);
-	return <PostContent post={post} />;
+	if (!post) {
+		return <div>There is no such Post!</div>;
+	} else {
+		return <PostContent post={post} />;
+	}
 }

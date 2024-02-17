@@ -7,7 +7,7 @@ import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
 import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
 import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx';
 import classes from './custom-markdown.module.scss';
-import { PostType, StaticPostType } from '@/types/post_types';
+import { PostsBasedCategoryType, StaticPostType } from '@/types/post_types';
 
 SyntaxHighlighter.registerLanguage('js', js);
 SyntaxHighlighter.registerLanguage('css', css);
@@ -16,7 +16,7 @@ SyntaxHighlighter.registerLanguage('jsx', jsx);
 export default function CustomMarkdown({
 	components,
 }: {
-	components: PostType | StaticPostType;
+	components: PostsBasedCategoryType | StaticPostType;
 }) {
 	function getImageUrl(imagename: string) {
 		if ('excerpt' in components) {

@@ -1,18 +1,12 @@
 import PostsGrid from './posts-grid';
 import Spacing from '@morphlib/components/Spacing';
-import Chips from '@/morph-lib/components/Chips';
-import { useEffect } from 'react';
 import CategoryChips from '../category-chips/CategoryChips';
-import axios from 'axios';
-import { PostType } from '@/types/post_types';
+import { getAllPosts } from '@/utils/posts-utils';
 import { getAllCategories } from '@/utils/category-utils';
 
-type AllPostsProps = {
-	posts: PostType[];
-};
-
-export default async function AllPosts({ posts }: AllPostsProps) {
+export default async function AllPosts() {
 	const categories = await getAllCategories();
+	const posts = await getAllPosts();
 
 	return (
 		<>

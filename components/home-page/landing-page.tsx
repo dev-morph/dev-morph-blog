@@ -1,4 +1,3 @@
-import Spacing from '@/morph-lib/components/Spacing';
 import Landing from '../landing/Landing';
 import Section from '@/morph-lib/components/Section';
 import RecentPosts from '../landing/RecentPosts';

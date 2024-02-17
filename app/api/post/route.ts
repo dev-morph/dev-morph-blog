@@ -4,15 +4,22 @@ import uploadFileToS3 from '@/aws';
 import prisma from '@/db';
 import { Prisma } from '@prisma/client';
 
-export async function GET(request: NextRequest) {
-	const result = await prisma?.post.findMany({
-		include: {
-			images: true,
-			categories: true,
-		},
-	});
-	return NextResponse.json({ msg: 'Success', data: result });
-}
+// export async function GET(request: NextRequest) {
+// 	let result;
+// 	try {
+// 		result = await prisma?.post.findMany({
+// 			include: {
+// 				images: true,
+// 				categories: true,
+// 			},
+// 		});
+// 	} catch (error) {
+// 		console.log('error occurerd!');
+// 		// console.log('error occurerd!', error);
+// 		result = error;
+// 	}
+// 	return NextResponse.json({ msg: 'Success', data: result });
+// }
 
 type PostBodyType = {
 	title: string;
@@ -90,7 +97,8 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
 		return NextResponse.json({ msg: 'Success', result });
 	} catch (error) {
-		console.log('error is ', error);
+		console.log('post route error occurs!');
+		// console.log('error is ', error);
 		return NextResponse.json({ error });
 	}
 }

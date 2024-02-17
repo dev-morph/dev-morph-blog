@@ -1,9 +1,9 @@
 import PostItem from './post-item';
 import classes from './posts-grid.module.scss';
-import { PostType } from '@/types/post_types';
+import { PostsBasedCategoryType } from '@/types/post_types';
 
 type PostsGridProps = {
-	posts: PostType[];
+	posts: PostsBasedCategoryType[];
 };
 
 export default function PostsGrid({ posts }: PostsGridProps) {
