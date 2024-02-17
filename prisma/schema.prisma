@@ -26,6 +26,7 @@ model Comment {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+// 추후 수정 필요
 model Like {
   ip      String @db.VarChar(15)
   post_id Int
