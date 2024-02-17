@@ -34,7 +34,7 @@ CREATE TABLE `Like` (
 CREATE TABLE `Image` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `url` VARCHAR(255) NOT NULL,
-    `alt` VARCHAR(255) NULL,
+    `filename` VARCHAR(255) NOT NULL,
     `post_id` INTEGER NOT NULL,
     `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updated_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
@@ -46,7 +46,6 @@ CREATE TABLE `Image` (
 CREATE TABLE `Post` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
-    `category` INTEGER NOT NULL,
     `contents` TEXT NOT NULL,
     `hits` INTEGER NOT NULL DEFAULT 0,
     `thumbnail` VARCHAR(255) NULL,
@@ -72,6 +71,7 @@ CREATE TABLE `Category` (
     `created_at` DATETIME(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updated_at` DATETIME(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
 
+    UNIQUE INDEX `Category_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
