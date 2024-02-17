@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Open_Sans } from 'next/font/google';
 import MainNavigation from '@/components/main-navigation/MainNavigation';
 import '@/styles/globals.scss';
 import ContentWrapper from '@morphlib/components/ContentWrapper';
@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
+const open_sans = Open_Sans({ subsets: ['latin'] });
 
 //next.js 14부터는 아래 두 가지는 default로 적용되기에, 따로 적용해 줄 필요 없다.
 //<meta charset="utf-8" />
@@ -28,7 +29,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={open_sans.className}>
 				<Provider>
 					<MainNavigation />
 					<ContentWrapper>{children}</ContentWrapper>

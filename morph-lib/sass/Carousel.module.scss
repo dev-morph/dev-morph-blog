@@ -1,0 +1,187 @@
+.carousel {
+	overflow-x: clip;
+	overflow-y: visible;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.inner {
+	display: flex;
+	justify-content: center;
+	white-space: nowrap;
+	perspective: 1000px;
+	transform-style: preserve-3d;
+	position: relative;
+	height: 150px;
+
+	// & .carousel__item:nth-child(1) {
+	// 	background-color: rgb(207, 101, 101);
+	// 	opacity: 0.8;
+	// }
+	// & .carousel__item:nth-child(2) {
+	// 	background-color: rgb(184, 207, 101);
+	// 	opacity: 0.8;
+	// }
+	// & .carousel__item:nth-child(3) {
+	// 	background-color: rgb(101, 207, 113);
+	// 	opacity: 0.8;
+	// }
+	// & .carousel__item:nth-child(4) {
+	// 	background-color: rgb(101, 110, 207);
+	// 	opacity: 0.8;
+	// }
+	// & .carousel__item:nth-child(5) {
+	// 	background-color: rgb(181, 101, 207);
+	// 	opacity: 0.8;
+	// }
+
+	// //최 우측
+	&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(4),
+	&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(5),
+	&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(1),
+	&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(2),
+	&:has(.carousel__item:nth-child(5).active) .carousel__item:nth-child(3) {
+		transform: translate3d(50%, -50%, -200px) !important;
+		filter: blur(2px);
+	}
+
+	// //안쪽 우측
+	&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(5),
+	&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(1),
+	&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(2),
+	&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(3),
+	&:has(.carousel__item:nth-child(5).active) .carousel__item:nth-child(4) {
+		transform: translate3d(0%, -50%, -100px) !important;
+		filter: blur(1px);
+	}
+
+	// //최 좌측
+	&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(3),
+	&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(4),
+	&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(5),
+	&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(1),
+	&:has(.carousel__item:nth-child(5).active) .carousel__item:nth-child(2) {
+		transform: translate3d(-150%, -50%, -200px) !important;
+		filter: blur(2px);
+	}
+
+	// //안쪽 좌측
+	&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(2),
+	&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(3),
+	&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(4),
+	&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(5),
+	&:has(.carousel__item:nth-child(5).active) .carousel__item:nth-child(1) {
+		transform: translate3d(-100%, -50%, -100px) !important;
+		filter: blur(1px);
+	}
+
+	// //가운데
+	& .carousel__item:nth-child(1).active,
+	& .carousel__item:nth-child(2).active,
+	& .carousel__item:nth-child(3).active,
+	& .carousel__item:nth-child(4).active,
+	& .carousel__item:nth-child(5).active {
+		opacity: 1;
+	}
+}
+
+.carousel__item {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: all 0.5s;
+	width: 250px;
+	height: 150px;
+	border-radius: 6px;
+	overflow: hidden;
+	cursor: pointer;
+
+	img {
+		width: 100% !important;
+		height: 100% !important;
+	}
+}
+
+.title {
+	display: block;
+	position: absolute;
+	width: 400px;
+	white-space: wrap;
+	top: 50%;
+	left: 10px;
+	transform: translateY(-50%);
+	color: white;
+	font-weight: 500;
+	font-size: 1rem;
+}
+@media (min-width: 768px) {
+	.inner {
+		height: 300px;
+		// //최 우측
+		&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(4),
+		&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(5),
+		&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(1),
+		&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(2),
+		&:has(.carousel__item:nth-child(5).active)
+			.carousel__item:nth-child(3) {
+			transform: translate3d(50%, -50%, -200px) !important;
+			filter: blur(2px);
+		}
+
+		// //안쪽 우측
+		&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(5),
+		&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(1),
+		&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(2),
+		&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(3),
+		&:has(.carousel__item:nth-child(5).active)
+			.carousel__item:nth-child(4) {
+			transform: translate3d(0%, -50%, -100px) !important;
+			filter: blur(1px);
+		}
+
+		// //최 좌측
+		&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(3),
+		&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(4),
+		&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(5),
+		&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(1),
+		&:has(.carousel__item:nth-child(5).active)
+			.carousel__item:nth-child(2) {
+			transform: translate3d(-150%, -50%, -200px) !important;
+			filter: blur(2px);
+		}
+
+		// //안쪽 좌측
+		&:has(.carousel__item:nth-child(1).active) .carousel__item:nth-child(2),
+		&:has(.carousel__item:nth-child(2).active) .carousel__item:nth-child(3),
+		&:has(.carousel__item:nth-child(3).active) .carousel__item:nth-child(4),
+		&:has(.carousel__item:nth-child(4).active) .carousel__item:nth-child(5),
+		&:has(.carousel__item:nth-child(5).active)
+			.carousel__item:nth-child(1) {
+			transform: translate3d(-100%, -50%, -100px) !important;
+			filter: blur(1px);
+		}
+	}
+
+	.carousel__item {
+		width: 400px;
+		height: 100%;
+		img {
+			width: 100px;
+		}
+	}
+
+	.title {
+		display: block;
+		position: absolute;
+		width: 400px;
+		white-space: wrap;
+		top: 50%;
+		transform: translateY(-50%);
+		color: white;
+		font-weight: 600;
+		font-size: 1.5rem;
+	}
+}

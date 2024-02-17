@@ -2,16 +2,6 @@ import matter from 'gray-matter';
 import axios from 'axios';
 import { PostType } from '@/types/post_types';
 
-type PostMetaData = {
-	slug: string;
-	title: string;
-	image: string;
-	excerpt: string;
-	date: string;
-	content: string;
-	isFeatured: boolean;
-};
-
 export async function getPostById(id: string): Promise<PostType> {
 	const { data } = await axios({
 		baseURL: process.env.API_BASE_URL,
@@ -29,12 +19,24 @@ export async function getAllPosts() {
 	return data.data;
 }
 
-export async function getPostByCategory(categoryIds: number[]) {
+export async function getPostByCategory(
+	categoryIds: number
+): Promise<PostType[]> {
 	const { data } = await axios({
 		baseURL: process.env.API_BASE_URL,
-		url: `api/post/category/`,
+		url: `api/post/category`,
 		method: 'POST',
-		data: categoryIds,
+		data: { categoryIds },
+	});
+
+	return data.data;
+}
+
+export async function getRecentPosts(): Promise<PostType[]> {
+	const { data } = await axios({
+		baseURL: process.env.API_BASE_URL,
+		url: `api/post/recent`,
+		method: 'GET',
 	});
 
 	return data.data;

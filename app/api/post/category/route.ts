@@ -22,15 +22,12 @@ export async function GET(
 }
 
 export async function POST(request: NextRequest) {
-	const categoryIds = await request.json();
-
+	const { categoryIds } = await request.json();
 	const posts = await prisma?.post.findMany({
 		where: {
 			categories: {
 				some: {
-					category_id: {
-						in: categoryIds,
-					},
+					category_id: categoryIds,
 				},
 			},
 		},

@@ -10,3 +10,14 @@ export async function getAllCategories() {
 
 	return data.data as CategoryType[];
 }
+
+export async function getCategoryByName(
+	category: string
+): Promise<CategoryType> {
+	const { data } = await axios({
+		baseURL: process.env.API_BASE_URL,
+		url: `/api/category/${category}`,
+	});
+
+	return data.data;
+}

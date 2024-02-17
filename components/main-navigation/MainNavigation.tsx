@@ -30,18 +30,18 @@ export default function MainNavigation() {
 				</Link>
 
 				<Navigation>
-					<Navigation.NavLink href="/posts" text="Posts" />
-					<Navigation.NavLink href="/about" text="About me" />
+					<Navigation.NavLink href="/posts" text="POSTS" />
+					<Navigation.NavLink href="/about" text="ABOUT" />
 					{session && +session.user?.role_id === 1 && (
-						<Navigation.NavLink href="/new-post" text="NewPost" />
+						<Navigation.NavLink href="/new-post" text="NEWPOST" />
 					)}
 					{session && session.user ? (
 						<Navigation.NavLink
-							text="LogOut"
+							text="LOGOUT"
 							onClick={() => signOut({ callbackUrl: '/' })}
 						/>
 					) : (
-						<Navigation.NavLink href="/login" text="Login" />
+						<Navigation.NavLink href="/login" text="LOGIN" />
 					)}
 				</Navigation>
 				{/* <Navigation>

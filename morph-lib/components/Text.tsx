@@ -40,6 +40,7 @@ export default function Text({
 				textAlign: textAlign,
 				color: color,
 				fontSize: size,
+				display: 'block',
 				...styled,
 			}}
 			onClick={onClick}
