@@ -1,5 +1,4 @@
 import PostForm from '@/components/post-form/PostForm';
-import Spacing from '@/morph-lib/components/Spacing';
 import { getAllCategories } from '@/utils/category-utils';
 import {
 	HydrationBoundary,
