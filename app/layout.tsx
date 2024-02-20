@@ -4,7 +4,8 @@ import MainNavigation from '@/components/main-navigation/MainNavigation';
 import '@/styles/globals.scss';
 import ContentWrapper from '@morphlib/components/ContentWrapper';
 import NotificationOverlay from '@morphlib/components/NotificationOverlay';
-import Provider from '@/components/sessionProvider/Provider';
+import AuthProvider from '@/components/provider/AuthProvider';
+import QueryProvider from '@/components/provider/QueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,11 +31,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={open_sans.className}>
-				<Provider>
-					<MainNavigation />
-					<ContentWrapper>{children}</ContentWrapper>
-					<NotificationOverlay />
-				</Provider>
+				<AuthProvider>
+					<QueryProvider>
+						<MainNavigation />
+						<ContentWrapper>{children}</ContentWrapper>
+						<NotificationOverlay />
+					</QueryProvider>
+				</AuthProvider>
 				<ToastContainer />
 			</body>
 		</html>

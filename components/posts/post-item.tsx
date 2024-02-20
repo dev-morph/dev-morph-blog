@@ -2,7 +2,7 @@ import Card from '@morphlib/components/Card';
 import { PostType, PostsBasedCategoryType } from '@/types/post_types';
 
 type PostItemProps = {
-	post: PostsBasedCategoryType;
+	post: PostType;
 };
 
 export default function PostItem({ post }: PostItemProps) {

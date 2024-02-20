@@ -2,6 +2,7 @@
 
 import Chips from '@/morph-lib/components/Chips';
 import { CategoryType } from '@/types/category_types';
+import { getPostByCategory } from '@/utils/posts-utils';
 import { useRouter } from 'next/navigation';
 
 export default function CategoryChips({
@@ -25,7 +26,12 @@ export default function CategoryChips({
 							: ''
 					}
 					onClick={() => {
-						router.push(`/posts/tag/${category.name}`);
+						// router.push(`/posts/tag/${category.name}`);
+						if (category.name === 'ALL') {
+							router.push(`/posts/tag/ALL`);
+						} else {
+							router.push(`/posts/tag/${category.name}`);
+						}
 					}}
 				>
 					{category.name}

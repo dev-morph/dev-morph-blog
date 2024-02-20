@@ -27,19 +27,54 @@ export async function getAllPosts() {
 }
 
 export async function getPostByCategory(categoryIds: number) {
-	const posts = await prisma?.post.findMany({
-		where: {
-			categories: {
-				some: {
-					category_id: categoryIds,
+	const category = await prisma.category.findUnique({
+		where: { id: categoryIds },
+	});
+
+	let posts;
+	if (category?.name === 'ALL') {
+		posts = await getAllPosts();
+	} else {
+		posts = await prisma?.post.findMany({
+			where: {
+				categories: {
+					some: {
+						category_id: categoryIds,
+					},
 				},
 			},
-		},
-		include: {
-			images: true,
-			categories: true,
-		},
+			include: {
+				images: true,
+				categories: true,
+			},
+		});
+	}
+
+	return posts;
+}
+export async function getPostByCategoryName(categoryName: string) {
+	const category = await prisma.category.findFirst({
+		where: { name: categoryName },
 	});
+
+	let posts;
+	if (category?.name === 'ALL') {
+		posts = await getAllPosts();
+	} else {
+		posts = await prisma?.post.findMany({
+			where: {
+				categories: {
+					some: {
+						category_id: category?.id,
+					},
+				},
+			},
+			include: {
+				images: true,
+				categories: true,
+			},
+		});
+	}
 
 	return posts;
 }

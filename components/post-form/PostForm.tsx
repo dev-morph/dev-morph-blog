@@ -9,12 +9,12 @@ import Spacing from '@/morph-lib/components/Spacing';
 import Button from '@/morph-lib/components/Button';
 import showToast from '@/morph-lib/utils/toast';
 import Select from '@/morph-lib/components/Select';
-import { CategoryType } from '@/types/category_types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { postSchema, type PostSchema } from '@/schema/post-schema';
 import Textarea from '@/morph-lib/components/Textarea';
 import FileInput from '@/morph-lib/components/FileInput';
+import { useGetCategories } from '@/utils/query/category-queries';
 
 type PostBodyType = {
 	title: string;
@@ -25,9 +25,10 @@ type PostBodyType = {
 };
 
 export default function PostForm() {
+	const { data: categories, isError } = useGetCategories();
 	const router = useRouter();
 	const { data: session } = useSession();
-	const [categories, setCategories] = useState<CategoryType[]>([]);
+	// const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [files, setFiles] = useState<File[]>([]);
 	const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
 	const [selectedCategory, setSelectedCategory] = useState<
@@ -41,15 +42,6 @@ export default function PostForm() {
 			showToast({ message: '잘못된 접근입니다.', type: 'error' });
 		}
 	}, [router, session]);
-
-	useEffect(() => {
-		async function getAllCategories() {
-			const { data } = await axios.get('/api/category');
-			setCategories(data.data);
-		}
-
-		getAllCategories();
-	}, []);
 
 	const {
 		register,
@@ -94,14 +86,17 @@ export default function PostForm() {
 				register={register('title')}
 			/>
 			<Spacing size={10} />
-			<Select
-				placeholder="Choose Category"
-				selectedValue={selectedCategory}
-				onChange={setSelectedCategory}
-				options={categories}
-				label="name"
-				value="id"
-			/>
+			{isError && <div>failed to Load Categories</div>}
+			{categories && (
+				<Select
+					placeholder="Choose Category"
+					selectedValue={selectedCategory}
+					onChange={setSelectedCategory}
+					options={categories}
+					label="name"
+					value="id"
+				/>
+			)}
 			<Spacing size={10} />
 			<Textarea
 				rows={15}

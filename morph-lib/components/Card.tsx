@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Text from '@morphlib/components/Text';
 import classes from '@morphlib/sass/Card.module.scss';
+import dayjs from 'dayjs';
 
 type ImgProps = {
 	imagePath: string;
@@ -47,7 +48,7 @@ function Description({ title, creatTime }: DescriptionProps) {
 				{title}
 			</Text>
 			<Text textAlign="right" size="14px">
-				<time>{creatTime}</time>
+				<time>{dayjs(creatTime).format('YYYY-MM-DD HH:mm:ss')}</time>
 			</Text>
 		</div>
 	);

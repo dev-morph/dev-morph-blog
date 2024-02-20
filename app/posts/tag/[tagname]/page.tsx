@@ -1,33 +1,39 @@
-import { getAllPosts } from '@/utils/posts-utils';
-import { getPostByCategory } from '@/utils/posts-utils';
+import { getPostByCategoryName } from '@/utils/posts-utils';
 import { getAllCategories, getCategoryByName } from '@/utils/category-utils';
 import PostsGrid from '@/components/posts/posts-grid';
 import CategoryChips from '@/components/category-chips/CategoryChips';
 import Spacing from '@/morph-lib/components/Spacing';
+import {
+	HydrationBoundary,
+	QueryClient,
+	dehydrate,
+} from '@tanstack/react-query';
+import NotFound from '@/app/not-found';
 
 type Props = {
 	params: { tagname: string };
 };
 
 export default async function TagFilteredPage({ params }: Props) {
+	const queryClient = new QueryClient();
+
 	const categories = await getAllCategories();
 	const category = await getCategoryByName(params.tagname);
 	if (!category) {
-		return <div>404</div>;
+		return <NotFound />;
 	}
 
-	let posts;
-	if (category.name === 'ALL') {
-		posts = await getAllPosts();
-	} else {
-		posts = await getPostByCategory(category.id);
-	}
+	const posts = await queryClient.fetchQuery({
+		queryKey: ['postsByCategory'],
+		queryFn: async () => getPostByCategoryName(params.tagname),
+		staleTime: 1000 * 3, //ms
+	});
 
 	return (
-		<>
+		<HydrationBoundary state={dehydrate(queryClient)}>
 			<CategoryChips categories={categories} selectedTag={category} />
 			<Spacing size="var(--size-8)" />
-			{posts && <PostsGrid posts={posts} />}
-		</>
+			<PostsGrid posts={posts} tagname={params.tagname} />
+		</HydrationBoundary>
 	);
 }

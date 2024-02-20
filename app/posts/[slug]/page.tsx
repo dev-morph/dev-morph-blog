@@ -1,8 +1,6 @@
 import PostContent from '@/components/posts/post-detail/post-content';
 import { getPostById } from '@/utils/posts-utils';
 import { Metadata, ResolvingMetadata } from 'next';
-import axios from 'axios';
-import Top03 from '@morphlib/components/Top/Top03';
 
 type Props = {
 	params: { slug: string };

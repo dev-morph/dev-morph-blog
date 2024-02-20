@@ -5,7 +5,7 @@ import Logo from './logo';
 import classes from './main-navigation.module.scss';
 import Navigation from '@morphlib/components/Navigation';
 import { useSession, signOut } from 'next-auth/react';
-import Provider from '@/components/sessionProvider/Provider';
+import Provider from '@/components/provider/AuthProvider';
 import { CategoryType } from '@/types/category_types';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -29,7 +29,7 @@ export default function MainNavigation() {
 				</Link>
 
 				<Navigation>
-					<Navigation.NavLink href="/posts" text="POSTS" />
+					<Navigation.NavLink href="/posts/tag/ALL" text="POSTS" />
 					<Navigation.NavLink href="/about" text="ABOUT" />
 					{session && +session.user?.role_id === 1 && (
 						<Navigation.NavLink href="/new-post" text="NEWPOST" />
