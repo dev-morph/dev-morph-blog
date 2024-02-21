@@ -32,7 +32,13 @@ export default function MainNavigation() {
 					<Navigation.NavLink href="/posts/tag/ALL" text="POSTS" />
 					<Navigation.NavLink href="/about" text="ABOUT" />
 					{session && +session.user?.role_id === 1 && (
-						<Navigation.NavLink href="/new-post" text="NEWPOST" />
+						<>
+							<Navigation.NavLink
+								href="/new-post"
+								text="NEWPOST"
+							/>
+							<Navigation.NavLink href="/admin" text="ADMIN" />
+						</>
 					)}
 					{session && session.user ? (
 						<Navigation.NavLink

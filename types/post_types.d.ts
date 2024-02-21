@@ -31,7 +31,7 @@ export type PostsBasedCategoryType = {
 	title: string;
 	contents: string;
 	hits: number;
-	images: ImageTypp[];
+	images: ImageType[];
 	thumbnail: string | null;
 	created_at: Date;
 	updated_at: Date;
