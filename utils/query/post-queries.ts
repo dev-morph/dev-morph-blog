@@ -11,18 +11,7 @@ export function useGetPosts() {
 
 export function useGetPostsByCategoryName(categoryName: string) {
 	return useQuery({
-		queryKey: ['postsByCategory'],
-		queryFn: async () => {
-			const response = await fetch(`/api/post/category`, {
-				method: 'POST',
-				body: JSON.stringify({ categoryName }),
-			});
-			if (!response.ok) {
-				throw new Error('failed to get Posts by categoryname');
-			}
-
-			const { data } = await response.json();
-			return data as PostType[];
-		},
+		queryKey: [`postsByCategory/${categoryName}`, categoryName],
+		queryFn: async () => getPostByCategoryName(categoryName),
 	});
 }

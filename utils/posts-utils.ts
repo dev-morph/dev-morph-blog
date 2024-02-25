@@ -1,4 +1,5 @@
-import axios from 'axios';
+'use server';
+
 import prisma from '@/db';
 import { PostType } from '@/types/post_types';
 
@@ -53,30 +54,44 @@ export async function getPostByCategory(categoryIds: number) {
 	return posts;
 }
 export async function getPostByCategoryName(categoryName: string) {
-	const category = await prisma.category.findFirst({
-		where: { name: categoryName },
-	});
+	let category;
+	try {
+		category = await prisma.category.findFirst({
+			where: { name: categoryName },
+		});
+	} catch (error) {
+		return { error: `Failed to find ${category} category!` };
+	}
 
 	let posts;
 	if (category?.name === 'ALL') {
-		posts = await getAllPosts();
+		try {
+			posts = await getAllPosts();
+		} catch (error) {
+			return { error: `Failed getAllPosts!` };
+		}
 	} else {
-		posts = await prisma?.post.findMany({
-			where: {
-				categories: {
-					some: {
-						category_id: category?.id,
+		try {
+			posts = await prisma?.post.findMany({
+				where: {
+					categories: {
+						some: {
+							category_id: category?.id,
+						},
 					},
 				},
-			},
-			include: {
-				images: true,
-				categories: true,
-			},
-		});
+				include: {
+					images: true,
+					categories: true,
+				},
+			});
+		} catch (error) {
+			return { error: `Failed find Posts in ${category}!` };
+		}
 	}
 
-	return posts;
+	if (!posts) return { error: 'No Posts!' };
+	return { success: posts };
 }
 
 export async function getRecentPosts(): Promise<PostType[]> {

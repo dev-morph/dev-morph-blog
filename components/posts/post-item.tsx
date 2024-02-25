@@ -1,8 +1,9 @@
 import Card from '@morphlib/components/Card';
 import { PostType, PostsBasedCategoryType } from '@/types/post_types';
+import dayjs from 'dayjs';
 
 type PostItemProps = {
-	post: PostType;
+	post: PostType | PostsBasedCategoryType;
 };
 
 export default function PostItem({ post }: PostItemProps) {
@@ -25,7 +26,9 @@ export default function PostItem({ post }: PostItemProps) {
 				description={
 					<Card.Description
 						title={title}
-						creatTime={post.created_at.toString()}
+						creatTime={dayjs(post.created_at.toString()).format(
+							'YYYY-MM-DD HH:mm:ss'
+						)}
 					/>
 				}
 			/>

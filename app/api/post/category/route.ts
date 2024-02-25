@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/db';
 
 export async function GET(request: NextRequest, { params }: { params: any }) {
-	console.log('params are ', params);
 	const category = await prisma.category.findFirst({
 		where: { name: params.categoryName },
 	});

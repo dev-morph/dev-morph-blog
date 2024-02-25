@@ -9,31 +9,41 @@ import {
 	dehydrate,
 } from '@tanstack/react-query';
 import NotFound from '@/app/not-found';
+import { CategoryType } from '@/types/category_types';
 
 type Props = {
-	params: { tagname: string };
+	params: { tagname: string; categories: CategoryType[] };
 };
 
+export async function generateStaticParams() {
+	const categories = await getAllCategories();
+
+	return categories.map((category) => ({
+		tagname: category.name,
+	}));
+}
+
 export default async function TagFilteredPage({ params }: Props) {
+	const { tagname } = params;
 	const queryClient = new QueryClient();
 
 	const categories = await getAllCategories();
-	const category = await getCategoryByName(params.tagname);
+	const category = await getCategoryByName(tagname);
+
 	if (!category) {
 		return <NotFound />;
 	}
 
-	const posts = await queryClient.fetchQuery({
-		queryKey: ['postsByCategory'],
-		queryFn: async () => getPostByCategoryName(params.tagname),
-		staleTime: 1000 * 3, //ms
+	await queryClient.prefetchQuery({
+		queryKey: [`postsByCategory/${tagname}`, tagname],
+		queryFn: async () => getPostByCategoryName(tagname),
 	});
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
 			<CategoryChips categories={categories} selectedTag={category} />
 			<Spacing size="var(--size-8)" />
-			<PostsGrid posts={posts} tagname={params.tagname} />
+			<PostsGrid tagname={params.tagname} />
 		</HydrationBoundary>
 	);
 }

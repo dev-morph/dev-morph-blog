@@ -44,7 +44,17 @@ export async function getAllCategoriesFromServer() {
 	return data.data as CategoryType[];
 }
 
-export async function getCategoryByName(
+export async function getCategoryByName(category: string) {
+	const result = await prisma.category.findFirst({
+		where: {
+			name: category,
+		},
+	});
+
+	return result;
+}
+
+export async function getCategoryByNameFromServer(
 	category: string
 ): Promise<CategoryType> {
 	const { data } = await axios({
