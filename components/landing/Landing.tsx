@@ -9,12 +9,12 @@ import Section from '@/morph-lib/components/Section';
 export default function Landing() {
 	return (
 		<>
-			<Top03 textAlign="center">Moyang</Top03>
-			<Spacing size={10} />
+			<Top03 textAlign="center">Welcome to my Blog.</Top03>
+			<Spacing size={20} />
 			<Text textAlign="center" size="0.95rem">
-				Blog dealing with web development and personal matters.
+				Click or hover below the card to see what will happen. 🤪
 			</Text>
-			<Lottie src="/lottie/boy.json" className="center" />
+			<Spacing size={30} />
 		</>
 	);
 }

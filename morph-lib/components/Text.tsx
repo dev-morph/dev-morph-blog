@@ -33,8 +33,8 @@ export default function Text({
 }: TextProps) {
 	return (
 		<span
-			className={`${fontWeight && classes[fontWeight]} ${
-				className && className
+			className={`${classes.text} ${fontWeight && classes[fontWeight]} ${
+				className && classes[className]
 			}`}
 			style={{
 				textAlign: textAlign,

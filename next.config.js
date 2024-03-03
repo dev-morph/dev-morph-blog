@@ -15,6 +15,12 @@ const nextConfig = (phase) => {
 						port: '',
 						pathname: '/images/**',
 					},
+					{
+						protocol: 'https',
+						hostname: 'img.shields.io',
+						port: '',
+						pathname: '/badge/**',
+					},
 				],
 			},
 			env: {
@@ -33,6 +39,12 @@ const nextConfig = (phase) => {
 					hostname: 'moyang.s3.ap-northeast-2.amazonaws.com',
 					port: '',
 					pathname: '/images/**',
+				},
+				{
+					protocol: 'https',
+					hostname: 'img.shields.io',
+					port: '',
+					pathname: '/badge/**',
 				},
 			],
 		},

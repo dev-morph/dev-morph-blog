@@ -56,6 +56,15 @@ const Lottie = memo(
 				style={{ ...style }}
 				ref={container}
 			/>
+			// <div
+			// 	style={{
+			// 		width: '100%',
+			// 		height: '150px',
+			// 		display: 'flex',
+			// 		justifyContent: 'center',
+			// 	}}
+			// >
+			// </div>
 		);
 	},
 	(prev, next) => {

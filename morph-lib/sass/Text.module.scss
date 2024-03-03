@@ -10,3 +10,13 @@
 .bolder {
 	font-weight: var(--fw-bolder);
 }
+
+.profile__skill__title {
+	width: 50px;
+}
+
+@media (min-width: 768px) {
+	.profile__skill__title {
+		width: 80px;
+	}
+}

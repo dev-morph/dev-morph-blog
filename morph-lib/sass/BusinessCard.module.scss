@@ -1,0 +1,220 @@
+$font-base-size: 1rem;
+$back-padding: 1.5rem 0.5rem 0.5rem 1.5rem;
+$back-sm-padding: 1rem 0.25rem 0.25rem 1rem;
+
+@mixin front-glass-morphism {
+	// background-color: white;
+	background: rgba(255, 255, 255, 0.88);
+	// background: rgba(255, 255, 255, 1);
+	box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.15);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border-radius: inherit;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+@mixin back-glass-morphism {
+	// background-color: white;
+	background: rgba(255, 255, 255, 0.75);
+	// background: rgb(59, 118, 255);
+	box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.15);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border-radius: inherit;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card {
+	position: relative;
+	width: 220px;
+	height: 310px;
+	// background-image: url(https://assets.codepen.io/13471/pikachu-gx.webp);
+	// background-size: cover;
+
+	border-radius: 10px;
+	// backdrop-filter: blur(8.5px);
+	// -webkit-backdrop-filter: blur(8.5px);
+	// border-radius: 10px;
+	// border: 1px solid rgba(255, 255, 255, 0.18);
+
+	transform-style: preserve-3d;
+	transform: translateZ(0px);
+	// transform: translate3d(0, 0, 0);
+	transition: filter 0.3s ease-in-out;
+	color: white;
+	// backface-visibility: hidden;
+
+	font-size: $font-base-size;
+
+	.front {
+		position: absolute;
+		inset: 0rem;
+		border-radius: inherit;
+
+		@include front-glass-morphism;
+
+		transform: translateZ(1px);
+
+		.front__content {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-around;
+			gap: 3rem;
+			color: black;
+
+			.base__info {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				font-size: calc($font-base-size * 0.8);
+				font-weight: 500;
+			}
+
+			.introduction {
+				font-family: 'Source Code Pro', monospace;
+				font-size: calc($font-base-size * 0.6);
+				font-weight: 600;
+				position: relative;
+				width: max-content;
+				display: flex;
+				align-items: center;
+				&::after,
+				&::before {
+					content: '';
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+				}
+				&::before {
+					background-color: white;
+					animation: typer 4s steps(34) 1s forwards;
+				}
+
+				&::after {
+					width: 0.12rem;
+					background-color: black;
+					animation: typer 4s steps(34) 1s forwards,
+						blink 600ms steps(34) infinite;
+				}
+			}
+		}
+
+		.name {
+			font-weight: 600;
+			font-size: 1.2rem;
+			text-align: center;
+		}
+
+		.job {
+			color: rgb(128, 128, 128);
+			text-align: center;
+		}
+		.profile__image {
+			width: 100%;
+			// padding-bottom: 1.5rem;
+			padding: 0.5rem;
+		}
+	}
+	.back {
+		position: absolute;
+		inset: 0rem;
+		border-radius: inherit;
+
+		@include back-glass-morphism;
+
+		transform: translateZ(-1px) rotateY(180deg) !important;
+
+		.content__wrapper {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+
+		.back__content {
+			font-family: 'Source Code Pro', monospace;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			color: black;
+			padding: $back-sm-padding;
+
+			font-size: $font-base-size * 0.6;
+
+			.github {
+				text-decoration: underline;
+				cursor: pointer;
+			}
+		}
+
+		.skill__wrapper {
+			padding: $back-sm-padding;
+			font-size: $font-base-size * 0.6;
+			.skills {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				padding: 0.2rem 0;
+
+				.badges {
+					display: flex;
+					align-items: center;
+					gap: 10px;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	.card {
+		width: 350px;
+		height: 500px;
+
+		.front {
+			.front__content {
+				.introduction {
+					font-size: calc($font-base-size * 0.9);
+				}
+
+				.base__info {
+					font-size: $font-base-size;
+					font-weight: 500;
+				}
+			}
+
+			.profile__image {
+				padding: 1.5rem;
+			}
+		}
+
+		.back {
+			.back__content {
+				font-size: $font-base-size * 0.9;
+				padding: $back-padding;
+			}
+			.skill__wrapper {
+				padding: $back-padding;
+				font-size: $font-base-size * 0.9;
+			}
+		}
+	}
+}
+
+@keyframes typer {
+	to {
+		left: 100%;
+	}
+}
+
+@keyframes blink {
+	to {
+		background-color: transparent;
+	}
+}

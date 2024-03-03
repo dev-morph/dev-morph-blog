@@ -3,10 +3,8 @@
 import { useGetPostsByCategoryName } from '@/utils/query/post-queries';
 import PostItem from './post-item';
 import classes from './posts-grid.module.scss';
-import { PostsBasedCategoryType } from '@/types/post_types';
 
 type PostsGridProps = {
-	// posts: PostsBasedCategoryType[];
 	tagname: string;
 };
 

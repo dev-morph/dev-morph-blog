@@ -171,6 +171,13 @@ input:-webkit-autofill:active {
 	-webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
+.small__badge {
+	display: block;
+}
+.big__badge {
+	display: none;
+}
+
 @media (min-width: 768px) {
 	body {
 		--size-1: 0.25rem;
@@ -194,5 +201,12 @@ input:-webkit-autofill:active {
 		--size-19: 4.75rem;
 		--size-20: 5rem;
 		--size-40: 10rem;
+	}
+
+	.small__badge {
+		display: none;
+	}
+	.big__badge {
+		display: block;
 	}
 }

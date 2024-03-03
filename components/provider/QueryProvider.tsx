@@ -43,13 +43,12 @@ export default function QueryProvider({
 			new QueryClient({
 				defaultOptions: {
 					queries: {
-						staleTime: 6 * 1000, //ms
-						refetchInterval: 6 * 1000, //ms
+						staleTime: 10 * 1000, //ms
+						refetchInterval: 10 * 1000, //ms
 					},
 				},
 			})
 	);
-	// const queryClient = getQueryClient();
 
 	return (
 		<QueryClientProvider client={queryClient}>
