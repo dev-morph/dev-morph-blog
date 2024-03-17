@@ -1,80 +1,77 @@
----
-title: 'About me'
-date: '2024-01-20'
-excerpt: I am a frontend developer who loves to work out.
-isFeatured: true
----
-
-성능향상을 위해 도입한 Springboot Webflux, R2DBC.하지만 대량의 데이터를 INSERT할 때 성능이 훨씬 떨어졌습니다. 어떻게 성능을 개선할 수 있었는지 정리해보고자 합니다.
-
-## **Bulk Insert란 ?**
-
-Bulk Insert는 여러개의 Insert 쿼리를 한번에 묶어서 처리하는 것을 의미합니다.
-
-#
-
-예를 들어, 3건의 INSERT 쿼리를 날린다고 했을 때 아래처럼 3개의 INSERT문을 날리는 것이 아니라,
-
-```sql
-INSERT INTO TestTable(c1, c2) VALUES(v1, v2);
-INSERT INTO TestTable(c1, c2) VALUES(v3, v4);
-```
-
-아래처럼 하나의 쿼리로 처리하는 것을 **Batch Insert** 라고 합니다.
-
-```sql
-INSERT INTO TestTable(c1, c2)
-VALUES(v1, v2), (v3, v4);
-```
-
-지금까지 당연히 다량의 데이터를 처리할 때엔 Bulk Insert를 사용하고 있었습니다.
+최근 진행 중인 프로젝트에서 서명, 검증 기능을 개발하는 부분을 담당하고 있습니다.
+이번 포스트에서는 제가 어떤 문제를 맞이했고 어떻게 문제를 해결 할 수 있었는지 정리해보고자 합니다.
 
 #
 
 ---
 
-## **R2DBC Bulk Insert 성능**
+# 문제 상황
 
-Reactive한 R2DBC를 선택 했을 때 당연히 성능이 개선되길 기대했습니다. 하지만, R2DBC를 이용하여 Bulk Insert를 했을 때 오히려 성능이 저하되는 것을 확인하였습니다.
+문제상황은 아래와 같습니다.
 
-제가 짰던 코드 방식을 보며 어떤 문제가 있었고, 어떻게 성능을 개선 했는지 알아봅시다.
+검증하기 위해서는 byte[]로 되어 있는 구조체 전체에서 사내에서 정한 **Delimiter**(구분자)를 찾아야 했습니다.
 
-### **개발 기능 명세**
-
-제가 개발한 기능은 아래와 같습니다.
-
--   초당 1000건의 데이터를 수신하여 Buffer에 저장
--   Buffer가 정해진 수량에 도달하거나 OR 정해진 시간이 지나면, Buffer에 있는 데이터를 MariaDB에 Insert (**Bulk Insert**)
+여기에서 제가 맞이한 문제는 아래와 같았습니다.
 
 #
 
----
+1. 구조체의 크기가 매우 크다.(최대 2GB)
+2. 기존의 Delimiter를 찾는 방식은 O(M\*N)의 시간복잡도를 가진다.
 
 #
 
-### **1\. SaveAll 방식 - 10,000건: 17초**
+## 기존 탐색알고리즘
 
-가장 처음에는 R2DBC repository에서 제공하는 saveAll() 메소드를 이용하였습니다.
-예상과 달리, Bulk Insert가 아닌 개별 Insert쿼리가 생성되는 것을 볼 수 있었습니다.
+기존의 Delimiter를 찾는 방식은 단순히 이중 for문을 이용한 방식으로 아래와 같았습니다.
 
 ```java
-private Flux<TestEntity> batchInsert(Flux<TestEntity> testFlux) {
-    long startTime = System.currentTimeMillis();
-    return testRepository.saveAll(testFlux)
-                	 .doOnComplete(() -> {
-                         	 long endTime = System.currentTimeMillis();
-	                         long elapsedTime = endTime - startTime;
-                         	log.info("Time consumed by bulkInsertCarStatus: {} milliseconds", elapsedTime);
-                         });
+public static Integer getPatternIndex(byte[] parent, byte[] pattern){
+    int parentSize = parent.length;
+    int patternSize = pattern.length;
+
+
+    //i is parent index
+    for(int i = 0; i <= parentSize - patternSize; i++){
+        Boolean found = Boolean.TRUE;
+        //j is pattern index
+        for(int j = 0; j < patternSize; j++){
+            if(parent[i + j] != pattern[j]){
+                found = Boolean.FALSE;
+                break;
+            }
+        }
+
+        if(found.equals(Boolean.TRUE)) return i;
+    }
+    //pattern 찾기 실패 시 -1 리턴
+    return -1;
 }
 ```
 
-Bulk Insert가 아니기에 성능은 매우 안좋았습니다.
-10000건의 데이터를 Insert하는데 총 17초가 걸렸습니다.
+해당 방식은 이중 for문을 이용하여 O((N-M + 1) \*M)시간 복잡도를 가진다는 것을 알 수 있습니다.  
+(M: parent 길이, N: pattern의 길이)
 
 #
 
-![insert-performance](insert-performance.png)
+---
+
+# 해결방법
+
+우선, 위의 비효율적인 알고리즘을 봤을 때, 가장 먼저 든 해결방법은 예전에 알고리즘을 문제를 풀다 만나봤던 KMP알고리즘을 사용하는 방법 이었습니다.
+
+바로 적용하기 이전에 KMP이외의 더 적합한 탐색알고리즘이 있는지 찾아봤습니다.  
+그 결과 보통 탐색알고리즘으로 **KMP알고리즘**과 **Rabin-Karp알고리즘**을 많이 쓴다는 것을 확인 할 수 있었습니다.
+
+#
+
+이 중 저는 **KMP알고리즘을 사용하기로 결정** 했습니다.  
+그 이유는 아래와 같습니다.
+
+1. Delimiter는 4byte의 매우 작은 크기를 가진다 → KMP 테이블 생성에 있어 시간, 공간적 부담이 없다.
+2. java byte의 overflow걱정을 할 필요 없다.  
+   (Rabin-Karp를 이용할 경우, hash 할 때, byte overflow문제를 고려해줘야 한다.)
+3. 두 알고리즘의 worst-case 시간복잡도는 O(m+n)정도로 비슷하다.  
+   (이는 매우 특수한 값인 Delimiter를 사용했기에, Rabin-Karp의 superious hits는 없다고 가정할 경우이다.)
 
 #
 
@@ -82,173 +79,189 @@ Bulk Insert가 아니기에 성능은 매우 안좋았습니다.
 
 #
 
-### **2\. Parameterized Statement 방식 - 10,000건: 10.5초**
+## 1. KMP 알고리즘 구현
 
-r2dbc 에서 batch insert를 할 때에는 statement의 add(), bind()를 이용해야 한다는 부분을 찾았습니다.**([r2dbc 공식문서 - statements.batching](https://r2dbc.io/spec/0.8.5.RELEASE/spec/html/#statements.batching))**
+그럼 KMP 알고리즘을 구현해보도록 하겠습니다.
+
+### 1-1. KMP 테이블 생성
+
+아래의 내용은 [KMP알고리즘 정리영상](https://www.youtube.com/watch?v=V5-7GzOfADQ)을 보고 정리한 내용입니다.  
+**KMP알고리즘**은 prefix(접두사)와 suffix(접미사)를 활용하여 naive 알고리즘을 개선한 알고리즘입니다.
 
 #
 
-공식문서대로 금방 개발 할 수 있었습니다. 대략적인 코드는 아래와 같았습니다.
+간단히 prefix, suffix를 정의하고 넘어가겠습니다.  
+여기서 **접두사**는 a, ab, abc, abcd, abcda, abcdab, abcdabc가 됩니다.  
+그리고 **접미사**는 c, bc, abc, dabc, cdabc, bcdabc, abcdabc가 될 것입니다.   
+어렵지 않은 개념이니 금방 이해할 수 있을 것이라 생각합니다.
+
+#
+
+KMP알고리즘은 **prefix와 suffix가 일치하는 가장 긴 길이**인 **LPS**(Longest Prefix, suffix)를 이용합니다.  
+아래표는 LPS테이블이 어떻게 구성되는지 보여줍니다.
+
+#
+
+![KMP Table](kmp_table.png)
+
+#
+
+이 테이블을 생성하는 함수는 아래처럼 만들 수 있을 것입니다.
 
 ```java
-private Flux<TestDTO> flushDatas(List<TestDTO> testDtoList) {
+public static byte[] getKMPTable(byte[] pattern){
+    int patternSize = pattern.length;
+    byte[] resultTable = new byte[patternSize];
 
-    return databaseClient.inConnectionMany(connection -> {
-        Statement stmt = connection.createStatement(this.initSql.toString());
-        this.bindAllListValues(stmt, testDtoList, TestDTO.class);
-        long startTime = System.currentTimeMillis();
-        return Flux.from(stmt.execute())
-                .flatMap(result -> (Flux<TestDTO>) result.map((row, metadata) -> {
-                    return TestDTO.builder()
-                            .id(null)
-                            .build();
-                }))
-                .doOnComplete(() -> {
-                    long endTime = System.currentTimeMillis(); // Capture end time
-                    long elapsedTime = endTime - startTime; // Calculate elapsed time
-                    log.info("Time consumed by bulkInsertCarStatus: {} milliseconds to insert {} items.",
-                            elapsedTime, carStatusList.size());
-                });
-    });
+    int j = 0;
+    for(int i = 1; i < patternSize ; i ++){
+        if(pattern[i] != pattern[j]){
+            j = 0;
+        }
+        if(pattern[i] == pattern[j]){
+            resultTable[i] = (byte)(j + 1);
+            j++;
+        }
+    }
+
+    return resultTable;
+}
 ```
 
-날라가는 쿼리를 체크했을 때, 개별적인 Inert 쿼리가 아닌 Bulk Inert로 작동함을 확인했습니다.
+#
 
-성능 또한 이전의 saveAll 방식에 비해 많이 개선되었지만, 여전히 너무 느렸습니다. 테스트 결과는 아래와 같았습니다.  
-buffer사이즈는 한번의 쿼리에 몇 건의 데이터를 Insert 하는 지를 의미합니다.
+### 1-2. KMP 알고리즘 구현
 
-예를 들어, 버퍼 사이즈가 1,000건 인데 총 10,000건을 Insert한다면 10개의 쿼리가 생성 될 것입니다.
+바로 아래 예시를 통해 KMP알고리즘이 어떻게 naive 알고리즘을 개선했는지 알아보도록 하겠습니다.
 
-아래 테스트 결과는 총 10,000건의 데이터를 각기 다른 버퍼 사이즈로 Insert 했을 때 소요된 시간에 대한 표입니다.
+![naive algorithm](naive_algo.png)
 
 #
 
-![bulk-insert-performance](bulk-insert-performance.png)
+위 사진을 보면 5번째 Index에서 Text (A)와 Pattern (D)가 일치하지 않았습니다.
 
----
+이 상황에서 naive 알고리즘을 사용한다면, Text의 Index 1부터, Pattern은 0부터 다시 일치하는지 하나씩 맞춰 볼 것입니다.
 
-#
-
-buffer 사이즈에 따라 성능이 달라지는 것을 확인했습니다, 몇 번의 테스트를 통해 10,000건을 Insert하기 위해서는 buffer 사이즈를 2000개로 정하는 것이 좋다고 판단 했습니다, 하지만 여전히 불만족스러운 성능을 보여주고 있었습니다.
-
----
-
-### **3\. Index 조정 **\- 10,000건: 10.3초\*\*\*\*
-
-사내에서 batch insert 테스트 중인 테이블은 꽤나 많은 칼럼과 하나 이상의 index를 가지고 있었습니다.
-
-설계 단계에서 빠른 검색을 위해서 index를 설정 했었습니다. 이 부분이 Insert 할 때 문제가 될 수 있다고 하여 정말 최소한의 인덱스만을 남기고 삭제했습니다.
-
-하지만 유의미하게 성능이 개선 되지 않았고, 심지어 모든 인덱스를 제거하고도 성능은 10초 이하로 내려가지 않았습니다.
+KMP알고리즘은 이 상황에서 Text **4번째 인덱스 까지는 다시 볼 필요가 없다는 점**을 이용하여 시간복잡도를 개선합니다.
 
 #
 
----
+어떻게 4번째 인덱스까지는 볼 필요가 없다는 사실을 알 수 있을까요?
 
 #
 
-### **4\. Raw Query 방식 - 100,000건 : 10.05초** 
+아래 표를 한번 살펴보겠습니다.
 
-납득할 수 없는 성능에 열심히 구글링을 한 결과 r2dbc 깃헙 이슈에서 다음과 같은 글을 찾을 수 있었습니다. ([**r2dbc batch issue**](https://github.com/spring-projects/spring-data-r2dbc/issues/259))
-
-이슈 등록은 2019년 12월 19일 이었지만, 최근까지 업데이트가 되고 있는 따끈따끈한 이슈였습니다.
-해당 이슈의 요약은 아래와 같았습니다.(직접 읽어 보는 것을 추천합니다.)
+![KMP algorithm - process1](kmp1.png)
 
 #
 
-데이터베이스에서 Batch Insert를 하는 방법은 크게 두가지가 있다.
-
-1\. parameterize하지 않고, SQL operations을 이어 붙이는 방식
-
-2\. bind를 통한 prepared statements를 사용하는 방식
-
-(위에 사용한 parameterized statement 방식이 2번에 해당하는 방식이었습니다. )
+KMP 알고리즘은 Text[i]와 Pattern[j]가 일치 하지 않았을 때, j를 Table[j-1]으로 옮겨줍니다.
 
 #
 
-그리고 SpringData의 **[mp911de](https://github.com/mp911de)** 는 **Statement.add().add() 를 이용해도 결국 왜 batch를 이용하지 못하는 이유**를 묻는 질문에 대해 아래와 같이 답변 했습니다.
+위 사진에서 i, j는 5이므로, j만 Table[5-1]의 값, 즉 0으로 옮겨주는 것입니다.
+
+이 상황에서(i = 5, j = 0) 다시 Text와 Pattern의 비교를 시작합니다.
+
+어떤가요? 이렇게 KMP Table을 이용해서 다시 Text Index(i) 1부터 탐색하지 않고, 우리의 탐색을 이어갈 수 있습니다.
 
 #
 
-몇몇 DB의 드라이버들은 이전에 실행된 statement와 타입이 매칭 된다면, prepared statement 캐쉬를 이용하지만, **Postgres, SQL Server, H2, MariaDB**의 경우에는 parametrized statement with a table of bindings을 이용 할 수 있는 API가 제공되지 않는다고 합니다.
+![KMP algorithm - process2](kmp2.png)
 
 #
 
-결국, **위에서 언급한 데이터베이스들을 이용 중이라고 한다면, 앞서 언급한 1번 방식, SQL을 직접 이어 붙이는 방식을 이용** 해야 좋은 성능을 낼 수 있다는 것입니다.
+그리고 이렇게 Pattern의 길이만큼 일치하는 Text를 찾았을 때, **i - patternSize + 1**을 리턴하면 Pattern의 위치를 찾을 수 있습니다.
+
+여기에서는 5가 되겠죠.
 
 #
 
-어떻게 구현했는지 알아보기 전에, 개선 후 성능을 확인해보겠습니다.
-
-#
-
-아래 결과는 **버퍼 사이즈를 20,000건**으로 **총 100,000건을 INSERT** 했을 때 걸린 테스트 결과입니다. (10,000건 Insert시 1초미만의 결과가 나왔습니다.)
-
-#
-
-**총 9,552ms**이 걸린 것을 확인 할 수 있고, 처음 10,000건에 17초가 걸렸던 것을 기억한다면 **약 17.8배 성능 향상**이 있었음을 알 수 있습니다. (참고로 아래 정보는 Reactive로 실행되기에 가장 오래 걸린 건만 보면 됩니다.)
-
-![after-bulk-insert-performance](after-bulk-insert-performance.png)
-
----
-
-### **\[Solved\] 직접 쿼리 생성 함수 만들기**
-
-이제 원인은 알았고, 우리가 원하는 쿼리를 이어 붙이는 함수를 만들어줘야 합니다.
-
-#### **1) initSql 생성 함수**
-
-아래처럼 내가 원하는 Entity를 넘겨주면 해당 클래스가 가지고 있는 필드네임을 읽어서, 쿼리의 첫 시작 부분을 만들어 주는 함수를 만들었습니다.
+이 로직은 아래 코드로 구현할 수 있습니다.
 
 ```java
-public <T> StringBuilder getInitSql(Class<T> clazz)
+public static Integer findPatternByKmp(byte[] parent, byte[] pattern){
+    int parentSize = parent.length;
+    int patternSize = pattern.length;
+    byte[] kmpTable = getKMPTable(pattern);
+
+    int j = 0;
+    for(int i = 0; i < parentSize; i++){
+        while(j > 0 && parent[i] != pattern[j]){
+            j = kmpTable[j - 1];
+        }
+
+        if(parent[i] == pattern[j]){
+            if(j == patternSize - 1){
+                return i - patternSize + 1;
+            }
+            j++;
+        }
+    }
+    return null;
+}
+
 ```
-
-이때 이 함수의 리턴 값은 아래와 같을 것입니다.  
-"**INSERT INTO test_table(c1, c2, c3, c4) VALUES**"
-
-#
-
-#### **2) value concat 함수**
-
-이제, 저 initSql 뒤에 실제 값들을 이어 붙여서 쿼리를 만들어 봅시다.
-
-```java
-public <T> StringBuilder generateBatchQuery(List<T> targetDatas, Class<T> clazz)
-```
-
-한번에 처리해도 되지만 targetDatas를 순환하면서 아래와 같은 generateQuery() 함수를 실행시켜 주는 방식으로 구현했습니다.
-
-tableName은 사실 필요 없지만, 사내 규칙이 uuid + tableName을 이용하여 PK를 만드는 것이라 어쩔 수 없이 추가했습니다.
-
-```java
-public <T> StringBuilder generateSingleQuery(String tableName, T data, Class<T> clazz)
-```
-
-generateBatchQuery 함수의 리턴 값은 아래와 같을 것입니다.
-
-"**(v1, v2, v3, v4), (v5, v6, v7, v8);**"
-
-#
 
 #
 
 ---
 
-### **주의할 점**
+#
 
-사실 위 함수들을 만드는 로직자체는 크게 어렵지 않지만, 아래와 같은 **주의 할 점**들이 있습니다.
+## 2. 구조체 구조에 맞도록 KMP 알고리즘 최적화
+
+지금까지 일반적인 KMP알고리즘을 어떻게 구현할 수 있는지 알아봤습니다.
+
+이제 이 알고리즘을 어떻게 **로직에 맞도록 최적화** 시켰는지 알아보도록 하겠습니다.
 
 #
 
-**1\. TypeCheck** - SQL을 만들 때, primitive type(double, number, bigDecimal, boolean, etc)와 같은 타입들은 single quote를 붙이면 안되고, 나머지 타입에는 붙여줘야 합니다.
+단, 일반적인 알고리즘이 아닌 사내 최적화 코드는 공개가 어려운점 양해 부탁드립니다.
 
 #
 
-**2\. SQL Injection** \- 이런 방식으로 쿼리를 DB에 보내게 되면 SQL Inject에 취약할 수 있습니다. 저는 이를 예방하기 위해서 최소한의 조치인 **HtmlUtils.htmlEscape(String input)** 를 이용했습니다.
+우선, Delimiter가 포함되어 있는 구조체는 대략 아래와 같은 구조를 가지고 있습니다.(사실 훨씬 복잡한 구조를 가지고 있지만...)
+여기서 앞 부분에 위치한 파일데이터가 매우 큰 사이즈를 가지고 있습니다.
+
+![data_structure](data_structure.png)
 
 #
 
-위와 같은 방식으로 쿼리를 직접생성하는 Util 함수를 만들어 성능개선을 이룰 수 있었습니다.
+KMP알고리즘을 그대로 사용한다면 매우 큰 사이즈의 파일데이터부터 탐색을 할 것입니다.  
+하지만 우리가 찾는 데이터는 항상 기타데이터 부분에 위치하고 있습니다.
 
-혹시 좀 더 제가 개선 할 수 있는 사항이 있거나, 궁금하신 점, 수정해야 할 내용이 있다면 댓글로 알려주시면 감사하겠습니다! 🙏
+#
+
+즉, 스킵해도 될 파일데이터를 탐색하며 시간을 낭비하는 것 입니다.
+
+#
+
+이를 해결하기 위해 뒤에서부터 KMP 알고리즘 탐색을 하도록 하는 함수를 따로 구현하였습니다.
+
+#
+
+그리고 아래처럼 로직을 구성하였습니다.
+
+1. 전체 파일 사이즈를 기준으로 하여 일정 사이즈 이하 ➡ 기존 KMP알고리즘을 그대로 사용,
+2. 기준 사이즈를 초과 ➡ 뒤에서부터 탐색하는 알고리즘 사용
+
+#
+
+이와 같은 방식으로 평균적으로 약 50%이상 탐색 성능을 개선할 수 있었습니다.
+
+#
+
+---
+
+#
+
+# 느낀점
+
+항상 알고리즘 공부를 하면서 이런 알고리즘을 실제로 내가 쓸 일이 있을까? 라는 생각이 들때가 많았는데,  
+예전에 공부했던 알고리즘을 실제 비지니스 로직에 녹여 성능을 유의미하게 개선하는 경험은 정말 재밌었습니다.
+
+#
+
+결론 참 재밌었다!🤩
