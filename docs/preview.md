@@ -102,7 +102,7 @@ KMP알고리즘은 **prefix와 suffix가 일치하는 가장 긴 길이**인 **L
 
 #
 
-![KMP Table](kmp_table.png)
+<!-- ![KMP Table](kmp_table.png) -->
 
 #
 
@@ -134,7 +134,7 @@ public static byte[] getKMPTable(byte[] pattern){
 
 바로 아래 예시를 통해 KMP알고리즘이 어떻게 naive 알고리즘을 개선했는지 알아보도록 하겠습니다.
 
-![naive algorithm](naive_algo.png)
+<!-- ![naive algorithm](naive_algo.png) -->
 
 #
 
@@ -152,7 +152,7 @@ KMP알고리즘은 이 상황에서 Text **4번째 인덱스 까지는 다시 �
 
 아래 표를 한번 살펴보겠습니다.
 
-![KMP algorithm - process1](kmp1.png)
+<!-- ![KMP algorithm - process1](kmp1.png) -->
 
 #
 
@@ -168,7 +168,7 @@ KMP 알고리즘은 Text[i]와 Pattern[j]가 일치 하지 않았을 때, j를 T
 
 #
 
-![KMP algorithm - process2](kmp2.png)
+<!-- ![KMP algorithm - process2](kmp2.png) -->
 
 #
 
@@ -225,7 +225,7 @@ public static Integer findPatternByKmp(byte[] parent, byte[] pattern){
 우선, Delimiter가 포함되어 있는 구조체는 대략 아래와 같은 구조를 가지고 있습니다.(사실 훨씬 복잡한 구조를 가지고 있지만...)
 여기서 앞 부분에 위치한 파일데이터가 매우 큰 사이즈를 가지고 있습니다.
 
-![data_structure](data_structure.png)
+<!-- ![data_structure](data_structure.png) -->
 
 #
 

@@ -17,14 +17,13 @@ export async function getPostById(id: string) {
 }
 
 export async function getAllPosts() {
-	const result = await prisma.post.findMany({
+	const posts = await prisma.post.findMany({
 		include: {
 			images: true,
 			categories: true,
 		},
 	});
-
-	return result;
+	return posts;
 }
 
 export async function getPostByCategory(categoryIds: number) {
@@ -94,17 +93,22 @@ export async function getPostByCategoryName(categoryName: string) {
 	return { success: posts };
 }
 
-export async function getRecentPosts(): Promise<PostType[]> {
-	const result = await prisma?.post.findMany({
-		include: {
-			images: true,
-			categories: true,
-		},
-		orderBy: {
-			created_at: 'desc',
-		},
-		take: 5,
-	});
+export async function getRecentPosts() {
+	let posts;
+	try {
+		posts = await prisma?.post.findMany({
+			include: {
+				images: true,
+				categories: true,
+			},
+			orderBy: {
+				id: 'desc',
+			},
+			take: 5,
+		});
+	} catch (error) {
+		return { error: 'Failed to get recent posts!' };
+	}
 
-	return result;
+	return { success: posts };
 }

@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllPosts, getPostByCategoryName } from '../posts-utils';
-import { PostType } from '@/types/post_types';
+import {
+	getAllPosts,
+	getPostByCategoryName,
+	getRecentPosts,
+} from '../posts-utils';
 
 export function useGetPosts() {
 	return useQuery({
@@ -13,5 +16,12 @@ export function useGetPostsByCategoryName(categoryName: string) {
 	return useQuery({
 		queryKey: [`postsByCategory/${categoryName}`, categoryName],
 		queryFn: async () => getPostByCategoryName(categoryName),
+	});
+}
+
+export function useGetRecentPosts() {
+	return useQuery({
+		queryKey: ['recentPosts'],
+		queryFn: async () => getRecentPosts(),
 	});
 }
