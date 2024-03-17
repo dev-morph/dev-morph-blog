@@ -27,16 +27,16 @@ export default function TSIcon({ size = 20 }: { size?: number }) {
 				className="big__badge"
 			>
 				<title>Typescript</title>
-				<g shape-rendering="crispEdges">
+				<g shapeRendering="crispEdges">
 					<rect width="0" height="25" fill="#555" />
 					<rect x="0" width="85" height="25" fill="#3178c6" />
 				</g>
 				<g
 					fill="#fff"
-					text-anchor="middle"
-					font-family="Verdana,Geneva,DejaVu Sans,sans-serif"
-					text-rendering="geometricPrecision"
-					font-size="110"
+					textAnchor="middle"
+					fontFamily="Verdana,Geneva,DejaVu Sans,sans-serif"
+					textRendering="geometricPrecision"
+					fontSize="110"
 				>
 					<image
 						x="5"

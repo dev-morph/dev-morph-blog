@@ -1,6 +1,7 @@
 $font-base-size: 1rem;
 $back-padding: 1.5rem 0.5rem 0.5rem 1.5rem;
 $back-sm-padding: 1rem 0.25rem 0.25rem 1rem;
+$glittering-position: 50% 50%;
 
 @mixin front-glass-morphism {
 	// background-color: white;
@@ -24,24 +25,17 @@ $back-sm-padding: 1rem 0.25rem 0.25rem 1rem;
 }
 
 .card {
+	--background--test: 50% 50%;
 	position: relative;
 	width: 220px;
 	height: 310px;
-	// background-image: url(https://assets.codepen.io/13471/pikachu-gx.webp);
-	// background-size: cover;
 
 	border-radius: 10px;
-	// backdrop-filter: blur(8.5px);
-	// -webkit-backdrop-filter: blur(8.5px);
-	// border-radius: 10px;
-	// border: 1px solid rgba(255, 255, 255, 0.18);
 
 	transform-style: preserve-3d;
 	transform: translateZ(0px);
-	// transform: translate3d(0, 0, 0);
 	transition: filter 0.3s ease-in-out;
 	color: white;
-	// backface-visibility: hidden;
 
 	font-size: $font-base-size;
 
@@ -118,6 +112,36 @@ $back-sm-padding: 1rem 0.25rem 0.25rem 1rem;
 			width: 100%;
 			// padding-bottom: 1.5rem;
 			padding: 0.5rem;
+		}
+
+		&::after {
+			--color1: rgb(0, 231, 255);
+			--color2: rgb(255, 0, 231);
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			background-position: var(--background--test);
+			background-size: 300% 300%;
+			background-image: linear-gradient(
+				115deg,
+				transparent 0%,
+				var(--color1) 25%,
+				transparent 47%,
+				transparent 53%,
+				var(--color2) 75%,
+				transparent 100%
+			);
+			opacity: 0.5;
+			filter: brightness(0.5) contrast(1);
+			height: 100%;
+			width: 100%;
+			z-index: 0;
+		}
+
+		button {
+			z-index: 1;
 		}
 	}
 	.back {

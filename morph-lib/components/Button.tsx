@@ -60,7 +60,10 @@ export default function Button(props: ButtonProps) {
 				onClick && onClick(e);
 			}}
 		>
-			<span className={classes.btn__text} style={{ fontSize: fontSize }}>
+			<span
+				className={`${classes.btn__text} btn__text`}
+				style={{ fontSize: fontSize }}
+			>
 				{children}
 			</span>
 		</button>

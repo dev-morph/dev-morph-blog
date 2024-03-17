@@ -40,16 +40,29 @@ export default function BusinessCard() {
 			const rotateX = (40 / height) * offsetY - 20;
 			let rotateY = ((-1 * 40) / width) * offsetX + 20;
 
+			const bX = (20 / width) * offsetX + 40;
+			const bY = (20 / height) * offsetY + 40;
+
 			if (!isFront) {
 				rotateY = 180 + rotateY;
 			}
 			cardEl.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+			//반짝이 효과
+			cardEl.current.style.setProperty(
+				'--background--test',
+				`${bX}% ${bY}%`
+			);
 		}
 	}
 
 	function mouseClickHandler(event: MouseEvent<HTMLElement>) {
 		const target = event.target as HTMLElement;
-		if (target.tagName.toUpperCase() === 'BUTTON') {
+
+		if (
+			target.tagName.toUpperCase() === 'BUTTON' ||
+			target.classList.contains('btn__text')
+		) {
 			return;
 		} else {
 			flip();
@@ -66,7 +79,7 @@ export default function BusinessCard() {
 			const degDestination = isFront ? 180 : 0;
 			if (cardEl.current) {
 				cardEl.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(${curDeg}deg)`;
-				const id = requestAnimationFrame(flip);
+				const id = globalThis.requestAnimationFrame?.(flip);
 
 				if (curDeg === degDestination) {
 					cancelAnimationFrame(id);
@@ -83,7 +96,7 @@ export default function BusinessCard() {
 		if (!isFliping) {
 			setTimeoutId = setTimeout(() => {
 				backToOriginPosition();
-			}, 200000);
+			}, 2500);
 		}
 	}
 
@@ -113,7 +126,7 @@ export default function BusinessCard() {
 			cardEl.current.style.top = curTop + 'px';
 		}
 
-		floatingId.current = requestAnimationFrame(floating);
+		floatingId.current = globalThis.requestAnimationFrame?.(floating);
 	}
 
 	function backToOriginPosition() {
@@ -126,11 +139,27 @@ export default function BusinessCard() {
 				/rotateY\((-?\d+(\.\d+)?)deg\)/
 			);
 
+			const backgroundPositionString =
+				cardEl.current.style.getPropertyValue('--background--test');
+
 			if (rotateXMatchedGroup && rotateYMatchedGroup) {
 				const rotateX = rotateXMatchedGroup[1];
 				const rotateY = rotateYMatchedGroup[1];
 
 				toOriginAnimation(+rotateX, +rotateY);
+			}
+			const machedBackgroundPosition =
+				backgroundPositionString.match(/\d+(?:\.\d+)?/g);
+
+			if (
+				machedBackgroundPosition &&
+				machedBackgroundPosition[0] &&
+				machedBackgroundPosition[1]
+			) {
+				toOriginGlittering(
+					+machedBackgroundPosition[0],
+					+machedBackgroundPosition[1]
+				);
 			}
 		}
 	}
@@ -146,13 +175,39 @@ export default function BusinessCard() {
 			const transformString = `perspective(1000px) rotateX(${nextX}deg) rotateY(${nextY}deg)`;
 			cardEl.current.style.transform = transformString;
 
-			const id = requestAnimationFrame(() =>
+			const id = globalThis.requestAnimationFrame?.(() =>
 				toOriginAnimation(nextX, nextY)
 			);
 			if (nextX === 0 && nextY === 0) {
 				cancelAnimationFrame(id);
 				setIsFront(true);
 				floating();
+			}
+		}
+	}
+
+	function toOriginGlittering(bx: number, by: number) {
+		const delta = 0.5;
+		const deltaX = bx < 50 ? delta : -delta;
+		const deltaY = by < 50 ? delta : -delta;
+
+		if (cardEl.current) {
+			const nextX =
+				Math.abs(bx + deltaX - 50) <= delta ? 50 : bx + deltaX;
+			const nextY =
+				Math.abs(by + deltaY - 50) <= delta ? 50 : by + deltaY;
+
+			cardEl.current.style.setProperty(
+				'--background--test',
+				`${nextX}% ${nextY}%`
+			);
+
+			const id = globalThis.requestAnimationFrame?.(() =>
+				toOriginGlittering(nextX, nextY)
+			);
+
+			if (nextX === 50 && nextY === 50) {
+				cancelAnimationFrame(id);
 			}
 		}
 	}

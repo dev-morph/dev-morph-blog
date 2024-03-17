@@ -8,7 +8,7 @@ export default function SpringIcon() {
 				viewBox="0 0 32 32"
 				className="small__badge"
 			>
-				<g fill="none" fill-rule="evenodd">
+				<g fill="none" fillRule="evenodd">
 					<path d="M0 0h32v32H0z" />
 					<path
 						fill="#70AD51"

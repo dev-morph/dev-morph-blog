@@ -9,7 +9,7 @@ export default function JavaIcon({ size = 23 }: { size?: number }) {
 				id="java"
 				className="small__badge"
 			>
-				<g fill-rule="evenodd" clip-rule="evenodd">
+				<g fillRule="evenodd" clipRule="evenodd">
 					<path fill="#fff" d="M0 0h192.756v192.756H0V0z"></path>
 					<path
 						fill="#3174b9"
