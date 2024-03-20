@@ -10,7 +10,6 @@ I strived to write code based on below priciples or to achieve features.
 -   [**Clean-Code**](#cleancode): Wrote code as cleanly as possible based on my experience, even if it is not perfect.
 -   [**Responsive Web Design**](#responsive-web-design): My blog is designed to be responsive on both web and mobile platforms.
 -   [**CI/CD**](#cicd): Established simple CI/CD pipeline using AWS EC2 for development convenience.
--   [**HTTPS**](#https): Used a SSL certificate to secure the HTTPS connection.
 
 #
 
@@ -26,7 +25,6 @@ When uploading posts with pictures, convenience is key. To achieve that, I've de
 I tried to **expose the core logic** and **abstract unnecessary internal details**.
 My React Code style looks like the following.
 You can check [morphlib](https://github.com/dev-morph/dev-morph-blog/tree/main/morph-lib/components) of this project to see how I design and manage React components for clean code.
-or my blog post about [how I write clean code](https://marklee1117.tistory.com/176)
 
 ```html
     <>
@@ -72,10 +70,3 @@ As I only want to deploy when I decide it's ready, the workflow is triggered man
 
 The current workflow is straightforward. For detailed information on establishing CI/CD pipelines, please refer to a previous post I've written..[**CI/CD with nginx and Docker**](https://marklee1117.tistory.com/168)
 #  
-
-#  
-
-## HTTPS
-
-Most of Browsers such as Chrome mark all HTTP websites as "Not Secure". To remove this mark and enhance the security of my website, I used a SSL certificate for the HTTPS connection.  
-I used **Certbot** to issue a SSL certifiacte for my website. It is free and very easy to use.
