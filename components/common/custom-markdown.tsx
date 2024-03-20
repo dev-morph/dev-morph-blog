@@ -7,6 +7,7 @@ import js from 'react-syntax-highlighter/dist/cjs/languages/prism/javascript';
 import java from 'react-syntax-highlighter/dist/cjs/languages/prism/java';
 import css from 'react-syntax-highlighter/dist/cjs/languages/prism/css';
 import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx';
+import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
 import classes from './custom-markdown.module.scss';
 import { PostsBasedCategoryType, StaticPostType } from '@/types/post_types';
 
@@ -14,6 +15,7 @@ SyntaxHighlighter.registerLanguage('js', js);
 SyntaxHighlighter.registerLanguage('java', java);
 SyntaxHighlighter.registerLanguage('css', css);
 SyntaxHighlighter.registerLanguage('jsx', jsx);
+SyntaxHighlighter.registerLanguage('bash', bash);
 
 export default function CustomMarkdown({
 	components,
