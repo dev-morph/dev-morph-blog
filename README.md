@@ -1,6 +1,9 @@
 # [morph-dev Tech Blog](https://morph-dev.com/)&nbsp;&nbsp;<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/> <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white"/>
 
 This is a Tech Blog Project using NextJS [(https://morph-dev.com/)](https://morph-dev.com/)(**still in Development**)  
+
+![Blog-Welcome Page](https://github.com/dev-morph/dev-morph-blog/assets/112484043/8292dab6-845b-4672-b9dd-57d7f4d29ec2)
+
 I strived to write code based on below priciples or to achieve features.  
 
 -   [**Easy to Upload Post**](#easy-to-upload-post): It has to be easy to upload Post with several pictures.
