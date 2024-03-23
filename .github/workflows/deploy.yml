@@ -36,7 +36,7 @@ jobs:
                       echo "AWS_S3_BASE_URL=${{secrets.AWS_S3_BASE_URL}}" >> ./.env
                       echo "NEXT_PUBLIC_AWS_S3_BASE_URL=${{secrets.NEXT_PUBLIC_AWS_S3_BASE_URL}}" >> ./.env
                       echo "Success Git Pull"
-                      exec bash \-l
+                      ls
                       sudo npm ci
                       sudo npm run build
                       sudo pm2 reload blog
