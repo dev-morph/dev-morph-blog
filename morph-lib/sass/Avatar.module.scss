@@ -1,39 +1,19 @@
 .avatar {
-	width: var(--avatar--mobile--size);
-	height: var(--avatar--mobile--size);
+	width: 50px;
+	height: 50px;
+	border: 1px solid var(--border-default-color);
 	border-radius: 50%;
 	overflow: hidden;
 }
 
-.card__wrapper {
-	background-color: rgba(255, 255, 255, 0.6);
-	border: 0.1px rgba(255, 255, 255, 0.4) solid;
-	box-shadow: rgba(0, 0, 0, 0) 0px -8px 0px 10px,
-		rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px,
-		rgba(0, 0, 0, 0.05) -20px 0px 15px -10px,
-		rgba(0, 0, 0, 0.05) 0px 8px 10px -6px,
-		rgba(0, 0, 0, 0.05) 0px -8px 10px -6px;
-	border-radius: 10px;
-	padding: 0.5rem;
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-}
-
-.description {
-	//100% - 이미지 넓이 - gap 넓이
-	max-width: calc(100% - 100px - 1rem);
-	line-height: 1.2;
-}
-
 @media (min-width: 768px) {
 	.avatar {
-		width: var(--avatar--size);
-		height: var(--avatar--size);
+		// width: var(--avatar--size);
+		// height: var(--avatar--size);
 
 		img {
-			width: var(--avatar--size);
-			height: var(--avatar--size);
+			// width: var(--avatar--size);
+			// height: var(--avatar--size);
 		}
 	}
 

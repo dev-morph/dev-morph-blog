@@ -1,3 +1,4 @@
+import CommentSection from '@/components/posts/comment/comment-section';
 import PostContent from '@/components/posts/content/post-content';
 import { getPostById } from '@/utils/posts-utils';
 import { Metadata, ResolvingMetadata } from 'next';
@@ -27,7 +28,8 @@ export default async function PostDetailPage({ params }: Props) {
 	} else {
 		return (
 			<>
-				<PostContent post={post} />; alskdfjalksdjf
+				<PostContent post={post} />
+				<CommentSection />
 			</>
 		);
 	}
