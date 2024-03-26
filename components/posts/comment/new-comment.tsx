@@ -35,6 +35,7 @@ export default function NewComment() {
 					<Textarea
 						className="new__comment"
 						register={register('comment')}
+						placeholder="Add your comment here. Any comments are welcome! :)"
 					/>
 				</div>
 			</div>
