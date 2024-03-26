@@ -1,4 +1,4 @@
-import PostContent from '@/components/posts/post-detail/post-content';
+import PostContent from '@/components/posts/content/post-content';
 import { getPostById } from '@/utils/posts-utils';
 import { Metadata, ResolvingMetadata } from 'next';
 
@@ -25,6 +25,10 @@ export default async function PostDetailPage({ params }: Props) {
 	if (!post) {
 		return <div>There is no such Post!</div>;
 	} else {
-		return <PostContent post={post} />;
+		return (
+			<>
+				<PostContent post={post} />; alskdfjalksdjf
+			</>
+		);
 	}
 }
