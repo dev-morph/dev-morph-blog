@@ -23,12 +23,6 @@ const nextConfig = (phase) => {
 					},
 				],
 			},
-			env: {
-				mongodb_username: 'morph',
-				mongodb_password: 'dlgudxo90',
-				mongodb_clustername: 'cluster0',
-				mongodb_database: 'my-site-dev',
-			},
 		};
 	}
 	return {
@@ -47,12 +41,6 @@ const nextConfig = (phase) => {
 					pathname: '/badge/**',
 				},
 			],
-		},
-		env: {
-			mongodb_username: 'morph',
-			mongodb_password: 'dlgudxo90',
-			mongodb_clustername: 'cluster0',
-			mongodb_database: 'my-site',
 		},
 	};
 };

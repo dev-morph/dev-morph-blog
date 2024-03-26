@@ -2,6 +2,10 @@ $font-base-size: 1rem;
 $back-padding: 1.5rem 0.5rem 0.5rem 1.5rem;
 $back-sm-padding: 1rem 0.25rem 0.25rem 1rem;
 $glittering-position: 50% 50%;
+$mobile-width: 220px;
+$mobile-height: 310px;
+$width: 320px;
+$height: 475px;
 
 @mixin front-glass-morphism {
 	// background-color: white;
@@ -27,8 +31,8 @@ $glittering-position: 50% 50%;
 .card {
 	--background--test: 50% 50%;
 	position: relative;
-	width: 220px;
-	height: 310px;
+	width: $mobile-width;
+	height: $mobile-height;
 
 	border-radius: 10px;
 
@@ -54,7 +58,7 @@ $glittering-position: 50% 50%;
 			flex-direction: column;
 			align-items: center;
 			justify-content: space-around;
-			gap: 3rem;
+			gap: 1rem;
 			color: black;
 
 			.base__info {
@@ -198,8 +202,8 @@ $glittering-position: 50% 50%;
 
 @media (min-width: 768px) {
 	.card {
-		width: 350px;
-		height: 500px;
+		width: $width;
+		height: $height;
 
 		.front {
 			.front__content {
