@@ -11,10 +11,25 @@
 		line-height: 1.5;
 		resize: vertical;
 		background: none;
-		border: 1px solid #d0d7de;
+		border: 1px solid var(--border-default-color);
 	}
 	.new__comment__wrapper {
 		width: calc(100% - 50px - 1rem);
+
+		.user__info__wrapper {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem;
+
+			input {
+				flex: 50%;
+				min-height: 1.75rem;
+				outline: none;
+				border: 1px solid var(--border-default-color);
+
+				padding-left: 0.5rem;
+			}
+		}
 	}
 }
 .new__comment__btn {
