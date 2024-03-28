@@ -15,8 +15,6 @@ import { usePostComment } from '@/utils/query/comment-queires';
 import { useParams } from 'next/navigation';
 
 export default function NewComment() {
-	const addComment = usePostComment();
-
 	const { slug: post_id } = useParams();
 
 	const {
@@ -25,8 +23,19 @@ export default function NewComment() {
 		formState: { errors },
 	} = useForm<CommentSchema>({ resolver: zodResolver(commentSchema) });
 
+	const addComment = usePostComment();
 	async function createNewComment(data: CommentSchema) {
 		addComment.mutate({ ...data, post_id: +post_id });
+	}
+
+	function getErrorMsg() {
+		if (errors?.username?.message) {
+			return errors?.username?.message;
+		} else if (errors?.password?.message) {
+			return errors?.password?.message;
+		} else if (errors?.comment?.message) {
+			return errors?.comment?.message;
+		}
 	}
 
 	return (
@@ -44,12 +53,16 @@ export default function NewComment() {
 						<div className="user__info__wrapper">
 							<Input
 								type="text"
-								placeholder="이름"
+								placeholder="닉네임"
 								htmlFor="comment__username"
 								register={register('username')}
 							/>
-							{/* <input type="text" placeholder="이름" /> */}
-							{/* <input type="text" placeholder="비밀번호" /> */}
+							<Input
+								type="password"
+								placeholder="비밀번호"
+								htmlFor="comment__password"
+								register={register('password')}
+							/>
 						</div>
 						<Spacing size={15} />
 						<Textarea
@@ -61,12 +74,7 @@ export default function NewComment() {
 				</div>
 				<Spacing size={15} />
 				<div className="new__comment__btn">
-					<span className="error__msg">
-						{errors.comment?.message}
-					</span>
-					<span className="error__msg">
-						{errors.username?.message}
-					</span>
+					<span className="error__msg">{getErrorMsg()}</span>
 					<Button width="100px">Comment</Button>
 				</div>
 			</form>

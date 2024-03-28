@@ -19,17 +19,17 @@ model CommentReply {
 model Comment {
   id         Int      @id @default(autoincrement())
   post_id    Int
-  username   String   @db.VarChar(255)
+  username   String?   @db.VarChar(255)
+  password   String?   @db.VarChar(10)
   comment    String   @db.Text
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-// 추후 수정 필요
 model Like {
-  ip      String @db.VarChar(15)
-  post_id Int
+  ip         String    @db.VarChar(15)
+  post_id    Int
   created_at DateTime  @default(now()) @db.DateTime(0)
   updated_at DateTime? @default(now()) @db.DateTime(0)
 
@@ -41,59 +41,59 @@ model Image {
   url        String   @db.VarChar(255)
   filename   String   @db.VarChar(255)
   post_id    Int
-  Post       Post     @relation(fields: [post_id], references: [id])
-
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
+  Post       Post     @relation(fields: [post_id], references: [id])
+
+  @@index([post_id], map: "Image_post_id_fkey")
 }
 
 model Post {
-  id         Int      @id @default(autoincrement())
-  title      String   @db.VarChar(255)
-  contents   String   @db.Text
-  hits       Int      @default(0)
-  thumbnail  String?  @db.VarChar(255)
-  created_at DateTime @default(now()) @db.DateTime(0)
-  updated_at DateTime @default(now()) @db.DateTime(0)
-
-  images Image[]
+  id         Int             @id @default(autoincrement())
+  title      String          @db.VarChar(255)
+  contents   String          @db.Text
+  hits       Int             @default(0)
+  thumbnail  String?         @db.VarChar(255)
+  created_at DateTime        @default(now()) @db.DateTime(0)
+  updated_at DateTime        @default(now()) @db.DateTime(0)
+  images     Image[]
   categories Post_Category[]
 }
 
-model Post_Category{
-	post_id Int
-	category_id Int
-	Post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
-	Category Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
+model Post_Category {
+  post_id     Int
+  category_id Int
+  Category    Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  Post        Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
 
-	@@id([post_id, category_id])
+  @@id([post_id, category_id])
+  @@index([category_id], map: "Post_Category_category_id_fkey")
 }
 
 model Category {
-  id         Int    @id
-  name       String @unique @db.VarChar(255)
+  id         Int             @id
+  name       String          @unique(map: "name") @db.VarChar(255)
   sort_order Int
-  created_at DateTime  @default(now()) @db.DateTime(0)
-  updated_at DateTime? @default(now()) @db.DateTime(0)
-
-  posts Post_Category[]
+  created_at DateTime        @default(now()) @db.DateTime(0)
+  updated_at DateTime?       @default(now()) @db.DateTime(0)
+  posts      Post_Category[]
 }
 
 model User {
   id         Int       @id @default(autoincrement())
-  email      String?   @db.VarChar(255) @unique
-  username   String    @db.VarChar(255) @unique
+  email      String?   @unique @db.VarChar(255)
+  username   String    @unique @db.VarChar(255)
   password   String    @db.VarChar(255)
-  role_id    Int	   
+  role_id    Int
   created_at DateTime  @default(now()) @db.DateTime(0)
   updated_at DateTime? @default(now()) @db.DateTime(0)
+  Role       Role      @relation(fields: [role_id], references: [id])
 
-  Role		 Role	   @relation(fields: [role_id], references: [id])
+  @@index([role_id], map: "User_role_id_fkey")
 }
 
 model Role {
-  id	Int    @id
-  name	String @db.VarChar(20)
-
+  id    Int    @id
+  name  String @db.VarChar(20)
   users User[]
 }
