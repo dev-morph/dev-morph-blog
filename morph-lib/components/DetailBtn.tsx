@@ -1,31 +1,41 @@
 import DetailIcon from '@/components/ui/icons/detail-icon';
-import UseOutsideClick from '../hooks/useOutsideClick';
-import { useCallback, useRef } from 'react';
+import useOutsideClick from '../hooks/useOutsideClick';
+import { MouseEventHandler, useCallback, useRef } from 'react';
 import classes from '../sass/DetailBtn.module.scss';
+
+type DetailCommandType = {
+	label: string;
+	clickHandler: MouseEventHandler<HTMLLIElement>;
+};
 
 type DetailBtnProps = {
 	className?: string;
+	commandItems?: DetailCommandType[];
 };
 
-export default function DetailBtn({ className }: DetailBtnProps) {
-	const testRef = useRef<HTMLDivElement>(null);
-	const { isActive, setIsActive } = UseOutsideClick(testRef, false);
+export default function DetailBtn({ className, commandItems }: DetailBtnProps) {
+	const detailBtnRef = useRef<HTMLDivElement>(null);
+	const { isActive, setIsActive } = useOutsideClick(detailBtnRef, false);
 
 	const clickDetailBtn = useCallback(() => {
 		setIsActive((prev) => !prev);
 	}, [setIsActive]);
+
 	return (
 		<summary className={classes.detail__btn__wrapper}>
 			<DetailIcon
-				ref={testRef}
+				ref={detailBtnRef}
 				className={className}
 				clickHandler={clickDetailBtn}
 			/>
 			{isActive && (
 				<div className={classes.detail}>
 					<ul className={classes.detail__context__wrapper}>
-						<li>삭제</li>
-						<li>수정</li>
+						{commandItems?.map((command, idx) => (
+							<li key={idx} onClick={command.clickHandler}>
+								{command.label}
+							</li>
+						))}
 					</ul>
 				</div>
 			)}

@@ -7,11 +7,13 @@ type ButtonProps = PropsWithChildren<{
 	style?: 'fill' | 'outline';
 	display?: 'inline' | 'block' | 'full';
 	btnColor?: string;
+	color?: string;
 	width?: string;
 
 	onClick?: React.MouseEventHandler<HTMLElement>;
 	disabled?: boolean;
 	fontSize?: string;
+	btnStyle?: React.CSSProperties;
 }>;
 
 export default function Button(props: ButtonProps) {
@@ -22,11 +24,13 @@ export default function Button(props: ButtonProps) {
 		display = 'inline',
 		btnType = 'submit',
 		width = '100%',
+		color,
 		btnColor,
 		disabled,
 		children,
 		fontSize,
 		onClick,
+		btnStyle,
 		...rest
 	} = props;
 
@@ -52,7 +56,12 @@ export default function Button(props: ButtonProps) {
 			{...rest}
 			className={`${classes.button} ${classes[type]} ${classes[style]}`}
 			type={btnType}
-			style={{ backgroundColor: btnColor, width: width }}
+			style={{
+				backgroundColor: btnColor,
+				width: width,
+				color: color,
+				...btnStyle,
+			}}
 			disabled={disabled}
 			ref={btnRef}
 			onClick={(e) => {

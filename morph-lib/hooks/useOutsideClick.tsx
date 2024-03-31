@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 
-type UseOutsideClickProps = {
-	el: React.RefObject<HTMLDivElement>;
-	initialState: boolean;
-};
-
-export default function UseOutsideClick(
+export default function useOutsideClick(
 	elRef: React.RefObject<HTMLDivElement>,
 	initialState: boolean
 ) {

@@ -52,6 +52,10 @@ $button-transition: color $button-transition-duration ease-in-out,
 	&:disabled {
 		cursor: not-allowed;
 	}
+
+	&:hover {
+		filter: brightness(0.95);
+	}
 }
 
 .ripple {

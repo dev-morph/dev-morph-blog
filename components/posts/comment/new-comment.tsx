@@ -23,7 +23,7 @@ export default function NewComment({ postId }: { postId: number }) {
 		reset,
 	} = useForm<CommentSchema>({ resolver: zodResolver(commentSchema) });
 
-	const { mutate, isError, isPending, isSuccess } = usePostComment(postId);
+	const { mutate } = usePostComment(postId);
 	async function createNewComment(data: CommentSchema) {
 		mutate(
 			{ ...data, post_id: postId },

@@ -5,6 +5,7 @@ type BorderProps = {
 	borderStyle?: string;
 	borderColor?: string;
 	verticalPadding?: number;
+	withOutSpacing?: boolean;
 };
 
 export default function Border({
@@ -12,10 +13,11 @@ export default function Border({
 	borderStyle = 'solid',
 	borderColor = '#d0d7de',
 	verticalPadding = 30,
+	withOutSpacing = false,
 }: BorderProps) {
 	return (
 		<>
-			<Spacing size={verticalPadding} />
+			{!withOutSpacing && <Spacing size={verticalPadding} />}
 			<div
 				style={{
 					width: '100%',
@@ -24,7 +26,7 @@ export default function Border({
 					borderColor: borderColor,
 				}}
 			></div>
-			<Spacing size={verticalPadding} />
+			{!withOutSpacing && <Spacing size={verticalPadding} />}
 		</>
 	);
 }

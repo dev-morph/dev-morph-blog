@@ -78,3 +78,38 @@ export async function POST(request: NextRequest) {
 		);
 	}
 }
+
+export async function DELETE(request: NextRequest) {
+	const postId = request.nextUrl.searchParams.get('postId');
+	const commentId = request.nextUrl.searchParams.get('commentId');
+
+	// const newComment: Prisma.CommentCreateInput = {
+	// 	post_id: data.post_id,
+	// 	username: data.username,
+	// 	password: data.password,
+	// 	comment: data.comment,
+	// };
+	try {
+		// const result = await prisma.comment.create({
+		// 	data: newComment,
+		// });
+		return new NextResponse(
+			JSON.stringify({
+				message: `Success to delete ${commentId} comment from ${postId} post.`,
+				// data: result,
+			}),
+			{ status: 200 }
+		);
+	} catch (error) {
+		console.log(error);
+		return new NextResponse(
+			JSON.stringify({
+				message: `Failed to delete ${commentId} comment from ${postId} post.`,
+				error,
+			}),
+			{
+				status: 209,
+			}
+		);
+	}
+}

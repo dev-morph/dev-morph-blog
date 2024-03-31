@@ -8,6 +8,7 @@ import AuthProvider from '@/components/provider/AuthProvider';
 import QueryProvider from '@/components/provider/QueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DialogOverlay from '@/morph-lib/components/DialogOverlay';
 
 const inter = Inter({ subsets: ['latin'] });
 const open_sans = Open_Sans({ subsets: ['latin'] });
@@ -35,6 +36,7 @@ export default function RootLayout({
 					<QueryProvider>
 						<MainNavigation />
 						<ContentWrapper>{children}</ContentWrapper>
+						<DialogOverlay />
 						<NotificationOverlay />
 					</QueryProvider>
 				</AuthProvider>
