@@ -10,7 +10,7 @@ type PostContentProps = {
 	post: PostsBasedCategoryType;
 };
 
-export default function PostContent({ post }: PostContentProps) {
+export default async function PostContent({ post }: PostContentProps) {
 	const imagePath = `${process.env.AWS_S3_BASE_URL}/${post.thumbnail}`;
 
 	return (

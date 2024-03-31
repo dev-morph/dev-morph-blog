@@ -1,3 +1,5 @@
+'use client';
+
 import { useGetComments } from '@/utils/query/comment-queires';
 import CommentItem from './comment-item';
 import { CommentType } from '@/types/comment_types';

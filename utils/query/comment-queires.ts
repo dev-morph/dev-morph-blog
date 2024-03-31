@@ -3,9 +3,8 @@ import { CommentType, NewCommentType } from '@/types/comment_types';
 import axios from 'axios';
 import { getQueryClient } from '@/components/provider/QueryProvider';
 
-const queryClient = getQueryClient();
-
 export function usePostComment(postId: number) {
+	const queryClient = getQueryClient();
 	return useMutation({
 		mutationFn: (comment: NewCommentType) => postComment(comment),
 		onSuccess({ data }) {
@@ -21,12 +20,10 @@ export async function postComment(comment: NewCommentType) {
 	return result;
 }
 
-//
-
 export function useGetComments(postId: number) {
 	return useQuery({
-		queryFn: () => getComments(postId),
 		queryKey: ['comments', postId],
+		queryFn: () => getComments(postId),
 	});
 }
 
