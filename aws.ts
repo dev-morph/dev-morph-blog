@@ -1,6 +1,6 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { v4 as uuidv4 } from 'uuid';
-import dayjs from 'dayjs';
+import { getFormatedDate } from './morph-lib/utils/dateUtils';
 
 export const s3Client = new S3Client({
 	region: 'ap-northeast-2',
@@ -14,7 +14,10 @@ async function uploadFileToS3(file: Buffer) {
 	const fileBuffer = file;
 
 	const uuid = uuidv4();
-	const now = dayjs().format('YYYYMMDD_HH_mmss');
+	const now = getFormatedDate({
+		date: new Date(),
+		format: 'YYYYMMDD_HH_mmss',
+	});
 	const uuidFileName = `${uuid}_${now}`;
 	const encodedFileName = encodeURIComponent(uuidFileName);
 
