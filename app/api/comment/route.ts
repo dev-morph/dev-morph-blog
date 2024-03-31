@@ -21,10 +21,15 @@ export async function GET(request: NextRequest) {
 			},
 		});
 
+		const comments = result.map((c) => {
+			const { password, ...comment } = c;
+			return comment;
+		});
+
 		return new NextResponse(
 			JSON.stringify({
 				message: 'Success to get comments.',
-				data: result,
+				data: comments,
 			}),
 			{ status: 200 }
 		);
