@@ -12,10 +12,9 @@ import './new-comment.scss';
 import { CommentSchema, commentSchema } from '@/schema/comment-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePostComment } from '@/utils/query/comment-queires';
-import { useParams } from 'next/navigation';
 
-export default function NewComment() {
-	const { slug: post_id } = useParams();
+export default function NewComment({ postId }: { postId: number }) {
+	// const { slug: post_id } = useParams();
 
 	const {
 		register,
@@ -25,7 +24,7 @@ export default function NewComment() {
 
 	const addComment = usePostComment();
 	async function createNewComment(data: CommentSchema) {
-		addComment.mutate({ ...data, post_id: +post_id });
+		addComment.mutate({ ...data, post_id: postId });
 	}
 
 	function getErrorMsg() {
