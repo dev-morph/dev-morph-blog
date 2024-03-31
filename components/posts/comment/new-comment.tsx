@@ -20,11 +20,19 @@ export default function NewComment({ postId }: { postId: number }) {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<CommentSchema>({ resolver: zodResolver(commentSchema) });
 
-	const addComment = usePostComment(postId);
+	const { mutate, isError, isPending, isSuccess } = usePostComment(postId);
 	async function createNewComment(data: CommentSchema) {
-		addComment.mutate({ ...data, post_id: postId });
+		mutate(
+			{ ...data, post_id: postId },
+			{
+				onSuccess: (data) => {
+					reset();
+				},
+			}
+		);
 	}
 
 	function getErrorMsg() {
