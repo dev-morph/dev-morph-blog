@@ -10,16 +10,16 @@ function makeQueryClient() {
 			queries: {
 				// With SSR, we usually want to set some default staleTime
 				// above 0 to avoid refetching immediately on the client
-				staleTime: 5 * 1000, //ms
-				refetchInterval: 5 * 1000,
+				staleTime: 60 * 1000, //ms -> 60s
+				refetchInterval: 60 * 1000, //ms -> 60s
 			},
 		},
 	});
 }
 
-let browserQueryClient: QueryClient | undefined = undefined;
+export let browserQueryClient: QueryClient | undefined = undefined;
 
-function getQueryClient() {
+export function getQueryClient() {
 	if (typeof window === 'undefined') {
 		// Server: always make a new query client
 		return makeQueryClient();
@@ -39,15 +39,15 @@ export default function QueryProvider({
 	children: React.ReactNode;
 }) {
 	const [queryClient] = useState(
-		() =>
-			new QueryClient({
-				defaultOptions: {
-					queries: {
-						staleTime: 60 * 1000, //ms -> 6s
-						refetchInterval: 60 * 1000, //ms -> 6s
-					},
-				},
-			})
+		() => getQueryClient()
+		// new QueryClient({
+		// 	defaultOptions: {
+		// 		queries: {
+		// 			staleTime: 60 * 1000, //ms -> 6s
+		// 			refetchInterval: 60 * 1000, //ms -> 6s
+		// 		},
+		// 	},
+		// })
 	);
 
 	return (

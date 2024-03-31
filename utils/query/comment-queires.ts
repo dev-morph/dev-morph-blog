@@ -1,12 +1,19 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { CommentType, NewCommentType } from '@/types/comment_types';
 import axios from 'axios';
-import prisma from '@/db';
-import { Prisma } from '@prisma/client';
+import { getQueryClient } from '@/components/provider/QueryProvider';
 
-export function usePostComment() {
+const queryClient = getQueryClient();
+
+export function usePostComment(postId: number) {
 	return useMutation({
+		// mutationKey: ['comments', postId],
 		mutationFn: (comment: NewCommentType) => postComment(comment),
+		onSuccess({ data }) {
+			queryClient.setQueryData(['comments', postId], (old: any) => {
+				return [...old, data.data];
+			});
+		},
 	});
 }
 
