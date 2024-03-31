@@ -7,7 +7,6 @@ const queryClient = getQueryClient();
 
 export function usePostComment(postId: number) {
 	return useMutation({
-		// mutationKey: ['comments', postId],
 		mutationFn: (comment: NewCommentType) => postComment(comment),
 		onSuccess({ data }) {
 			queryClient.setQueryData(['comments', postId], (old: any) => {
@@ -19,7 +18,6 @@ export function usePostComment(postId: number) {
 
 export async function postComment(comment: NewCommentType) {
 	const result = await axios.post('/api/comment', comment);
-	console.log('posted comment! ', result);
 	return result;
 }
 
