@@ -155,6 +155,11 @@ input:focus {
 	outline: none;
 }
 
+input {
+	min-height: 1.75rem;
+	padding-left: 0.5rem;
+}
+
 label.required {
 	&::after {
 		content: ' *';

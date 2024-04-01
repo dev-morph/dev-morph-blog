@@ -1,5 +1,5 @@
-import { PropsWithChildren, InputHTMLAttributes } from 'react';
-import classes from '@morphlib/sass/InputWithLabel.module.scss';
+import { PropsWithChildren, CSSProperties } from 'react';
+import classes from '@morphlib/sass/Input.module.scss';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import Text from './Text';
 
@@ -9,6 +9,8 @@ type InputWithLabelProps = PropsWithChildren<{
 	placeholder?: string;
 	register?: UseFormRegisterReturn;
 	errorMsg?: string;
+	border?: string;
+	style?: CSSProperties;
 }>;
 
 export default function Input(props: InputWithLabelProps) {
@@ -18,16 +20,19 @@ export default function Input(props: InputWithLabelProps) {
 		placeholder,
 		register,
 		errorMsg,
-		...rest
+		border,
+		style,
 	} = props;
 	return (
 		<>
 			<input
+				key="special"
 				type={type}
 				id={htmlFor}
 				className={classes.input}
 				name={htmlFor}
 				placeholder={placeholder}
+				style={{ border: border, ...style }}
 				{...register}
 			/>
 			{errorMsg && <Text className="error__msg">{errorMsg}</Text>}

@@ -18,3 +18,9 @@ export const commentSchema = z.object({
 });
 
 export type CommentSchema = z.infer<typeof commentSchema>;
+
+export const commentPasswordSchema = z.object({
+	password: z.string().trim().min(1, { message: '비밀번호를 입력해주세요.' }),
+});
+
+export type CommentPasswordSchema = z.infer<typeof commentPasswordSchema>;

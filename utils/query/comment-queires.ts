@@ -45,25 +45,74 @@ export function useDeleteComment(postId: number, commentId: number) {
 	const queryClient = getQueryClient();
 	return useMutation({
 		mutationFn: ({
-			postId,
 			commentId,
+			password,
 		}: {
-			postId: number;
 			commentId: number;
-		}) => deleteComment(postId, commentId),
+			password: string;
+		}) => deleteComment(commentId, password),
 		onSuccess({ data }) {
-			console.log('success data is ', data);
-			queryClient.setQueryData(['comments', postId], (old: any) => {
-				console.log('old is ', old);
-				return [...old];
-			});
+			queryClient.setQueryData(
+				['comments', postId],
+				(old: CommentType[]) => old.filter((o) => o.id !== data.data.id)
+			);
+		},
+		onError(error) {
+			console.log('failed to delete comment.', error.message);
+			alert('비밀번호가 틀렸습니다.');
+			// this.throwOnError;
 		},
 	});
 }
 
-export async function deleteComment(postId: number, commentId: number) {
-	console.log('deleteComment!');
-	return await axios.delete('/api/comment', {
-		params: { commentId, postId },
+export async function deleteComment(commentId: number, password: string) {
+	const { data: passwordValid } = await validateCommentPassword({
+		commentId,
+		password,
+	});
+
+	if (passwordValid.data) {
+		return await axios.delete('/api/comment', {
+			params: { commentId },
+		});
+	} else {
+		return passwordValid.data;
+	}
+}
+
+// **********************************************************
+// *************** Validate Comments Password ***************
+// **********************************************************
+
+export function useValidateComentPassword(commentId: number, password: string) {
+	return useMutation({
+		mutationFn: ({
+			commentId,
+			password,
+		}: {
+			postId: number;
+			commentId: number;
+			password: string;
+		}) =>
+			validateCommentPassword({
+				commentId,
+				password,
+			}),
+		onSuccess({ data }) {
+			console.log('validate success data is ', data);
+		},
+	});
+}
+
+export async function validateCommentPassword({
+	commentId,
+	password,
+}: {
+	commentId: number;
+	password: string;
+}) {
+	return await axios.post('/api/comment/password', {
+		commentId,
+		password,
 	});
 }
