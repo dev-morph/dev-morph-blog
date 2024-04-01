@@ -31,6 +31,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 
 	function editHandler() {
 		console.log('Edit!');
+		alert('기능 개발 중에 있습니다.');
 	}
 	function deleteHandler() {
 		console.log('Delete!');
