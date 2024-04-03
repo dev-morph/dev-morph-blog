@@ -73,7 +73,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 								>
 									<input
 										ref={inputRef}
-										type="text"
+										type="password"
 										placeholder="Type the password when you create this comment."
 										style={{
 											border: '1px solid var(--border-default-color)',
