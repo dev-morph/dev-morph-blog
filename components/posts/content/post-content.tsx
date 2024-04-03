@@ -5,7 +5,6 @@ import Toc from '@/components/ui/toc';
 import CustomMarkdown from '@/components/common/custom-markdown';
 import Spacing from '@morphlib/components/Spacing';
 import { PostsBasedCategoryType } from '@/types/post_types';
-import Modal from '@/morph-lib/components/Modal';
 
 type PostContentProps = {
 	post: PostsBasedCategoryType;
