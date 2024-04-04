@@ -32,16 +32,16 @@ export default function EditComment({
 
 	const { mutate: patchComment } = useUpdateComment();
 	async function updateComment(data: CommentSchema) {
-		console.log('PATCH!');
-		// patchComment(data, {
-		// 	onSuccess: (data) => {
-		// 		reset();
-		// 	},
-		// });
+		const updateComment = { id: comment.id, ...data };
+		patchComment(updateComment, {
+			onSuccess: (data) => {
+				reset();
+				setIsEditMode(false);
+			},
+		});
 	}
 
 	function cancleClickHandler() {
-		console.log('CANCLE!');
 		setIsEditMode(false);
 	}
 
@@ -96,6 +96,11 @@ export default function EditComment({
 						width="100px"
 						onClick={cancleClickHandler}
 						btnType="button"
+						btnColor="var(--button-bgColor-muted)"
+						color="black"
+						btnStyle={{
+							border: '1px solid var(--border-default-color)',
+						}}
 					>
 						Cancle
 					</Button>

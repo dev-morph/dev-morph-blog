@@ -1,4 +1,5 @@
 import prisma from '@/db';
+import { UpdateCommentType } from '@/types/comment_types';
 import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -77,6 +78,30 @@ export async function POST(request: NextRequest) {
 			}
 		);
 	}
+}
+
+export async function PATCH(request: NextRequest) {
+	const data = (await request.json()) as UpdateCommentType;
+	const { id, ...commentData } = data;
+
+	const result = await prisma.comment.update({
+		where: {
+			id: data.id,
+		},
+		data: {
+			...commentData,
+		},
+	});
+
+	return new NextResponse(
+		JSON.stringify({
+			message: 'Success to update a new comment.',
+			data: result,
+		}),
+		{
+			status: 200,
+		}
+	);
 }
 
 export async function DELETE(request: NextRequest) {

@@ -91,12 +91,29 @@ export function useUpdateComment() {
 	const queryClient = getQueryClient();
 	return useMutation({
 		mutationFn: (comment: UpdateCommentType) => updateComment(comment),
+		onSuccess({ data }) {
+			queryClient.setQueryData(
+				['comments', data.post_id],
+				(old: CommentType[]) =>
+					old.map((o) => {
+						if (o.id === data.id) {
+							return data;
+						} else {
+							return o;
+						}
+					})
+			);
+		},
+		onError(error) {
+			console.log('failed to update comment.', error.message);
+		},
 	});
 }
 
 export async function updateComment(comment: UpdateCommentType) {
-	const { data: response } = await axios.patch('/api/comment', { comment });
-	console.log('got response ', response);
+	const { data: response } = await axios.patch('/api/comment', comment);
+
+	return response;
 }
 
 // **********************************************************

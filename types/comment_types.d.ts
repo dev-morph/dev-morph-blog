@@ -6,6 +6,7 @@ export type NewCommentType = {
 };
 
 export type UpdateCommentType = {
+	id: number;
 	post_id?: number;
 	username?: string;
 	password?: string;
