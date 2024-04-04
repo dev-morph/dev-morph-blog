@@ -7,6 +7,7 @@ type TextareaProps = {
 	errorMsg?: string;
 	className?: string;
 	placeholder?: string;
+	value?: string;
 	register?: UseFormRegisterReturn;
 };
 
@@ -16,6 +17,7 @@ export default function Textarea({
 	errorMsg,
 	className,
 	placeholder,
+	value,
 	register,
 }: TextareaProps) {
 	return (
@@ -25,6 +27,7 @@ export default function Textarea({
 				cols={cols}
 				rows={rows}
 				placeholder={placeholder}
+				value={value}
 				style={{ width: '100%', padding: '0.5rem' }}
 				{...register}
 			/>

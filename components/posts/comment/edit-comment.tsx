@@ -3,11 +3,9 @@ import Button from '@/morph-lib/components/Button';
 import Input from '@/morph-lib/components/Input';
 import Spacing from '@/morph-lib/components/Spacing';
 import Textarea from '@/morph-lib/components/Textarea';
-import Top04 from '@/morph-lib/components/Top/Top04';
 import { CommentSchema, commentSchema } from '@/schema/comment-schema';
 import { useUpdateComment } from '@/utils/query/comment-queires';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { register } from 'module';
 import { useForm } from 'react-hook-form';
 import classes from './edit-comment.module.scss';
 import { CommentType } from '@/types/comment_types';
@@ -24,7 +22,13 @@ export default function EditComment({
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<CommentSchema>({ resolver: zodResolver(commentSchema) });
+	} = useForm<CommentSchema>({
+		resolver: zodResolver(commentSchema),
+		defaultValues: {
+			username: comment.username,
+			comment: comment.comment,
+		},
+	});
 
 	const { mutate: patchComment } = useUpdateComment();
 	async function updateComment(data: CommentSchema) {
@@ -67,13 +71,13 @@ export default function EditComment({
 							<Input
 								type="text"
 								placeholder="닉네임"
-								htmlFor="comment__username"
+								htmlFor="edit_comment_username"
 								register={register('username')}
 							/>
 							<Input
 								type="password"
 								placeholder="비밀번호"
-								htmlFor="comment__password"
+								htmlFor="edit_comment_password"
 								register={register('password')}
 							/>
 						</div>
