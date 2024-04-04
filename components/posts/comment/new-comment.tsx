@@ -31,7 +31,11 @@ export default function NewComment({ postId }: { postId: number }) {
 	const { mutate } = usePostComment(postId);
 	async function createNewComment(data: CommentSchema) {
 		mutate(
-			{ ...data, post_id: postId },
+			{
+				...data,
+				post_id: postId,
+				avatar_image: avatarPathPrefix + avatarIndex + avatarPathSuffix,
+			},
 			{
 				onSuccess: (data) => {
 					reset();

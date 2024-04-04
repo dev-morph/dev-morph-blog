@@ -151,7 +151,11 @@ export default function CommentItem({ comment }: CommentItemProps) {
 				) : (
 					<div className={classes.comment__item__group}>
 						<Avatar
-							imagePath="/images/user-icons/user1.svg"
+							imagePath={
+								comment.avatar_image
+									? comment.avatar_image
+									: '/images/user-icons/user1.svg'
+							}
 							alt="userIcon"
 						></Avatar>
 						<div className={classes.comment__context}>

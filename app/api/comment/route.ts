@@ -54,7 +54,10 @@ export async function POST(request: NextRequest) {
 		username: data.username,
 		password: data.password,
 		comment: data.comment,
+		avatar_image: data.avatar_image,
 	};
+
+	console.log('newComment is ', newComment);
 	try {
 		const result = await prisma.comment.create({
 			data: newComment,

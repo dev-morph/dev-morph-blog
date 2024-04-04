@@ -3,6 +3,7 @@ export type NewCommentType = {
 	username: string;
 	password: string;
 	comment: string;
+	avatar_image: string;
 };
 
 export type UpdateCommentType = {
@@ -11,6 +12,7 @@ export type UpdateCommentType = {
 	username?: string;
 	password?: string;
 	comment?: string;
+	avatar_image?: string;
 };
 
 export type CommentType = {
@@ -19,6 +21,7 @@ export type CommentType = {
 	username: string;
 	password: string;
 	comment: string;
+	avatar_image: string;
 	created_at: Date;
 	updated_at: Date | null;
 };
