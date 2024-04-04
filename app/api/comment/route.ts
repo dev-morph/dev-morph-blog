@@ -81,27 +81,37 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-	const data = (await request.json()) as UpdateCommentType;
-	const { id, ...commentData } = data;
-
-	const result = await prisma.comment.update({
-		where: {
-			id: data.id,
-		},
-		data: {
-			...commentData,
-		},
-	});
-
-	return new NextResponse(
-		JSON.stringify({
-			message: 'Success to update a new comment.',
-			data: result,
-		}),
-		{
-			status: 200,
-		}
-	);
+	try {
+		const data = (await request.json()) as UpdateCommentType;
+		const { id, ...commentData } = data;
+		const result = await prisma.comment.update({
+			where: {
+				id: data.id,
+			},
+			data: {
+				...commentData,
+			},
+		});
+		return new NextResponse(
+			JSON.stringify({
+				message: 'Success to update a new comment.',
+				data: result,
+			}),
+			{
+				status: 200,
+			}
+		);
+	} catch (error) {
+		return new NextResponse(
+			JSON.stringify({
+				message: 'Failed to update a new comment.',
+				error,
+			}),
+			{
+				status: 209,
+			}
+		);
+	}
 }
 
 export async function DELETE(request: NextRequest) {
