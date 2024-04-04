@@ -13,7 +13,7 @@ model CommentReply {
   username        String   @db.VarChar(255)
   comment         String   @db.Text
   created_at      DateTime @default(now()) @db.DateTime(0)
-  updated_at      DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
 }
 
 model Comment {
@@ -23,7 +23,7 @@ model Comment {
   password   String?   @db.VarChar(10)
   comment    String   @db.Text
   created_at DateTime @default(now()) @db.DateTime(0)
-  updated_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -31,7 +31,7 @@ model Like {
   ip         String    @db.VarChar(15)
   post_id    Int
   created_at DateTime  @default(now()) @db.DateTime(0)
-  updated_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
 
   @@ignore
 }
@@ -42,7 +42,7 @@ model Image {
   filename   String   @db.VarChar(255)
   post_id    Int
   created_at DateTime @default(now()) @db.DateTime(0)
-  updated_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
   Post       Post     @relation(fields: [post_id], references: [id])
 
   @@index([post_id], map: "Image_post_id_fkey")
@@ -55,7 +55,7 @@ model Post {
   hits       Int             @default(0)
   thumbnail  String?         @db.VarChar(255)
   created_at DateTime        @default(now()) @db.DateTime(0)
-  updated_at DateTime        @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
   images     Image[]
   categories Post_Category[]
 }
@@ -75,7 +75,7 @@ model Category {
   name       String          @unique(map: "name") @db.VarChar(255)
   sort_order Int
   created_at DateTime        @default(now()) @db.DateTime(0)
-  updated_at DateTime?       @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
   posts      Post_Category[]
 }
 
@@ -86,7 +86,7 @@ model User {
   password   String    @db.VarChar(255)
   role_id    Int
   created_at DateTime  @default(now()) @db.DateTime(0)
-  updated_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @updatedAt @default(dbgenerated("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")) @db.DateTime(0)
   Role       Role      @relation(fields: [role_id], references: [id])
 
   @@index([role_id], map: "User_role_id_fkey")
