@@ -1,7 +1,6 @@
 'use server';
 
 import prisma from '@/db';
-import { PostType } from '@/types/post_types';
 
 export async function getPostById(id: string) {
 	const result = await prisma?.post.findUnique({

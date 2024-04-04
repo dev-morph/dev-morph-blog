@@ -12,9 +12,14 @@ import './new-comment.scss';
 import { CommentSchema, commentSchema } from '@/schema/comment-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePostComment } from '@/utils/query/comment-queires';
+import { useState } from 'react';
 
 export default function NewComment({ postId }: { postId: number }) {
-	// const { slug: post_id } = useParams();
+	const [avatarIndex, setAvatarIndex] = useState<number>(1);
+	const [isAvatarEdit, setIsAvatarEdit] = useState(false);
+	const avatarIndexes = [1, 2, 3, 4, 5, 6, 7];
+	const avatarPathPrefix = '/images/user-icons/user';
+	const avatarPathSuffix = '.svg';
 
 	const {
 		register,
@@ -45,6 +50,13 @@ export default function NewComment({ postId }: { postId: number }) {
 		}
 	}
 
+	// useEffect(() => {
+	// 	setAvatarIndex(getRandomNumber(1, 7));
+	// }, []);
+
+	function test() {
+		console.log('hoihoih');
+	}
 	return (
 		<>
 			<Border verticalPadding={35} />
@@ -52,10 +64,43 @@ export default function NewComment({ postId }: { postId: number }) {
 				<Top04>Add a comment</Top04>
 				<Spacing size={15} />
 				<div className="new__comment__section">
-					<Avatar
-						imagePath="/images/user-icons/user1.svg"
-						alt="userIcon"
-					></Avatar>
+					<div className="avatar__wrapper">
+						<div onClick={() => setIsAvatarEdit(!isAvatarEdit)}>
+							<Avatar
+								// imagePath={`/images/user-icons/user${avatarIndex}.svg`}
+								imagePath={
+									avatarPathPrefix +
+									avatarIndex +
+									avatarPathSuffix
+								}
+								alt="userIcon"
+							></Avatar>
+						</div>
+
+						{isAvatarEdit && (
+							<div className="avatar__options">
+								{avatarIndexes.map((index) => (
+									<div
+										key={index}
+										onClick={() => {
+											setAvatarIndex(index);
+											setIsAvatarEdit(false);
+										}}
+									>
+										<Avatar
+											// imagePath={`/images/user-icons/user${avatarIndex}.svg`}
+											imagePath={
+												avatarPathPrefix +
+												index +
+												avatarPathSuffix
+											}
+											alt="userIcon"
+										></Avatar>
+									</div>
+								))}
+							</div>
+						)}
+					</div>
 					<div className="new__comment__wrapper">
 						<div className="user__info__wrapper">
 							<Input

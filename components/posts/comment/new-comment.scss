@@ -28,6 +28,51 @@
 		}
 	}
 }
+
+.avatar__wrapper {
+	position: relative;
+
+	.avatar__options {
+		position: absolute;
+		margin-top: 0.5rem;
+		top: 50px;
+		left: -50px;
+
+		// margin-left: auto;
+		// margin-right: auto;
+
+		display: flex;
+		gap: 0.25rem;
+		padding: 0.375rem;
+		justify-content: center;
+		align-items: center;
+
+		background-color: var(--overlay-bgColor);
+		border: 1px solid var(--border-default-color);
+		border-radius: var(--borderRadius-medium, 0.375rem);
+		box-shadow: var(--shadow-floating);
+
+		&::before,
+		&::after {
+			content: ' ';
+			position: absolute;
+			top: -8px;
+			left: 70px;
+
+			width: 10px;
+			height: 8px;
+			clip-path: polygon(50% 10%, 0% 100%, 100% 100%);
+		}
+		&::before {
+			background-color: var(--border-default-color);
+		}
+		&::after {
+			margin-top: 2px;
+			background-color: var(--overlay-bgColor);
+		}
+	}
+}
+
 .new__comment__btn {
 	display: flex;
 	justify-content: flex-end;
