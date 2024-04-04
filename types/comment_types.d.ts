@@ -5,6 +5,13 @@ export type NewCommentType = {
 	comment: string;
 };
 
+export type UpdateCommentType = {
+	post_id?: number;
+	username?: string;
+	password?: string;
+	comment?: string;
+};
+
 export type CommentType = {
 	id: number;
 	post_id: number;

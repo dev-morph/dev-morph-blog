@@ -1,11 +1,39 @@
-.comment__item__group {
+.comment__edit__group {
 	display: flex;
 	gap: 1rem;
 
+	form {
+		width: 100%;
+	}
+
+	.header__infos__wrapper {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		input {
+			outline: none;
+			border: 1px solid var(--border-default-color);
+		}
+	}
+
+	textarea {
+		height: 102px;
+		min-height: 102px;
+		padding: 8px;
+		line-height: 1.5;
+		resize: vertical;
+		background: none;
+		border: 1px solid var(--border-default-color);
+	}
+
+	.edit__comment__form {
+		width: calc(100% - 50px - 1rem);
+	}
 	.comment__context {
 		display: flex;
 		flex-direction: column;
-		width: calc(100% - 50px - 1rem);
+		// width: calc(100% - 50px - 1rem);
 		border: 1px solid var(--border-default-color);
 
 		border-radius: 6px;

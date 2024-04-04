@@ -27,6 +27,7 @@ export default function Input(props: InputWithLabelProps) {
 		<>
 			<input
 				key="special"
+				autoComplete="off"
 				type={type}
 				id={htmlFor}
 				className={classes.input}

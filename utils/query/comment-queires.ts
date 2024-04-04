@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { CommentType, NewCommentType } from '@/types/comment_types';
+import {
+	CommentType,
+	NewCommentType,
+	UpdateCommentType,
+} from '@/types/comment_types';
 import axios from 'axios';
 import { getQueryClient } from '@/components/provider/QueryProvider';
 
@@ -78,6 +82,21 @@ export async function deleteComment(commentId: number, password: string) {
 	} else {
 		return passwordValid.data;
 	}
+}
+
+// **********************************************************
+// ******************** UPDATE Comments *********************
+// **********************************************************
+export function useUpdateComment() {
+	const queryClient = getQueryClient();
+	return useMutation({
+		mutationFn: (comment: UpdateCommentType) => updateComment(comment),
+	});
+}
+
+export async function updateComment(comment: UpdateCommentType) {
+	const { data: response } = await axios.patch('/api/comment', { comment });
+	console.log('got response ', response);
 }
 
 // **********************************************************
