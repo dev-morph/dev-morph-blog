@@ -14,8 +14,8 @@ export function getCommentFormatedDate(date: dayjs.ConfigType) {
 	const thisYear = dayjs().year();
 	const targetDate = dayjs(date);
 
-	const thisYearFormat = 'MM.DD HH:mm:ss';
-	const previousYearFormat = 'YYYY.MM.DD HH:mm:ss';
+	const thisYearFormat = 'MM월 DD일 HH:mm:ss';
+	const previousYearFormat = 'YYYY년 MM월 DD일 HH:mm';
 
 	if (targetDate.year() === thisYear) {
 		return getFormatedDate({ date: date, format: thisYearFormat });

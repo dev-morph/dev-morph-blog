@@ -20,6 +20,9 @@ export async function GET(request: NextRequest) {
 			where: {
 				post_id: +postId,
 			},
+			orderBy: {
+				created_at: 'asc',
+			},
 		});
 
 		const comments = result.map((c) => {
@@ -57,7 +60,6 @@ export async function POST(request: NextRequest) {
 		avatar_image: data.avatar_image,
 	};
 
-	console.log('newComment is ', newComment);
 	try {
 		const result = await prisma.comment.create({
 			data: newComment,

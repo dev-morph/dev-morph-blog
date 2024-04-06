@@ -170,7 +170,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 									<div className={classes.time}>
 										commented on{' '}
 										{getCommentFormatedDate(
-											comment.updated_at?.toString()
+											comment.created_at?.toString()
 										)}
 									</div>
 								</div>
