@@ -4,7 +4,10 @@ import Avatar from '@/morph-lib/components/Avatar';
 import DetailBtn from '@/morph-lib/components/DetailBtn';
 import { CommentType } from '@/types/comment_types';
 import classes from './comment-item.module.scss';
-import { getFormatedDate } from '@/morph-lib/utils/dateUtils';
+import {
+	getCommentFormatedDate,
+	getFormatedDate,
+} from '@/morph-lib/utils/dateUtils';
 import {
 	useDeleteComment,
 	validateCommentPassword,
@@ -166,10 +169,9 @@ export default function CommentItem({ comment }: CommentItemProps) {
 									</div>
 									<div className={classes.time}>
 										commented on{' '}
-										{getFormatedDate({
-											date: comment.created_at.toString(),
-											format: 'YYYY-MM-DD HH:mm:ss',
-										})}
+										{getCommentFormatedDate(
+											comment.updated_at?.toString()
+										)}
 									</div>
 								</div>
 								<DetailBtn
