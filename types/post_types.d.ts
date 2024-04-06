@@ -6,7 +6,7 @@ export type ImageType = {
 	filename: string;
 	post_id: number;
 	created_at: Date;
-	updated_at: Date;
+	updated_at?: Date | null;
 };
 
 export type PostType = {
@@ -34,5 +34,5 @@ export type PostsBasedCategoryType = {
 	images: ImageType[];
 	thumbnail: string | null;
 	created_at: Date;
-	updated_at: Date;
+	updated_at?: Date | null;
 };

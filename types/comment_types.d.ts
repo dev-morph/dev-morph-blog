@@ -23,5 +23,5 @@ export type CommentType = {
 	comment: string;
 	avatar_image: string;
 	created_at: Date;
-	updated_at: Date | null;
+	updated_at: Date;
 };
