@@ -46,6 +46,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 		const newPost: Prisma.PostCreateInput = {
 			title: data.title,
 			contents: data.contents,
+			thumbnail: null,
 		};
 
 		//파일 저장
