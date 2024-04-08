@@ -12,6 +12,7 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 1rem;
 		input {
+			width: 100%;
 			outline: none;
 			border: 1px solid var(--border-default-color);
 		}

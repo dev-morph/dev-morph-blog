@@ -58,6 +58,7 @@
 			}
 
 			.time {
+				display: none;
 				color: var(--fontColor-muted);
 			}
 		}
@@ -69,5 +70,17 @@
 
 	.comment {
 		padding: 1.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.comment__item__group {
+		.comment__header {
+			.author__info {
+				.time {
+					display: block;
+				}
+			}
+		}
 	}
 }
