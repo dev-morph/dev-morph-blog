@@ -95,9 +95,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 					title={<Text>Delete Comment</Text>}
 					body={
 						<>
-							<Text>
-								To confirm, please enter the comment password.
-							</Text>
+							<Text>삭제 하시겠습니까?</Text>
 							<Spacing size={20} />
 							<div
 								style={{
@@ -107,7 +105,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 								<input
 									ref={inputRef}
 									type="password"
-									placeholder="Type the password when you create this comment."
+									placeholder="Type the comment password."
 									style={{
 										border: '1px solid var(--border-default-color)',
 										outline: 'none',
@@ -122,9 +120,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 					title={<Text>Edit Comment</Text>}
 					body={
 						<>
-							<Text>
-								To confirm, please enter the comment password.
-							</Text>
+							<Text>수정 하시겠습니까?</Text>
 							<Spacing size={20} />
 							<div
 								style={{
@@ -134,7 +130,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
 								<input
 									ref={inputRef}
 									type="password"
-									placeholder="Type the password when you create this comment."
+									placeholder="Type the comment password."
 									style={{
 										border: '1px solid var(--border-default-color)',
 										outline: 'none',
