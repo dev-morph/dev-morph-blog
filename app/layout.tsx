@@ -9,6 +9,7 @@ import QueryProvider from '@/components/provider/QueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DialogOverlay from '@/morph-lib/components/DialogOverlay';
+import Footer from '@/components/footer/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 const open_sans = Open_Sans({ subsets: ['latin'] });
@@ -41,6 +42,7 @@ export default function RootLayout({
 					</QueryProvider>
 				</AuthProvider>
 				<ToastContainer />
+				<Footer />
 			</body>
 		</html>
 	);
