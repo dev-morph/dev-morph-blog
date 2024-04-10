@@ -1,6 +1,5 @@
 import Card from '@morphlib/components/Card';
 import { PostType, PostsBasedCategoryType } from '@/types/post_types';
-import { getFormatedDate } from '@/morph-lib/utils/dateUtils';
 
 type PostItemProps = {
 	post: PostType | PostsBasedCategoryType;
@@ -26,10 +25,11 @@ export default function PostItem({ post }: PostItemProps) {
 				description={
 					<Card.Description
 						title={title}
-						creatTime={getFormatedDate({
-							date: post.created_at.toString(),
-							format: 'YYYY-MM-DD HH:mm:ss',
-						})}
+						creatTime={post.created_at.toString()}
+						// creatTime={getFormatedDate({
+						// 	date: post.created_at.toString(),
+						// 	format: 'YYYY년 MM월 DD일 HH:mm',
+						// })}
 					/>
 				}
 			/>

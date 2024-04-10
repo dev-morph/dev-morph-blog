@@ -51,7 +51,7 @@ function Description({ title, creatTime }: DescriptionProps) {
 				<time>
 					{getFormatedDate({
 						date: creatTime,
-						format: 'YYYY-MM-DD HH:mm:ss',
+						format: 'YYYY년 MM월 DD일 HH:mm',
 					})}
 				</time>
 			</Text>
