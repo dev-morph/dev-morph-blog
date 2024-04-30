@@ -9,10 +9,32 @@ import Provider from '@/components/provider/AuthProvider';
 import { CategoryType } from '@/types/category_types';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Search from '@/morph-lib/components/Search/Search';
+import Modal from '@/morph-lib/components/Modal/Modal';
+import SearchModal from '@/morph-lib/components/Search/SearchModal';
+import useHotKeys from '@/morph-lib/hooks/useHotKeys';
 
 export default function MainNavigation() {
 	const { data: session } = useSession();
+	const {
+		isKeyPressed: isSearchCmdPressed,
+		setIsKeyPressed,
+		shouldEscape,
+		setShouldEscape,
+	} = useHotKeys();
 	const [categories, setCategories] = useState<CategoryType[]>([]);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+	useEffect(() => {
+		if (isSearchCmdPressed) {
+			setIsSearchOpen(true);
+			setIsKeyPressed(false);
+		}
+		if (shouldEscape) {
+			setIsSearchOpen(false);
+			setShouldEscape(false);
+		}
+	}, [isSearchCmdPressed, setIsKeyPressed, shouldEscape, setShouldEscape]);
 
 	useEffect(() => {
 		(async () => {
@@ -27,8 +49,15 @@ export default function MainNavigation() {
 				<Link href="/">
 					<Logo />
 				</Link>
-
 				<Navigation>
+					<Modal isOpen={isSearchOpen} onOpenChange={setIsSearchOpen}>
+						<Modal.Trigger>
+							{({ isOpen }) => <Search />}
+						</Modal.Trigger>
+						<Modal.Content>
+							<SearchModal />
+						</Modal.Content>
+					</Modal>
 					<Navigation.NavLink href="/posts/tag/ALL" text="POSTS" />
 					<Navigation.NavLink href="/about" text="ABOUT" />
 					{session && +session.user?.role_id === 1 && (
@@ -49,37 +78,6 @@ export default function MainNavigation() {
 						<Navigation.NavLink href="/login" text="LOGIN" />
 					)}
 				</Navigation>
-				{/* <Navigation>
-					<HoverDropdown
-						trigger={
-							<HoverDropdown.Trigger>Post</HoverDropdown.Trigger>
-						}
-						menu={
-							<HoverDropdown.Menu>
-								{categories.map((category) => (
-									<HoverDropdown.Item key={category.id}>
-										<Navigation.NavLink
-											href={`/${category.name}`}
-											text={`${category.name}`}
-										/>
-									</HoverDropdown.Item>
-								))}
-							</HoverDropdown.Menu>
-						}
-					></HoverDropdown>
-					<Navigation.NavLink href="/about" text="About me" />
-					{session && +session.user?.role_id === 1 && (
-						<Navigation.NavLink href="/new-post" text="NewPost" />
-					)}
-					{session && session.user ? (
-						<Navigation.NavLink
-							text="LogOut"
-							onClick={() => signOut({ callbackUrl: '/' })}
-						/>
-					) : (
-						<Navigation.NavLink href="/login" text="Login" />
-					)}
-				</Navigation> */}
 			</header>
 		</Provider>
 	);

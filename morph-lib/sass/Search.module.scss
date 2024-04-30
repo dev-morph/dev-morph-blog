@@ -1,0 +1,110 @@
+.header__search__control {
+	width: 300px;
+	border: 1px solid var(--border-default-color);
+	padding: 0.5rem 0.5rem;
+	border-radius: var(--border-radius-default);
+
+	.search__btn {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+	}
+}
+
+.search__input__wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	padding: 1rem;
+}
+
+.kbd {
+	// width: var(--base-size-12, 12px);
+	// height: var(--base-size-16, 16px);
+	display: flex;
+	align-items: center;
+	width: 2.5rem;
+	height: 24px;
+	padding: 0 0.25rem;
+	font-size: var(--text-caption-size, 0.85rem);
+	border: 1px solid var(--border-highlight-color);
+	border-radius: var(--border-radius-default);
+	box-shadow: none;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.search__item__wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	max-height: calc(var(--overlay-height) - 150px);
+	overflow-y: scroll;
+
+	padding: 0 1rem;
+	// -ms-overflow-style: none; /* Internet Explorer 10+ */
+	// scrollbar-width: none; /* Firefox */
+
+	// &::-webkit-scrollbar {
+	// 	display: none; /* Safari and Chrome */
+	// }
+}
+.search__item {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	background-color: var(--bgColor-muted);
+	padding: 0.5rem;
+	border-radius: var(--border-radius-default);
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--bgColor-active-hover);
+		color: white;
+
+		.search__hit__icon {
+			background-color: var(--bgColor-active-hover);
+			color: white;
+		}
+
+		.search__item__contents {
+			.search__item__title {
+			}
+		}
+	}
+
+	.search__hit__icon {
+		border: 1px solid var(--border-muted-color);
+		padding: 0.25rem;
+		border-radius: var(--border-radius-default);
+		background-color: white;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	}
+
+	.search__item__contents {
+		flex: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+
+		.search__item__title {
+			display: flex;
+			width: fit-content;
+			padding: 0 0.5rem;
+
+			font-size: 0.85rem;
+
+			border: 1px solid var(--border-default-color);
+			border-radius: var(--border-radius-default);
+		}
+	}
+
+	.search__hit__select__icon {
+		height: 1.5rem;
+		display: flex;
+		align-items: center;
+	}
+}
