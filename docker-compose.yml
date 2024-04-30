@@ -109,6 +109,13 @@ services:
             memlock:
                 soft: -1
                 hard: -1
+        command: >
+            bash -c '
+              echo "Installing Nori analyzer plugin";
+              bin/elasticsearch-plugin install analysis-nori;
+              echo "All done!";
+              exec /usr/local/bin/docker-entrypoint.sh elasticsearch;
+            '
         healthcheck:
             test:
                 [
