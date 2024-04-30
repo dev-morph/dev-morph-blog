@@ -1,15 +1,22 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export default function useInput(defaultValue?: string) {
-	const [value, setValue] = useState(defaultValue);
-	// const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-	// 	const target = e.target as HTMLInputElement;
-	// 	console.log('here', target.value);
-	// 	setValue(() => target.value);
-	// };
+	// const [value, setValue] = useState(defaultValue);
+	const value = useRef(defaultValue);
+
 	const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		const target = e.target as HTMLInputElement;
-		setValue(() => target.value);
+		// const normalizedValue = (target.value as string).normalize('NFC');
+		// console.log('inside hooks ', normalizedValue);
+
+		// setValue(() => target.value);
+		value.current = target.value;
 	}, []);
-	return { value, onChange };
+
+	const reset = useCallback(() => {
+		// setValue(defaultValue || '');
+		value.current = defaultValue || '';
+	}, [defaultValue]);
+	return { value, onChange, reset };
+	// return { value, onChange, reset };
 }
