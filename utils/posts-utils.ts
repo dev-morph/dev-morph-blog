@@ -1,6 +1,7 @@
 'use server';
 
-import prisma from '@/db';
+import prisma from '@/utils/db/mysql-prisma-db';
+import elasticClient from './db/elastic-db';
 
 export async function getPostById(id: string) {
 	const result = await prisma?.post.findUnique({

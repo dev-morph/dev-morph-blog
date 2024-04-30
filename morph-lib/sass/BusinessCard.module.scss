@@ -190,6 +190,10 @@ $height: 430px;
 				gap: 1rem;
 				padding: 0.2rem 0;
 
+				.profile__skill__title {
+					width: 80px;
+				}
+
 				.badges {
 					display: flex;
 					align-items: center;

@@ -64,21 +64,32 @@ body {
 	--br-sm: 0.5rem;
 	--br-reg: 10px;
 
+	--border-radius-default: 0.375rem;
+
 	background-color: var(--bg-white);
 	color: #252525;
 
 	--header-height: 4rem;
 
 	--border-default-color: #d0d7de;
-	--bgColor-muted: #f6f8fa;
+	--border-muted-color: #ffffff4d;
+	--border-highlight-color: #32343733;
+	// --bgColor-muted: #f6f8fa;
+	--bgColor-muted: #e5ebee;
 	--bgColor-hover: #d0d7de33;
 	--overlay-bgColor: #ffffff;
+
+	--bgColor-active-hover: #10a5e9;
+
 	--fontColor-muted: #636c76;
 	--shadow-floating: 0px 6px 12px -3px #424a530a, 0px 6px 18px 0px #424a531f;
 	--overlay-backdrop-bgColor: #8c959f33;
 	--overlay-bgColor: #ffffff;
 
 	--button-bgColor-muted: #f6f8fa;
+
+	--overlay-height: 600px;
+	--overlay-width: 480px;
 }
 
 h1,

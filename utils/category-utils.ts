@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CategoryType } from '@/types/category_types';
-import prisma from '@/db';
+import prisma from '@/utils/db/mysql-prisma-db';
 import { NextResponse } from 'next/server';
 
 export async function getAllCategories() {

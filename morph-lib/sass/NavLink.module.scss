@@ -2,6 +2,8 @@
 	color: var(--color-black);
 	font-size: var(--size-4);
 	font-weight: var(--fw-bold);
+	display: flex;
+	align-items: center;
 	&:hover {
 		// font-weight: var(--fw-bold);
 		text-decoration: underline;

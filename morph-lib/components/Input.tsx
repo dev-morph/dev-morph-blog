@@ -1,4 +1,9 @@
-import { PropsWithChildren, CSSProperties } from 'react';
+import {
+	PropsWithChildren,
+	CSSProperties,
+	ChangeEventHandler,
+	forwardRef,
+} from 'react';
 import classes from '@morphlib/sass/Input.module.scss';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,11 +19,14 @@ type InputWithLabelProps = PropsWithChildren<{
 	border?: string;
 	style?: CSSProperties;
 	value?: string;
+	onChange?: ChangeEventHandler<HTMLInputElement>;
+	autofocus?: boolean;
 }>;
 
-export default function Input(props: InputWithLabelProps) {
-	const { value: inputValue, onChange } = useInput(props.value);
-
+export default forwardRef<HTMLInputElement, InputWithLabelProps>(function Input(
+	props,
+	ref
+) {
 	const {
 		htmlFor,
 		type = 'text',
@@ -27,25 +35,31 @@ export default function Input(props: InputWithLabelProps) {
 		errorMsg,
 		border,
 		style,
+		value,
+		onChange,
+		autofocus = false,
 	} = props;
 
 	const id = htmlFor + uuidv4();
+
 	return (
 		<>
 			<input
-				key="special"
+				ref={ref}
+				key={htmlFor}
 				autoComplete="off"
 				type={type}
-				id={htmlFor}
+				id={id}
 				className={classes.input}
 				name={htmlFor}
 				placeholder={placeholder}
 				style={{ border: border, ...style }}
-				value={inputValue}
+				value={value}
 				onChange={onChange}
+				autoFocus={autofocus}
 				{...register}
 			/>
 			{errorMsg && <Text className="error__msg">{errorMsg}</Text>}
 		</>
 	);
-}
+});

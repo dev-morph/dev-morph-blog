@@ -276,7 +276,7 @@ export default function BusinessCard() {
 							<div className={classes.skills}>
 								<Text
 									color="black"
-									className="profile__skill__title"
+									className={classes.profile__skill__title}
 								>
 									Language: &nbsp;
 								</Text>
@@ -289,7 +289,7 @@ export default function BusinessCard() {
 							<div className={classes.skills}>
 								<Text
 									color="black"
-									className="profile__skill__title"
+									className={classes.profile__skill__title}
 								>
 									Frontend: &nbsp;
 								</Text>
@@ -301,7 +301,7 @@ export default function BusinessCard() {
 							<div className={classes.skills}>
 								<Text
 									color="black"
-									className="profile__skill__title"
+									className={classes.profile__skill__title}
 								>
 									Backend: &nbsp;
 								</Text>
@@ -314,7 +314,7 @@ export default function BusinessCard() {
 							<div className={classes.skills}>
 								<Text
 									color="black"
-									className="profile__skill__title"
+									className={classes.profile__skill__title}
 								>
 									DevOps: &nbsp;
 								</Text>

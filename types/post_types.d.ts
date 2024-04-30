@@ -36,3 +36,10 @@ export type PostsBasedCategoryType = {
 	created_at: Date;
 	updated_at?: Date | null;
 };
+
+export type SearchResultType = {
+	id: number;
+	title: string;
+	contents: string;
+	category: string;
+};
