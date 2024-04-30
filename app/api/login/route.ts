@@ -1,4 +1,4 @@
-import prisma from '@/db';
+import prisma from '@/utils/db/mysql-prisma-db';
 import * as bcrypt from 'bcrypt';
 
 interface RequestBody {

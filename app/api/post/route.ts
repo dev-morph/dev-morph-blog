@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { NextApiRequest, NextApiResponse } from 'next';
 import uploadFileToS3 from '@/aws';
-import prisma from '@/db';
+import prisma from '@/utils/db/mysql-prisma-db';
+import elasticClient from '@/utils/db/elastic-db';
 import { Prisma } from '@prisma/client';
 
 // export async function GET(request: NextRequest) {
@@ -22,10 +22,11 @@ import { Prisma } from '@prisma/client';
 // }
 
 type PostBodyType = {
+	id?: number;
 	title: string;
 	category: string;
 	contents: string;
-	thumbnail?: string;
+	thumbnail?: string | null;
 	files?: File[];
 };
 
@@ -76,14 +77,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 						{
 							Category: {
 								connect: {
-									id: 1,
-								},
-							},
-						},
-						{
-							Category: {
-								connect: {
-									id: 2,
+									id: +data.category,
 								},
 							},
 						},
@@ -96,10 +90,31 @@ export async function POST(request: NextRequest, response: NextResponse) {
 			},
 		});
 
+		await savePostElastic({
+			...newPost,
+			category: data.category,
+			id: result.id,
+		});
+
 		return NextResponse.json({ msg: 'Success', result });
 	} catch (error) {
 		console.log('post route error occurs!');
-		// console.log('error is ', error);
 		return NextResponse.json({ error });
 	}
+}
+
+async function savePostElastic(post: PostBodyType) {
+	const categoryResponse = await prisma.category.findFirst({
+		where: {
+			id: +post.category,
+		},
+	});
+
+	return elasticClient.index({
+		index: 'posts',
+		document: {
+			...post,
+			category: categoryResponse?.name,
+		},
+	});
 }

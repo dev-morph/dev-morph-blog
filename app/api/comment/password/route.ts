@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/db';
+import prisma from '@/utils/db/mysql-prisma-db';
 
 interface RequestBody {
 	postId: number;

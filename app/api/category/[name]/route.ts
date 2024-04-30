@@ -1,4 +1,4 @@
-import prisma from '@/db';
+import prisma from '@/utils/db/mysql-prisma-db';
 import { String } from 'aws-sdk/clients/cloudhsm';
 import { NextRequest, NextResponse } from 'next/server';
 
