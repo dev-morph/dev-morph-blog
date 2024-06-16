@@ -5,7 +5,13 @@ import classes from '@morphlib/sass/Search.module.scss';
 import Spacing from '../Spacing';
 import { SearchResultType } from '@/types/post_types';
 
-export default function SearchResult({ list }: { list: SearchResultType[] }) {
+export default function SearchResult({
+	list,
+	onItemClickHandler,
+}: {
+	list: SearchResultType[];
+	onItemClickHandler: (id: string) => void;
+}) {
 	return (
 		<>
 			<Spacing size={10} />
@@ -23,7 +29,11 @@ export default function SearchResult({ list }: { list: SearchResultType[] }) {
 				{list &&
 					list.length > 0 &&
 					list.map((item) => (
-						<SearchResultItem key={item.id} item={item} />
+						<SearchResultItem
+							key={item.id}
+							item={item}
+							onItemClickHandler={onItemClickHandler}
+						/>
 					))}
 			</div>
 		</>

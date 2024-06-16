@@ -7,7 +7,11 @@ import classes from '@morphlib/sass/Search.module.scss';
 import { useCallback, useRef, useState } from 'react';
 import axios from 'axios';
 
-export default function SearchModal() {
+export default function SearchModal({
+	onCloseModal,
+}: {
+	onCloseModal: () => void;
+}) {
 	let timeout: number | NodeJS.Timeout = 0;
 	const searchKeywordRef = useRef<HTMLInputElement>(null);
 	const [resultList, setResultList] = useState([]);
@@ -31,6 +35,10 @@ export default function SearchModal() {
 		setResultList(response.data.data);
 	}, []);
 
+	function onItemClickHandler(id: string) {
+		onCloseModal();
+	}
+
 	return (
 		<>
 			<div className={classes.search__input__wrapper}>
@@ -45,11 +53,16 @@ export default function SearchModal() {
 					style={{ width: '85%' }}
 					onChange={inputChangeHandler}
 				/>
-				<kbd className={classes.kbd}>ESC</kbd>
+				<kbd className={classes.kbd} onClick={onCloseModal}>
+					ESC
+				</kbd>
 			</div>
 			<Border borderWidth="0.5px" withOutSpacing={true} />
 			<Spacing size={'10px'} />
-			<SearchResult list={resultList} />
+			<SearchResult
+				list={resultList}
+				onItemClickHandler={onItemClickHandler}
+			/>
 			<Spacing size={'10px'} />
 		</>
 	);

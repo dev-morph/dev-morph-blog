@@ -3,11 +3,24 @@ import Text from '../Text';
 import classes from '@morphlib/sass/Search.module.scss';
 import DocSearchHitSelectIcon from '@/components/ui/icons/doc-search-hit-select-icon';
 import { SearchResultType } from '@/types/post_types';
+import Link from 'next/link';
 
-export default function SearchResultItem({ item }: { item: SearchResultType }) {
+export default function SearchResultItem({
+	item,
+	onItemClickHandler,
+}: {
+	item: SearchResultType;
+	onItemClickHandler: (id: string) => void;
+}) {
 	return (
-		<>
-			<div className={classes.search__item}>
+		<Link
+			href={`/posts/${item.id}`}
+			onClick={() => onItemClickHandler(`${item.id}`)}
+		>
+			<div
+				className={classes.search__item}
+				onClick={() => console.log('hoihohioi')}
+			>
 				<div className={classes.search__hit__icon}>
 					<DocSearchHitIcon size="20" />
 				</div>
@@ -28,6 +41,6 @@ export default function SearchResultItem({ item }: { item: SearchResultType }) {
 					<DocSearchHitSelectIcon size="12" />
 				</div>
 			</div>
-		</>
+		</Link>
 	);
 }

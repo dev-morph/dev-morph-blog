@@ -55,7 +55,9 @@ export default function MainNavigation() {
 							{({ isOpen }) => <Search />}
 						</Modal.Trigger>
 						<Modal.Content>
-							<SearchModal />
+							<SearchModal
+								onCloseModal={() => setIsSearchOpen(false)}
+							/>
 						</Modal.Content>
 					</Modal>
 					<Navigation.NavLink href="/posts/tag/ALL" text="POSTS" />
