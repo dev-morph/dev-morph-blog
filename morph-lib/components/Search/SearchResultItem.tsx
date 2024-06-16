@@ -16,6 +16,13 @@ export default function SearchResultItem({ item }: { item: SearchResultType }) {
 						{item.title}
 					</Text>
 					<div>{item.contents}</div>
+					{item.highlight.contents && (
+						<div
+							dangerouslySetInnerHTML={{
+								__html: item.highlight.contents[0],
+							}}
+						></div>
+					)}
 				</div>
 				<div className={classes.search__hit__select__icon}>
 					<DocSearchHitSelectIcon size="12" />

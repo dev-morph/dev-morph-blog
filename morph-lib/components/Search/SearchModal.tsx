@@ -18,19 +18,16 @@ export default function SearchModal() {
 		}
 		timeout = setTimeout(() => {
 			if (searchKeywordRef.current?.value) {
-				// setKeyword(searchKeywordRef.current?.value);
 				searchPost(searchKeywordRef.current?.value);
 			}
-		}, 300);
+		}, 400);
 	}
 
 	const searchPost = useCallback(async (keyword: string) => {
-		// const searchPost = async (keyword: string) => {
 		if (keyword.trim().length === 0) return;
 		const response = await axios.get('/api/post/elastic', {
 			params: { keyword },
 		});
-
 		setResultList(response.data.data);
 	}, []);
 
@@ -53,6 +50,7 @@ export default function SearchModal() {
 			<Border borderWidth="0.5px" withOutSpacing={true} />
 			<Spacing size={'10px'} />
 			<SearchResult list={resultList} />
+			<Spacing size={'10px'} />
 		</>
 	);
 }

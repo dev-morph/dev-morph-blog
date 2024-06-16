@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import elasticClient from '@/utils/db/elastic-db';
-import { Client } from '@elastic/elasticsearch';
-import fs from 'fs';
 
 export async function GET(request: NextRequest, { params }: { params: any }) {
 	try {
-		console.log(' got request!');
 		const result = await elasticClient.search({
 			index: 'posts',
 			query: {
@@ -18,7 +15,6 @@ export async function GET(request: NextRequest, { params }: { params: any }) {
 			explain: true,
 		});
 
-		console.log('result is ', result);
 		return NextResponse.json({ msg: 'Success', data: result });
 	} catch (error) {
 		console.log('error occured! ', error);

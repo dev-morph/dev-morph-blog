@@ -37,9 +37,16 @@ export type PostsBasedCategoryType = {
 	updated_at?: Date | null;
 };
 
+type HiglightType = {
+	contents?: string[];
+	title?: string[];
+	cateogry?: string[];
+};
+
 export type SearchResultType = {
 	id: number;
 	title: string;
 	contents: string;
 	category: string;
+	highlight: HiglightType;
 };

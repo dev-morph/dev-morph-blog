@@ -18,8 +18,8 @@
 			position: absolute;
 			top: -5px;
 			right: -5px;
-			background-color: #3182f6;
-			border: 1px solid #3182f6;
+			background-color: var(--color-primary);
+			border: 1px solid var(--color-primary);
 			color: white;
 			border-radius: 50%;
 			cursor: pointer;
@@ -61,8 +61,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		border: 1.5px dotted #3182f6;
-		color: #3182f6;
+		border: 1.5px dotted var(--color-primary);
+		color: var(--color-primary);
 		border-radius: 50%;
 		width: 1.8rem;
 		height: 1.8rem;

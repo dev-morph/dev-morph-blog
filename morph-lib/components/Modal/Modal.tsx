@@ -23,6 +23,7 @@ function Modal({
 	});
 
 	useEffect(() => {
+		//모달창이 열렸을 떄, 모달창 뒷 부분은 스크롤 방지
 		if (isOpen) {
 			document.body.style.overflow = 'hidden';
 		} else {
