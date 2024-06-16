@@ -35,14 +35,14 @@ jobs:
                       echo "AWS_S3_SECRET_KEY=${{secrets.AWS_S3_SECRET_KEY}}" >> ./.env
                       echo "AWS_S3_BASE_URL=${{secrets.AWS_S3_BASE_URL}}" >> ./.env
                       echo "NEXT_PUBLIC_AWS_S3_BASE_URL=${{secrets.NEXT_PUBLIC_AWS_S3_BASE_URL}}" >> ./.env
-                      echo "ELASTIC_PASSWORD=${{secrets.ELASTIC_PASSWORD}}" > ./.env
-                      echo "KIBANA_PASSWORD=${{secrets.KIBANA_PASSWORD}}" > ./.env
-                      echo "ES_PORT=${{secrets.ES_PORT}}" > ./.env
-                      echo "KIBANA_PORT=${{secrets.KIBANA_PORT}}" > ./.env
-                      echo "ES_MEM_LIMIT=${{secrets.ES_MEM_LIMIT}}" > ./.env
-                      echo "KB_MEM_LIMIT=${{secrets.KB_MEM_LIMIT}}" > ./.env
-                      echo "LS_MEM_LIMIT=${{secrets.LS_MEM_LIMIT}}" > ./.env
-                      echo "ENCRYPTION_KEY=${{secrets.ENCRYPTION_KEY}}" > ./.env
+                      echo "ELASTIC_PASSWORD=${{secrets.ELASTIC_PASSWORD}}" >> ./.env
+                      echo "KIBANA_PASSWORD=${{secrets.KIBANA_PASSWORD}}" >> ./.env
+                      echo "ES_PORT=${{secrets.ES_PORT}}" >> ./.env
+                      echo "KIBANA_PORT=${{secrets.KIBANA_PORT}}" >> ./.env
+                      echo "ES_MEM_LIMIT=${{secrets.ES_MEM_LIMIT}}" >> ./.env
+                      echo "KB_MEM_LIMIT=${{secrets.KB_MEM_LIMIT}}" >> ./.env
+                      echo "LS_MEM_LIMIT=${{secrets.LS_MEM_LIMIT}}" >> ./.env
+                      echo "ENCRYPTION_KEY=${{secrets.ENCRYPTION_KEY}}" >> ./.env
                       echo "Success Git Pull"
                       sudo npm ci
                       sudo npm run build
